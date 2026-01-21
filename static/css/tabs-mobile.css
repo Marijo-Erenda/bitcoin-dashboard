@@ -1,0 +1,283 @@
+/* ==================================== */
+/* 📱 MOBILE – TABS & SUBTABS (GENERIC) */
+/* ==================================== */
+@media (max-width: 1024px) {
+
+
+/* ============== */
+/* GENERIC LAYOUT */
+/* ============== */
+.subtab-container {
+  padding: 0.75rem;
+}
+
+.subtab-section {
+  padding: 1rem !important;
+}
+
+.subnav {
+  justify-content: flex-start;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.subnav button {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+}
+
+/* ========= */
+/* HEADLINES */
+/* ========= */
+
+.subtab-title,
+.headline-explorer,
+[class^="headline-metrics"] {
+  font-size: 1.1rem !important;
+  letter-spacing: 0.08rem;
+}
+
+/* ==== */
+/* TEXT */
+/* ==== */
+.subtab-section p,
+.subtab-section li,
+.accordion-body p,
+.accordion-body li {
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+/* ====== */
+/* CHARTS */
+/* ====== */
+.chart-wrapper {
+  height: 22rem !important;
+  padding: 0.5rem;
+}
+
+/* ====================== */
+/* TABLE WRAPPER / SCROLL */
+/* ====================== */
+.dashboard-table-wrapper,
+.market-cap-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  min-width: 600px;
+}
+
+/* =============================================================================================================================== */
+
+/* ================================= */
+/* 📱 MOBILE – GLOBAL TABLE BASELINE */
+/* ================================= */
+/* Tabellen-Kopfzeile – global */
+table thead th {
+  font-family: inherit;             /* bleibt lesbar, nicht monospace */
+  font-size: 0.8rem !important;     /* etwas größer als Tabelleninhalt */
+  font-weight: 500;                 /* klar, aber nicht fett */
+  letter-spacing: 0.06em;           /* Überschriften-Charakter */
+  text-transform: uppercase;        /* technisch & konsistent */
+  white-space: nowrap;              /* keine Umbrüche */
+  opacity: 0.9;                     /* leicht betont */
+}
+
+/* ====================================== */
+/* 📱 MOBILE – GLOBAL TABLE CONTENT STYLE */    
+/* ====================================== */
+/* Tabellen-Inhalt – globaler TXID-Look */
+table tbody td {
+  font-family: monospace;        /* technische Blockschrift (TXID / Zahlen ruhig & stabil) */
+  font-size: 0.75rem !important; /* kompakte Mobile-Schriftgröße für alle Tabelleninhalte */
+  letter-spacing: -0.02em;       /* Zeichen leicht zusammenschieben (lange Strings passen besser) */
+  line-height: 1.1;              /* enge Zeilenhöhe für dichte Tabellen */
+  white-space: nowrap;           /* verhindert Zeilenumbruch in Zellen */
+  overflow: hidden;              /* schneidet überstehenden Inhalt ab */
+  text-overflow: ellipsis;       /* zeigt … bei abgeschnittenem Text */
+  opacity: 0.8;                  /* visuell etwas ruhiger als Überschriften */
+  font-weight: 400;              /* normales Gewicht (keine Hervorhebung) */
+}
+
+/* =============================================================================================================================== */
+
+/* ========================================== */
+/* 📱 MOBILE – NETWORK_NODES & NETWORK_MINERS */
+/* ========================================== */
+
+#NETWORK_NODES p,
+#NETWORK_NODES li,
+#NETWORK_MINER p,
+#NETWORK_MINER li {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+#NETWORK_NODES h3,
+#NETWORK_MINER h3 {
+  font-size: 1.25rem;
+}
+#NETWORK_NODES h4,
+#NETWORK_MINER h4 {
+  font-size: 1.4rem;
+}
+.NETWORK_MINER-legend {
+  font-size: 1.05rem;
+}
+
+#NETWORK_NODES #NETWORK_NODES_countries-container > div {
+  font-size: 1rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* =============================================================================================================================== */
+
+/* ================================= */
+/* 📱 MOBILE – METRICS_BTC_TX_AMOUNT */
+/* ================================= */
+
+#METRICS_BTC_TX_AMOUNT_CONTAINER table {
+  width: 100%;
+  table-layout: fixed;
+  min-width: 0 !important;
+}
+
+/* RANG */
+#METRICS_BTC_TX_AMOUNT_CONTAINER th:nth-child(1),
+#METRICS_BTC_TX_AMOUNT_CONTAINER td:nth-child(1) {
+  width: 9%;
+  font-size: 0.6rem !important;
+  opacity: 0.85;
+}
+
+/* TXID */
+#METRICS_BTC_TX_AMOUNT_CONTAINER th:nth-child(2),
+#METRICS_BTC_TX_AMOUNT_CONTAINER td:nth-child(2) {
+  width: 41%;
+  font-size: 0.6rem !important;
+  opacity: 0.85;
+}
+
+/* BTC-BETRAG */
+#METRICS_BTC_TX_AMOUNT_CONTAINER th:nth-child(3),
+#METRICS_BTC_TX_AMOUNT_CONTAINER td:nth-child(3) {
+  width: 18%;
+  font-size: 0.6rem !important;
+  opacity: 0.85;
+}
+
+/* ZEITPUNKT – MOBILE AUSGEBLENDET */
+#METRICS_BTC_TX_AMOUNT_CONTAINER th:nth-child(4),
+#METRICS_BTC_TX_AMOUNT_CONTAINER td:nth-child(4) {
+  width: 32%;
+  font-size: 0.6rem !important;
+  opacity: 0.85;
+}
+
+/* =============================================================================================================================== */
+
+/* =============== */
+/* EXPLORER INPUTS */
+/* =============== */
+.explorer-input-group {
+  flex-direction: column;
+}
+
+.explorer-input-group input,
+.explorer-input-group textarea {
+  min-width: 100% !important;
+  font-size: 0.85rem;
+}
+
+/* =============================================================================================================================== */
+
+/* ========================== */
+/* 📱 PIE-CHARTS - TREASURIES */           
+/* ========================== */
+
+/* EINZELNE SPALTEN AUSBLENDEN */
+#INSTITUTIONS table th:nth-child(3),
+#INSTITUTIONS table td:nth-child(3) {
+  display: none;
+}
+
+/* EINZELNE SPALTEN AUSBLENDEN */
+#MARKET_CAP_COINS table th:nth-child(5),
+#MARKET_CAP_COINS table td:nth-child(5),
+#MARKET_CAP_COINS table th:nth-child(6),
+#MARKET_CAP_COINS table td:nth-child(6) {
+  display: none;
+}
+
+/* EINZELNE SPALTEN AUSBLENDEN */
+#MARKET_CAP_COMPANIES table th:nth-child(4),
+#MARKET_CAP_COMPANIES table td:nth-child(4) {
+  display: none;
+}
+
+/* Pie-Container – kompakter */
+#INSTITUTIONS .pie-chart-container,
+#COUNTRIES .pie-chart-container {
+  gap: 1.25rem;        /* vorher 2.5rem */
+  max-width: 100%;
+  margin: 1.25rem auto 0;
+}
+
+/* Pie selbst – deutlich kleiner */
+#INSTITUTIONS .pie-chart,
+#COUNTRIES .pie-chart {
+  width: 16rem;        /* vorher 25rem */
+  height: 16rem;
+}
+
+/* Legende – kleinere Schrift */
+#INSTITUTIONS .pie-legend li,
+#COUNTRIES .pie-legend li {
+  font-size: 0.85rem;  /* vorher 1.2rem */
+}
+
+/* Farbpunkte kleiner */
+#INSTITUTIONS .legend-color,
+#COUNTRIES .legend-color {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+/* =============================================================================================================================== */
+
+/* ================= */
+/* INFO-BOX – MOBILE */
+/* ================= */
+.info-box {
+  padding: 10px 14px;     /* kompaktere Box */
+  font-size: 0.85rem;    /* ↓ von 1.2rem */
+  line-height: 1.45;     /* etwas dichter */
+  border-radius: 12px;
+}
+
+/* Titel innerhalb der Info-Box */
+.info-box strong {
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+}
+
+/* Sonderzeichen (x̄ etc.) */
+.info-box .xbar {
+  line-height: 1;
+}
+
+
+
+
+
+
+}
+
+
+
+
+
+
+

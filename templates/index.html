@@ -1,0 +1,1819 @@
+<!-- =========================================== -->
+<!-- BITCOIN-DASHBOARD – Hauptseite / Index HTML -->
+<!-- =========================================== -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <!-- SEO: Default (Home) -->
+    <title>BITCOIN LIVE DASHBOARD – Real-Time Blockchain, Mempool & Price Analytics</title>
+    <meta name="description"
+          content="Real-time Bitcoin network statistics including mempool, hashrate, blocks, fees, and on-chain metrics." />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- SEO: Canonical URL (HTTPS authoritative, prevent HTTP/HTTPS duplication) -->
+    <link rel="canonical" href="https://bitcoin-dashboard.net/" />
+
+    <!-- jQuery – DOM-Manipulation & Event Handling -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Popper.js – für Bootstrap Tooltips, Dropdowns & Popovers -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Bootstrap CSS – Grid-System & Layout -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap JS – interaktive Komponenten (Modals, Dropdowns, etc.) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Plotly.js – für Subtabs, die Plotly-Charts nutzen -->
+    <script src="https://cdn.plot.ly/plotly-2.25.2.min.js"></script>
+
+    <!-- Chart.js – für Bitcoin Charts (BTC/USD, BTC/EUR, Hashrate, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Chart.js Date Adapter – für Zeitachsen (z.B. Kalenderwochen) -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
+    <!-- Chart.js Zoom Plugin – Zoom & Pan für Chart.js Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+
+    <script src="/static/js/labels.js"></script>
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+    <!-- Basis / Foundation -->
+    <link rel="stylesheet" href="/static/css/base.css">
+    <!-- Tabs & Subtabs – Desktop -->
+    <link rel="stylesheet" href="/static/css/tabs.css">
+    <!-- Home – Mobile (Spezialfall) -->
+    <link rel="stylesheet" href="/static/css/home-mobile.css">
+    <!-- Tabs & Subtabs – Mobile (Generic) -->
+    <link rel="stylesheet" href="/static/css/tabs-mobile.css">
+
+    
+
+</head>
+
+
+
+<!-- ============================================================================================================================================================== -->
+<!-- ============================================================================================================================================================== -->
+
+
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <button class="tabButton active" data-tab="home" data-i18n="nav.home">Home</button>
+        <button class="tabButton" data-tab="revolution" data-i18n="nav.revolution">Bitcoin Revolution</button>
+        <button class="tabButton" data-tab="network" data-i18n="nav.network">Bitcoin Network</button>
+        <button class="tabButton" data-tab="metrics" data-i18n="nav.metrics">Metrics</button>
+        <button class="tabButton" data-tab="explorer" data-i18n="nav.explorer">Explorer</button>
+        <button class="tabButton" data-tab="treasuries" data-i18n="nav.treasuries">Bitcoin Treasuries</button>
+        <button class="tabButton" data-tab="market_cap" data-i18n="nav.marketcap">Market Capitalization</button>
+        <button class="tabButton" data-tab="indicators" data-i18n="nav.indicators">Indicators</button>
+        <button class="tabButton" data-tab="info" data-i18n="nav.info">Info</button>
+    </nav>
+
+
+    <!-- HOME -->
+    <div class="mt-5 tabContent" id="home">
+
+        <!-- ROTATING TITLE -->
+        <h1 class="rotating-title">
+            <span style="--i:1;">B</span><span style="--i:2;">I</span><span style="--i:3;">T</span>
+            <span style="--i:4;">C</span><span style="--i:5;">O</span><span style="--i:6;">I</span>
+            <span style="--i:7;">N</span><span style="--i:8;">-</span><span style="--i:9;">D</span>
+            <span style="--i:10;">A</span><span style="--i:11;">S</span><span style="--i:12;">H</span>
+            <span style="--i:13;">B</span><span style="--i:14;">O</span><span style="--i:15;">A</span>
+            <span style="--i:16;">R</span><span style="--i:17;">D</span>
+        </h1>
+
+
+        <!-- SEO INTRO (Invisible for Users, Visible for Google) -->
+        <section class="seo-intro">
+        <h2 data-i18n="home.seo.title"></h2>
+        <p data-i18n="home.seo.text1"></p>
+        <p data-i18n="home.seo.text2"></p>
+        </section>
+
+
+        <!-- MATRIX CANVAS -->
+        <canvas id="matrix-canvas"></canvas>
+
+
+        <!-- BITCOIN INFO -->
+        <div class="card mb-4 shadow">
+            <div class="card-header bitcoin">
+                <h4 data-i18n="home.titles.bitcoin"></h4>
+            </div>
+            <div class="card-body" id="bitcoin-info">
+                <p><strong data-i18n="home.bitcoin_info.genesis"></strong> <span id="genesis-clock">Loading…</span></p>
+                <p><strong data-i18n="home.bitcoin_info.halving_time"></strong> <span id="halving-time">Loading…</span></p>
+                <p><strong data-i18n="home.bitcoin_info.halving_blocks"></strong> <span id="halving-blocks">Loading…</span></p>
+                <p><strong data-i18n="home.bitcoin_info.price"></strong> <span id="btc-price">Loading…</span></p>
+            </div>
+        </div>
+
+
+        <!-- BLOCKCHAIN INFO -->
+        <div class="card mb-4 shadow blockchain">
+            <div class="card-header blockchain">
+                <h4 data-i18n="home.titles.blockchain"></h4>
+            </div>
+            <div class="card-body">
+                <p><strong data-i18n="home.blockchain_info.chain"></strong> <span id="chain">—</span></p>
+                <p><strong data-i18n="home.blockchain_info.height"></strong> <span id="block-height">—</span></p>
+                <p><strong data-i18n="home.blockchain_info.hashrate"></strong> <span id="average-hash-rate">—</span></p>
+                <p>
+                    <strong data-i18n="home.blockchain_info.winner_hash"></strong>
+                    <span id="winner_hash_marquee-container">
+                        <span id="winner_hash_marquee"><span id="winner_hash"></span></span>
+                    </span>
+                </p>
+                <p><strong data-i18n="home.blockchain_info.block_age"></strong> <span id="block-age">—</span></p>
+                <p><strong data-i18n="home.blockchain_info.reward"></strong> <span id="current-block-reward">—</span></p>
+                <p><strong data-i18n="home.blockchain_info.tx_last_block"></strong> <span id="tx-last-block">—</span></p>
+            </div>
+        </div>
+
+
+        <!-- MEMPOOL INFO -->
+        <div class="card mb-4 shadow">
+        <div class="card-header mempool">
+            <h4 data-i18n="home.titles.mempool"></h4>
+        </div>
+        <div class="card-body">
+            <p><strong data-i18n="home.mempool_info.open_tx"></strong> <span id="mempool-size">—</span></p>
+            <p><strong data-i18n="home.mempool_info.volume"></strong> <span id="mempool_volume">—</span></p>
+            <p><strong data-i18n="home.mempool_info.volume_1h"></strong> <span id="volume_1h">—</span></p>
+            <p><strong data-i18n="home.mempool_info.volume_24h"></strong> <span id="volume_24h">—</span></p>
+            <p><strong data-i18n="home.mempool_info.avg_tx"></strong> <span id="mempool-avg-tx">—</span></p>
+            <p><strong data-i18n="home.mempool_info.min_fee"></strong> <span id="mempool-min-fee">—</span></p>
+            <p><strong data-i18n="home.mempool_info.avg_fee"></strong> <span id="mempool-avg-fee">—</span></p>
+            <p><strong data-i18n="home.mempool_info.total_fee"></strong> <span id="mempool-total-fee">—</span></p>
+            <p><strong data-i18n="home.mempool_info.avg_wait"></strong> <span id="mempool-avg-wait">—</span></p>
+        </div>
+        </div>
+
+
+        <!-- TOP 10 TX -->
+        <div class="card mb-4 shadow">
+            <div class="card-header top-btc-transactions">
+                <h4>
+                    <span data-i18n="home.titles.top10"></span>
+                    <span class="badge bg-success ms-2" data-i18n="common.live"></span>
+                </h4>
+            </div>
+            <div class="card-body" id="top-10-btc-transactions-info">
+                <div class="top-btc-table-wrap">
+                    <table class="top-btc-table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="home.tables.nr"></th>
+                                <th data-i18n="home.tables.txid"></th>
+                                <th data-i18n="home.tables.amount"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td id="top-btc-tx-1">—</td><td id="top-btc-tx-1-btc">—</td></tr>
+                            <tr><td>2</td><td id="top-btc-tx-2">—</td><td id="top-btc-tx-2-btc">—</td></tr>
+                            <tr><td>3</td><td id="top-btc-tx-3">—</td><td id="top-btc-tx-3-btc">—</td></tr>
+                            <tr><td>4</td><td id="top-btc-tx-4">—</td><td id="top-btc-tx-4-btc">—</td></tr>
+                            <tr><td>5</td><td id="top-btc-tx-5">—</td><td id="top-btc-tx-5-btc">—</td></tr>
+                            <tr><td>6</td><td id="top-btc-tx-6">—</td><td id="top-btc-tx-6-btc">—</td></tr>
+                            <tr><td>7</td><td id="top-btc-tx-7">—</td><td id="top-btc-tx-7-btc">—</td></tr>
+                            <tr><td>8</td><td id="top-btc-tx-8">—</td><td id="top-btc-tx-8-btc">—</td></tr>
+                            <tr><td>9</td><td id="top-btc-tx-9">—</td><td id="top-btc-tx-9-btc">—</td></tr>
+                            <tr><td>10</td><td id="top-btc-tx-10">—</td><td id="top-btc-tx-10-btc">—</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- TOP 50 TX -->
+        <div class="card mb-4 shadow">
+            <div class="card-header top-btc-transactions-ever">
+                <h4 data-i18n="home.titles.top50"></h4>
+            </div>
+            <div class="card-body" id="top-50-btc-ever-info">
+                <table class="top-btc-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="home.tables.nr"></th>
+                            <th data-i18n="home.tables.txid"></th>
+                            <th data-i18n="home.tables.amount"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td id="top-btc-ever-tx-1">—</td><td id="top-btc-ever-tx-1-btc">—</td></tr>
+                    <tr><td>2</td><td id="top-btc-ever-tx-2">—</td><td id="top-btc-ever-tx-2-btc">—</td></tr>
+                    <tr><td>3</td><td id="top-btc-ever-tx-3">—</td><td id="top-btc-ever-tx-3-btc">—</td></tr>
+                    <tr><td>4</td><td id="top-btc-ever-tx-4">—</td><td id="top-btc-ever-tx-4-btc">—</td></tr>
+                    <tr><td>5</td><td id="top-btc-ever-tx-5">—</td><td id="top-btc-ever-tx-5-btc">—</td></tr>
+                    <tr><td>6</td><td id="top-btc-ever-tx-6">—</td><td id="top-btc-ever-tx-6-btc">—</td></tr>
+                    <tr><td>7</td><td id="top-btc-ever-tx-7">—</td><td id="top-btc-ever-tx-7-btc">—</td></tr>
+                    <tr><td>8</td><td id="top-btc-ever-tx-8">—</td><td id="top-btc-ever-tx-8-btc">—</td></tr>
+                    <tr><td>9</td><td id="top-btc-ever-tx-9">—</td><td id="top-btc-ever-tx-9-btc">—</td></tr>
+                    <tr><td>10</td><td id="top-btc-ever-tx-10">—</td><td id="top-btc-ever-tx-10-btc">—</td></tr>
+                    <tr><td>11</td><td id="top-btc-ever-tx-11">—</td><td id="top-btc-ever-tx-11-btc">—</td></tr>
+                    <tr><td>12</td><td id="top-btc-ever-tx-12">—</td><td id="top-btc-ever-tx-12-btc">—</td></tr>
+                    <tr><td>13</td><td id="top-btc-ever-tx-13">—</td><td id="top-btc-ever-tx-13-btc">—</td></tr>
+                    <tr><td>14</td><td id="top-btc-ever-tx-14">—</td><td id="top-btc-ever-tx-14-btc">—</td></tr>
+                    <tr><td>15</td><td id="top-btc-ever-tx-15">—</td><td id="top-btc-ever-tx-15-btc">—</td></tr>
+                    <tr><td>16</td><td id="top-btc-ever-tx-16">—</td><td id="top-btc-ever-tx-16-btc">—</td></tr>
+                    <tr><td>17</td><td id="top-btc-ever-tx-17">—</td><td id="top-btc-ever-tx-17-btc">—</td></tr>
+                    <tr><td>18</td><td id="top-btc-ever-tx-18">—</td><td id="top-btc-ever-tx-18-btc">—</td></tr>
+                    <tr><td>19</td><td id="top-btc-ever-tx-19">—</td><td id="top-btc-ever-tx-19-btc">—</td></tr>
+                    <tr><td>20</td><td id="top-btc-ever-tx-20">—</td><td id="top-btc-ever-tx-20-btc">—</td></tr>
+                    <tr><td>21</td><td id="top-btc-ever-tx-21">—</td><td id="top-btc-ever-tx-21-btc">—</td></tr>
+                    <tr><td>22</td><td id="top-btc-ever-tx-22">—</td><td id="top-btc-ever-tx-22-btc">—</td></tr>
+                    <tr><td>23</td><td id="top-btc-ever-tx-23">—</td><td id="top-btc-ever-tx-23-btc">—</td></tr>
+                    <tr><td>24</td><td id="top-btc-ever-tx-24">—</td><td id="top-btc-ever-tx-24-btc">—</td></tr>
+                    <tr><td>25</td><td id="top-btc-ever-tx-25">—</td><td id="top-btc-ever-tx-25-btc">—</td></tr>
+                    <tr><td>26</td><td id="top-btc-ever-tx-26">—</td><td id="top-btc-ever-tx-26-btc">—</td></tr>
+                    <tr><td>27</td><td id="top-btc-ever-tx-27">—</td><td id="top-btc-ever-tx-27-btc">—</td></tr>
+                    <tr><td>28</td><td id="top-btc-ever-tx-28">—</td><td id="top-btc-ever-tx-28-btc">—</td></tr>
+                    <tr><td>29</td><td id="top-btc-ever-tx-29">—</td><td id="top-btc-ever-tx-29-btc">—</td></tr>
+                    <tr><td>30</td><td id="top-btc-ever-tx-30">—</td><td id="top-btc-ever-tx-30-btc">—</td></tr>
+                    <tr><td>31</td><td id="top-btc-ever-tx-31">—</td><td id="top-btc-ever-tx-31-btc">—</td></tr>
+                    <tr><td>32</td><td id="top-btc-ever-tx-32">—</td><td id="top-btc-ever-tx-32-btc">—</td></tr>
+                    <tr><td>33</td><td id="top-btc-ever-tx-33">—</td><td id="top-btc-ever-tx-33-btc">—</td></tr>
+                    <tr><td>34</td><td id="top-btc-ever-tx-34">—</td><td id="top-btc-ever-tx-34-btc">—</td></tr>
+                    <tr><td>35</td><td id="top-btc-ever-tx-35">—</td><td id="top-btc-ever-tx-35-btc">—</td></tr>
+                    <tr><td>36</td><td id="top-btc-ever-tx-36">—</td><td id="top-btc-ever-tx-36-btc">—</td></tr>
+                    <tr><td>37</td><td id="top-btc-ever-tx-37">—</td><td id="top-btc-ever-tx-37-btc">—</td></tr>
+                    <tr><td>38</td><td id="top-btc-ever-tx-38">—</td><td id="top-btc-ever-tx-38-btc">—</td></tr>
+                    <tr><td>39</td><td id="top-btc-ever-tx-39">—</td><td id="top-btc-ever-tx-39-btc">—</td></tr>
+                    <tr><td>40</td><td id="top-btc-ever-tx-40">—</td><td id="top-btc-ever-tx-40-btc">—</td></tr>
+                    <tr><td>41</td><td id="top-btc-ever-tx-41">—</td><td id="top-btc-ever-tx-41-btc">—</td></tr>
+                    <tr><td>42</td><td id="top-btc-ever-tx-42">—</td><td id="top-btc-ever-tx-42-btc">—</td></tr>
+                    <tr><td>43</td><td id="top-btc-ever-tx-43">—</td><td id="top-btc-ever-tx-43-btc">—</td></tr>
+                    <tr><td>44</td><td id="top-btc-ever-tx-44">—</td><td id="top-btc-ever-tx-44-btc">—</td></tr>
+                    <tr><td>45</td><td id="top-btc-ever-tx-45">—</td><td id="top-btc-ever-tx-45-btc">—</td></tr>
+                    <tr><td>46</td><td id="top-btc-ever-tx-46">—</td><td id="top-btc-ever-tx-46-btc">—</td></tr>
+                    <tr><td>47</td><td id="top-btc-ever-tx-47">—</td><td id="top-btc-ever-tx-47-btc">—</td></tr>
+                    <tr><td>48</td><td id="top-btc-ever-tx-48">—</td><td id="top-btc-ever-tx-48-btc">—</td></tr>
+                    <tr><td>49</td><td id="top-btc-ever-tx-49">—</td><td id="top-btc-ever-tx-49-btc">—</td></tr>
+                    <tr><td>50</td><td id="top-btc-ever-tx-50">—</td><td id="top-btc-ever-tx-50-btc">—</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- NODE INFO -->
+        <div class="card mb-4 shadow">
+          <div class="card-header network"><h4 data-i18n="home.titles.node"></h4></div>
+          <div class="card-body" id="node-info">
+            <p><strong data-i18n="home.node_info.peers"></strong> <span id="NODE_INFO-peers">—</span></p>
+            <p><strong data-i18n="home.node_info.version"></strong> <span id="NODE_INFO-version">—</span></p>
+            <p><strong data-i18n="home.node_info.subversion"></strong> <span id="NODE_INFO-subversion">—</span></p>
+            <p><strong data-i18n="home.node_info.protocol"></strong> <span id="NODE_INFO-protocol_version">—</span></p>
+          </div>
+        </div>
+
+
+        <!-- DASHBOARD TRAFFIC -->
+        <div class="card mb-4 shadow">
+          <div class="card-header visitor"><h4 data-i18n="home.titles.dashboard"></h4></div>
+          <div class="card-body" id="dashboard-traffic-info">
+            <p><strong data-i18n="home.dashboard.live"></strong> <span id="dashboard-traffic-live">–</span></p>
+            <p><strong data-i18n="home.dashboard.total"></strong> <span id="dashboard-traffic-total">–</span></p>
+            <p><strong data-i18n="home.dashboard.launch"></strong> <span id="dashboard-counter">Loading…</span></p>
+          </div>
+        </div>
+
+
+        <!-- META DASHBOARD -->
+        <div class="card mb-4 shadow">
+            <div class="card-header meta">
+                <h4 data-i18n="home.titles.meta"></h4>
+            </div>
+            <div class="card-body" id="meta-dashboard">
+                <table class="meta-dashboard-table">
+                    <tbody>
+                    <tr><td data-i18n="home.meta.cpu"></td><td class="meta-bar-cell"><div class="meta-bar-wrapper"><div id="cpu-load-bar"></div></div></td><td class="meta-right" id="cpu-load">0%</td></tr>
+                    <tr><td data-i18n="home.meta.ram"></td><td class="meta-bar-cell"><div class="meta-bar-wrapper"><div id="ram-display-bar"></div></div></td><td class="meta-right" id="ram-display">0%</td></tr>
+                    <tr><td data-i18n="home.meta.swap"></td><td class="meta-bar-cell"><div class="meta-bar-wrapper"><div id="swap-usage-bar"></div></div></td><td class="meta-right" id="swap-usage">0%</td></tr>
+                    <tr><td data-i18n="home.meta.nvme_read"></td><td class="meta-bar-cell"><div class="meta-bar-wrapper"><div id="nvme-read-bar"></div></div></td><td class="meta-right" id="nvme-read">0 MB/s</td></tr>
+                    <tr><td data-i18n="home.meta.nvme_write"></td><td class="meta-bar-cell"><div class="meta-bar-wrapper"><div id="nvme-write-bar"></div></div></td><td class="meta-right" id="nvme-write">0 MB/s</td></tr>
+                    <tr><td data-i18n="home.meta.nvme_free"></td><td class="meta-bar-cell"><div class="meta-bar-wrapper"><div id="nvme-free-bar"></div></div></td><td class="meta-right" id="nvme-free">0 GB</td></tr>
+                    <tr><td data-i18n="home.meta.redis_hits"></td><td class="meta-bar-cell"><div class="meta-bar-wrapper"><div id="redis-hits-bar"></div></div></td><td class="meta-right" id="redis-hits">0</td></tr>
+                    <tr><td data-i18n="home.meta.redis_misses"></td><td class="meta-bar-cell"><div class="meta-bar-wrapper"><div id="redis-misses-bar"></div></div></td><td class="meta-right" id="redis-misses">0</td></tr>
+                    <tr><td data-i18n="home.meta.req_sec"></td><td class="meta-bar-cell"><div class="meta-bar-wrapper"><div id="reqs-per-sec-bar"></div></div></td><td class="meta-right" id="reqs-per-sec">0</td></tr>
+                    <tr><td data-i18n="home.meta.req_day"></td><td class="meta-bar-cell"><div class="meta-bar-wrapper"><div id="api-requests-bar"></div></div></td><td class="meta-right" id="api-requests">0</td></tr>
+                    <tr><td data-i18n="home.meta.redis_used"></td><td class="meta-bar-cell"><div class="meta-bar-wrapper"><div id="redis-used-bar"></div></div></td><td class="meta-right" id="redis-used">0 MB</td></tr>
+                    <tr><td data-i18n="home.meta.net_down"></td><td class="meta-bar-cell"><div class="meta-bar-wrapper"><div id="network-internet-download-bar"></div></div></td><td class="meta-right" id="network-internet-download">0 MBit/s</td></tr>
+                    <tr><td data-i18n="home.meta.net_up"></td><td class="meta-bar-cell"><div class="meta-bar-wrapper"><div id="network-internet-upload-bar"></div></div></td><td class="meta-right" id="network-internet-upload">0 MBit/s</td></tr>
+                    <tr><td data-i18n="home.meta.lan_down"></td><td class="meta-bar-cell"><div class="meta-bar-wrapper"><div id="network-lan-download-bar"></div></div></td><td class="meta-right" id="network-lan-download">0 MBit/s</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+        <!-- DONATION -->
+        <div class="card mb-4 shadow donation">
+            <div class="card-header donation">
+                <h4 data-i18n="home.titles.donation"></h4>
+            </div>
+            <div class="card-body" id="donation-info">
+                <div class="text">
+                    <p data-i18n="home.donation.text"></p>
+                    <p class="btc-label"><strong data-i18n="home.donation.address"></strong></p>
+                    <p style="display:flex; justify-content:center; align-items:center; gap:10px;">
+                        <code id="btcAddress">{{ btc_address }}</code>
+                        <button class="btn btn-sm btn-primary" id="copyBtn" data-i18n="home.donation.copy"></button>
+                    </p>
+                </div>
+                <div class="qr">
+                    <img
+                        src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data={{ btc_address }}"
+                        alt="BTC QR Code"
+                        class="img-fluid"
+                        style="border:1px solid #ccc; padding:5px; border-radius:8px;">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+<!-- MATRIX SCRIPT -->
+<script>
+
+let matrixInterval = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const canvas = document.getElementById('matrix-canvas');
+    if (!canvas) return;                       // 🔒 HARTESTER FIX
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const isMobile = matchMedia('(max-width: 768px)').matches;
+
+    const CONFIG = {
+        desktop: { fontSize:16, fade:'rgba(0,0,0,0.05)', resetChance:0.975, height:() => innerHeight },
+        mobile:  { fontSize:9,  fade:'rgba(0,0,0,0.08)', resetChance:0.992, height:() => 280 }
+    };
+
+    const mode = isMobile ? CONFIG.mobile : CONFIG.desktop;
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let columns, drops;
+
+    function resizeCanvas() {
+        canvas.width = innerWidth; canvas.height = mode.height();
+        const newCols = Math.floor(canvas.width / mode.fontSize);
+        if (!drops || newCols !== columns) { columns = newCols; drops = Array(columns).fill(1); }
+    }
+
+    function draw() {
+        ctx.fillStyle = mode.fade; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#0F0'; ctx.font = `${mode.fontSize}px monospace`;
+        for (let i = 0; i < drops.length; i++) {
+            ctx.fillText(letters[Math.random()*letters.length|0], i*mode.fontSize, drops[i]*mode.fontSize);
+            if (drops[i]*mode.fontSize > canvas.height && Math.random() > mode.resetChance) drops[i]=0;
+            drops[i]++;
+        }
+    }
+
+    function startMatrix() { if (!matrixInterval) matrixInterval = setInterval(draw, 50); }
+    function stopMatrix()  { clearInterval(matrixInterval); matrixInterval = null; }
+
+    resizeCanvas();
+    addEventListener('resize', resizeCanvas);
+
+    document.querySelectorAll('.tabButton').forEach(btn =>
+        btn.addEventListener('click', () =>
+            btn.dataset.tab === 'home' ? startMatrix() : stopMatrix()
+        )
+    );
+
+    if (document.querySelector('.tabButton.active')?.dataset.tab === 'home') startMatrix();
+});
+
+</script>
+
+
+
+<!-- MATRIX CSS -->
+<style>
+    #matrix-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 0;
+    }
+    .rotating-title { color: #0F0; }
+</style>
+
+
+
+<!-- ============================================================================================================================================================== -->
+<!-- ============================================================================================================================================================== -->
+
+
+
+<!-- REVOLUTION -->
+<div class="tabContent subtab-container" id="revolution" style="display:none;">
+    <!-- Subtab-Navigation -->
+    <div class="subnav">
+        <button class="subTabButton active" data-subtab="REVOLUTION_HISTORY" data-file="/static/subtabs/REVOLUTION_HISTORY.html">Origins</button>
+        <button class="subTabButton" data-subtab="REVOLUTION_PIONEERS" data-file="/static/subtabs/REVOLUTION_PIONEERS.html">Pioneers</button>
+        <button class="subTabButton" data-subtab="REVOLUTION_WHITEPAPER" data-file="/static/subtabs/REVOLUTION_WHITEPAPER.html">Whitepaper</button>
+    </div>
+    <!-- Subtab-Content Container -->
+    <div id="REVOLUTION_HISTORY" class="subTabContent subtab-section"></div>
+    <div id="REVOLUTION_PIONEERS" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="REVOLUTION_WHITEPAPER" class="subTabContent subtab-section" style="display:none;"></div>
+</div>
+
+
+<!-- NETWORK -->
+<div class="tabContent subtab-container" id="network" style="display:none;">
+    <!-- Subtab-Navigation -->
+    <div class="subnav">
+        <button class="subTabButton active" data-subtab="NETWORK_STRUCTURE" data-file="/static/subtabs/NETWORK_STRUCTURE.html">Structure</button>
+        <button class="subTabButton" data-subtab="NETWORK_TECHNOLOGY" data-file="/static/subtabs/NETWORK_TECHNOLOGY.html">Technology</button>
+        <button class="subTabButton" data-subtab="NETWORK_NODES" data-file="/static/subtabs/NETWORK_NODES.html">Nodes</button>
+        <button class="subTabButton" data-subtab="NETWORK_MINER" data-file="/static/subtabs/NETWORK_MINER.html">Miners</button>
+    </div>
+    <!-- Subtab-Content Container -->
+    <div id="NETWORK_STRUCTURE" class="subTabContent subtab-section"></div>
+    <div id="NETWORK_TECHNOLOGY" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="NETWORK_NODES" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="NETWORK_MINER" class="subTabContent subtab-section" style="display:none;"></div>
+</div>
+
+
+<!-- METRICS -->
+<div class="tabContent subtab-container" id="metrics" style="display:none;">
+    <!-- Subtab-Navigation -->
+    <div class="subnav">
+        <button class="subTabButton" data-subtab="METRICS_BTC_USD_EUR" data-file="/static/subtabs/METRICS_BTC_USD_EUR.html">BTC/USD & BTC/EUR</button>
+        <button class="subTabButton" data-subtab="METRICS_BTC_DIFFICULTY" data-file="/static/subtabs/METRICS_BTC_DIFFICULTY.html">Difficulty</button>
+        <button class="subTabButton" data-subtab="METRICS_BTC_TX_VOLUME" data-file="/static/subtabs/METRICS_BTC_TX_VOLUME.html">Transaction Volume</button>
+        <button class="subTabButton" data-subtab="METRICS_BTC_TX_AMOUNT" data-file="/static/subtabs/METRICS_BTC_TX_AMOUNT.html">Transaction Amount</button>
+        <button class="subTabButton" data-subtab="METRICS_BTC_TX_FEES" data-file="/static/subtabs/METRICS_BTC_TX_FEES.html">Transaction Fees</button>
+        <button class="subTabButton" data-subtab="METRICS_BTC_HASHRATE" data-file="/static/subtabs/METRICS_BTC_HASHRATE.html">Hashrate</button>
+    </div>
+    <!-- Subtab-Content Container -->
+    <div id="METRICS_BTC_USD_EUR" class="subTabContent subtab-section"></div>
+    <div id="METRICS_BTC_DIFFICULTY" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="METRICS_BTC_TX_VOLUME" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="METRICS_BTC_TX_AMOUNT" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="METRICS_BTC_TX_FEES" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="METRICS_BTC_HASHRATE" class="subTabContent subtab-section" style="display:none;"></div>
+</div>
+
+
+<!-- EXPLORER -->
+<div class="tabContent subtab-container" id="explorer" style="display:none;">
+    <!-- Subtab-Navigation -->
+    <div class="subnav">
+        <button class="subTabButton" data-subtab="EXPLORER_TXID" data-file="/static/subtabs/EXPLORER_TXID.html">Transaction</button>
+        <button class="subTabButton" data-subtab="EXPLORER_ADDRESS" data-file="/static/subtabs/EXPLORER_ADDRESS.html">Address</button>
+        <button class="subTabButton" data-subtab="EXPLORER_WALLET" data-file="/static/subtabs/EXPLORER_WALLET.html">Wallet</button>
+    </div>
+    <!-- Subtab-Content Container -->
+    <div id="EXPLORER_TXID" class="subTabContent subtab-section"></div>
+    <div id="EXPLORER_ADDRESS" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="EXPLORER_WALLET" class="subTabContent subtab-section" style="display:none;"></div>
+</div>
+
+
+<!-- TREASURIES -->
+<div class="tabContent subtab-container" id="treasuries" style="display:none;">
+    <!-- Subtab-Navigation -->
+    <div class="subnav">
+        <button class="subTabButton active" data-subtab="TREASURIES_COMPANIES" data-file="/static/subtabs/TREASURIES_COMPANIES.html">Public Companies</button>
+        <button class="subTabButton" data-subtab="TREASURIES_INSTITUTIONS" data-file="/static/subtabs/TREASURIES_INSTITUTIONS.html">Investment Funds</button>
+        <button class="subTabButton" data-subtab="TREASURIES_COUNTRIES" data-file="/static/subtabs/TREASURIES_COUNTRIES.html">Countries</button>
+    </div>
+    <!-- Subtab-Content Container -->
+    <div id="TREASURIES_COMPANIES" class="subTabContent subtab-section"></div>
+    <div id="TREASURIES_INSTITUTIONS" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="TREASURIES_COUNTRIES" class="subTabContent subtab-section" style="display:none;"></div>
+</div>
+
+
+<!-- MARKET_CAP -->
+<div class="tabContent subtab-container" id="market_cap" style="display:none;">
+    <!-- Subtab-Navigation -->
+    <div class="subnav">
+        <button class="subTabButton" data-subtab="MARKET_CAP_COINS" data-file="/static/subtabs/MARKET_CAP_COINS.html">Cryptocurrencies</button>
+        <button class="subTabButton" data-subtab="MARKET_CAP_COMPANIES" data-file="/static/subtabs/MARKET_CAP_COMPANIES.html">Public Companies</button>
+        <button class="subTabButton" data-subtab="MARKET_CAP_CURRENCIES" data-file="/static/subtabs/MARKET_CAP_CURRENCIES.html">Fiat Currencies</button>
+        <button class="subTabButton active" data-subtab="MARKET_CAP_COMMODITIES" data-file="/static/subtabs/MARKET_CAP_COMMODITIES.html">Commodities</button>      
+    </div>
+    <!-- Subtab-Content Container -->
+    <div id="MARKET_CAP_COINS" class="subTabContent subtab-section"></div>
+    <div id="MARKET_CAP_COMPANIES" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="MARKET_CAP_CURRENCIES" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="MARKET_CAP_COMMODITIES" class="subTabContent subtab-section" style="display:none;"></div>
+</div>
+
+
+<!-- INDICATORS -->
+<div class="tabContent subtab-container" id="indicators" style="display:none;">
+
+    <!-- Subtab-Navigation -->
+    <div class="subnav">
+        <button class="subTabButton" data-subtab="INDICATORS_PI_CYCLE_TOP" data-file="/static/subtabs/INDICATORS_PI_CYCLE_TOP.html">Pi Cycle Top</button>
+        <button class="subTabButton" data-subtab="INDICATORS_GOLDEN_RATIO" data-file="/static/subtabs/INDICATORS_GOLDEN_RATIO.html">Golden Ratio</button>
+        <button class="subTabButton" data-subtab="INDICATORS_RAINBOW_CHART" data-file="/static/subtabs/INDICATORS_RAINBOW_CHART.html">Rainbow Chart</button>
+        <button class="subTabButton" data-subtab="INDICATORS_MAYER_MULTIPLE" data-file="/static/subtabs/INDICATORS_MAYER_MULTIPLE.html">Mayer Multiple</button>
+        <button class="subTabButton" data-subtab="INDICATORS_STOCK_TO_FLOW" data-file="/static/subtabs/INDICATORS_STOCK_TO_FLOW.html">Stock-to-Flow</button>
+        <button class="subTabButton" data-subtab="INDICATORS_BTC_M2" data-file="/static/subtabs/INDICATORS_BTC_M2.html">BTC vs Global M2</button>
+        <button class="subTabButton" data-subtab="INDICATORS_S&P500_BTC" data-file="/static/subtabs/INDICATORS_S&P500_BTC.html">S&P 500 vs Bitcoin</button>
+    </div>
+
+    <!-- Subtab-Content -->
+    <div id="INDICATORS_PI_CYCLE_TOP" class="subTabContent subtab-section"></div>
+    <div id="INDICATORS_GOLDEN_RATIO" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="INDICATORS_RAINBOW_CHART" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="INDICATORS_MAYER_MULTIPLE" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="INDICATORS_STOCK_TO_FLOW" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="INDICATORS_BTC_M2" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="INDICATORS_S&P500_BTC" class="subTabContent subtab-section" style="display:none;"></div>
+
+</div>
+
+
+
+
+<!-- INFO -->
+<div class="tabContent subtab-container" id="info" style="display:none;">
+    <!-- Subtab-Navigation -->
+    <div class="subnav">
+        <button class="subTabButton" data-subtab="INFO_STATUS" data-file="/static/subtabs/INFO_STATUS.html">Status</button>
+        <button class="subTabButton" data-subtab="INFO_DASHBOARD_TRAFFIC" data-file="/static/subtabs/INFO_DASHBOARD_TRAFFIC.html">Dashboard-Traffic</button>
+        <button class="subTabButton" data-subtab="INFO_IMPRESSUM" data-file="/static/subtabs/INFO_IMPRESSUM.html">Impressum</button>
+    </div>
+    <!-- Subtab-Content Container -->
+    <div id="INFO_STATUS" class="subTabContent subtab-section"></div>
+    <div id="INFO_DASHBOARD_TRAFFIC" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="INFO_IMPRESSUM" class="subTabContent subtab-section" style="display:none;"></div>
+</div>
+
+
+    <footer>
+        <p>&copy; 2026 BITCOIN DASHBOARD | Powered by Open-(AI) Data & Passion for Code.</p>
+    </footer>
+
+
+
+<!-- ============================================================================================================================================================== -->
+<!-- ============================================================================================================================================================== -->
+
+
+
+<!-- ============================= -->
+<!-- Lazy Load Scripts & Subtab JS -->
+<!-- ============================= -->
+<script src="/static/js/NETWORK_NODES.js"></script>
+<script src="/static/js/NETWORK_MINER.js"></script>
+<script src="/static/js/METRICS_BTC_USD_EUR.js"></script>
+<script src="/static/js/METRICS_BTC_DIFFICULTY.js"></script>
+<script src="/static/js/METRICS_BTC_TX_VOLUME.js"></script>
+<script src="/static/js/METRICS_BTC_TX_FEES.js"></script>
+<script src="/static/js/METRICS_BTC_TX_AMOUNT.js"></script>
+<script src="/static/js/METRICS_BTC_HASHRATE.js"></script>
+<script src="/static/js/EXPLORER_ADDRESS.js" defer></script>
+<script src="/static/js/EXPLORER_TXID.js" defer></script>
+<script src="/static/js/EXPLORER_WALLET.js" defer></script>
+<script src="/static/js/TREASURIES_COMPANIES.js"></script>
+<script src="/static/js/TREASURIES_INSTITUTIONS.js"></script>
+<script src="/static/js/TREASURIES_COUNTRIES.js"></script>
+<script src="/static/js/MARKET_CAP_COINS.js"></script>
+<script src="/static/js/MARKET_CAP_COMPANIES.js"></script>
+<script src="/static/js/MARKET_CAP_CURRENCIES.js"></script>
+<script src="/static/js/MARKET_CAP_COMMODITIES.js"></script>
+<script src="/static/js/INFO_DASHBOARD_TRAFFIC.js"></script>
+
+
+<script> // ------------------------------------AUFRUF DER ALLE JS SCRIPTE UMFASST------------------------------------------
+
+
+// ================================================================================================================================================================ //
+
+
+// =========================
+// ⚡ Haupttabs + I18N (SAFE)
+// =========================
+document.addEventListener('DOMContentLoaded', () => {
+
+    // =====================
+    // 🌍 I18N APPLY (FIXED)
+    // =====================
+    if (typeof T === 'object') {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.dataset.i18n;
+            const value = key.split('.').reduce((obj, k) => obj?.[k], T);
+            if (value !== undefined) el.textContent = value;
+        });
+    }
+
+    // =================
+    // 🧭 MAIN TAB LOGIC
+    // =================
+    const tabButtons = document.querySelectorAll('.tabButton');
+    if (!tabButtons.length) return;
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+
+            const tab = btn.dataset.tab;
+            if (!tab) return;
+
+            // 🔍 SEO: Meta-Tags für Haupt-Tab setzen
+            if (typeof updateMetaForMainTab === 'function') {
+                updateMetaForMainTab(tab);
+            }
+
+            document.querySelectorAll('.tabContent')
+                .forEach(div => div.style.display = 'none');
+
+            const container = document.getElementById(tab);
+            if (!container) return;
+
+            container.style.display = 'block';
+
+            tabButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const firstSub = container.querySelector('.subTabButton');
+            if (firstSub && typeof showSubTab === 'function') {
+                showSubTab(firstSub);
+            }
+
+            if (typeof attachSubTabEvents === 'function') {
+                attachSubTabEvents(container);
+            }
+        });
+    });
+
+});
+
+
+// ================================================================================================================================================================ //
+
+
+// ==================================================
+// 🔗 SubTab-Event-Orchestrierung
+// ==================================================
+// Bindet Klick-Events für alle SubTab-Buttons
+// innerhalb eines aktiven Haupttabs.
+function attachSubTabEvents(container){
+    const buttons = container.querySelectorAll('.subTabButton');
+    buttons.forEach(btn => {
+        btn.onclick = () => showSubTab(btn);
+    });
+}
+
+// ================================================================================================================================================================ //
+
+// ==================================================
+// 🚦 SubTab-Orchestrierung (Routing + Default-Logik)
+// ==================================================
+function showSubTab(btn) {
+    if (!btn) return;
+
+    const subTabId  = btn.dataset.subtab;
+    const file      = btn.dataset.file;
+    const container = btn.closest('.tabContent');
+    if (!container) return;
+
+    // ----------------------------------
+    // Alle SubTabs ausblenden
+    // ----------------------------------
+    container
+        .querySelectorAll('.subTabContent')
+        .forEach(div => div.style.display = 'none');
+
+    const div = document.getElementById(subTabId);
+    if (!div) return;
+    div.style.display = 'block';
+
+    // ----------------------------------
+    // Aktiven Button markieren
+    // ----------------------------------
+    container
+        .querySelectorAll('.subTabButton')
+        .forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // ----------------------------------
+    // Default-SubSubTab-Logik
+    // ----------------------------------
+    function showDefault(prefix) {
+        const defaultTab = defaultTabs[prefix];
+        const initFn     = initFunctions[prefix];
+        const loadFn     = loadFunctions[prefix];
+
+        if (typeof initFn === 'function') initFn();
+
+        const defaultDiv = document.getElementById(defaultTab);
+        if (defaultDiv) defaultDiv.style.display = 'block';
+
+        const defaultBtn = document.querySelector(
+            `.${prefix}-subTabButton[data-subsubtab="${defaultTab}"]`
+        );
+        if (defaultBtn) defaultBtn.classList.add('active');
+
+        if (typeof loadFn === 'function') loadFn();
+    }
+
+    // ----------------------------------
+    // Lazy Load (🔥 MOBILE SAFE VERSION)
+    // ----------------------------------
+    if (file && !loadedSubTabs[subTabId]) {
+
+        // 🔒 HARD GUARD: jQuery MUSS existieren
+        if (!window.$ || typeof $.get !== 'function') {
+            console.warn('[LazyLoad] jQuery not ready, skip:', file);
+            return;
+        }
+
+        $.get(file)
+            .done(data => {
+                div.innerHTML = data;
+                loadedSubTabs[subTabId] = true;
+
+                // ----------------------------------
+                // Loader für einzelne Tabs
+                // ----------------------------------
+                if (subTabId === 'NETWORK_MINER' && typeof loadMinerData === 'function') loadMinerData();
+                if (subTabId === 'NETWORK_NODES' && typeof loadNodeData === 'function') loadNodeData();
+                if (subTabId === 'METRICS_BTC_USD_EUR' && typeof loadBTCMetrics === 'function') loadBTCMetrics();
+                if (subTabId === 'EXPLORER_TXID' && typeof loadExplorerTxid === 'function') loadExplorerTxid();
+                if (subTabId === 'EXPLORER_ADDRESS' && typeof loadExplorerAddress === 'function') loadExplorerAddress();
+                if (subTabId === 'EXPLORER_WALLET' && typeof loadExplorerWallet === 'function') loadExplorerWallet();
+                if (subTabId === 'TREASURIES_COMPANIES' && typeof loadTreasuriesCompanies === 'function') loadTreasuriesCompanies();
+                if (subTabId === 'TREASURIES_INSTITUTIONS' && typeof loadTreasuriesInstitutions === 'function') loadTreasuriesInstitutions();
+                if (subTabId === 'TREASURIES_COUNTRIES' && typeof loadTreasuriesCountries === 'function') loadTreasuriesCountries();
+                if (subTabId === 'MARKET_CAP_COINS' && typeof loadMarketCapCoins === 'function') loadMarketCapCoins();
+                if (subTabId === 'MARKET_CAP_COMPANIES' && typeof loadMarketCapCompanies === 'function') loadMarketCapCompanies();
+                if (subTabId === 'MARKET_CAP_CURRENCIES' && typeof loadMarketCapCurrencies === 'function') loadMarketCapCurrencies();
+                if (subTabId === 'MARKET_CAP_COMMODITIES' && typeof loadMarketCapCommodities === 'function') loadMarketCapCommodities();
+
+                if (defaultTabs[subTabId]) {
+                    showDefault(subTabId);
+                }
+            })
+            .fail(err => {
+                console.error('[LazyLoad] Failed:', file, err);
+            });
+
+    } else {
+        if (defaultTabs[subTabId]) {
+            showDefault(subTabId);
+        }
+    }
+}
+
+
+// ================================================================================================================================================================ //
+
+// ==================================================
+// 🎨 Chart.js – Global Typography Defaults
+// ==================================================
+if (window.Chart) {
+
+    // 🌍 Global Font
+    Chart.defaults.font.family =
+        "'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto";
+    Chart.defaults.font.size   = 12.5;
+    Chart.defaults.font.weight = '400';
+    Chart.defaults.color       = '#e6e6e6';
+
+    // 🧾 Tooltip Typography (GLOBAL)
+    Chart.defaults.plugins.tooltip.titleFont = {
+        size: 12.5,
+        weight: '500'
+    };
+
+    Chart.defaults.plugins.tooltip.bodyFont = {
+        size: 12,
+        weight: '400'
+    };
+
+    Chart.defaults.plugins.tooltip.padding = 10;
+}
+
+// ==================================================
+// ⚡ Lazy Load Funktion mit Sub-Tabs und Sub-Sub-Tabs
+// ==================================================
+
+const loadedSubTabs = {};
+
+// --------------------------------------------------
+// 🔧 SubTab → Default / Init / Loader Konfiguration
+// --------------------------------------------------
+const defaultTabs = {
+    METRICS_BTC_DIFFICULTY: "METRICS_BTC_DIFFICULTY_1Y",
+    METRICS_BTC_TX_VOLUME:  "METRICS_BTC_TX_VOLUME_1H",
+    METRICS_BTC_TX_AMOUNT:  "METRICS_BTC_TX_AMOUNT_NOW",
+    METRICS_BTC_TX_FEES:    "METRICS_BTC_TX_FEES_24H",
+    METRICS_BTC_HASHRATE:   "METRICS_BTC_HASHRATE_1Y",
+
+    INFO_DASHBOARD_TRAFFIC: "INFO_DASHBOARD_TRAFFIC_1H"
+};
+
+const initFunctions = {
+    METRICS_BTC_DIFFICULTY: initMetricsDifficultySubTabs,
+    METRICS_BTC_TX_VOLUME:  initMetricsTxVolumeSubTabs,
+    METRICS_BTC_TX_AMOUNT:  initMetricsTxAmountSubTabs,
+    METRICS_BTC_TX_FEES:    initMetricsTxFeesSubTabs,
+    METRICS_BTC_HASHRATE:   initMetricsHashrateSubTabs,
+
+    INFO_DASHBOARD_TRAFFIC: initInfoDashboardTrafficSubTabs
+};
+
+const loadFunctions = {
+    METRICS_BTC_DIFFICULTY: loadMetricsDifficulty1Y,
+    METRICS_BTC_TX_VOLUME:  loadMetricsTxVolume1H,
+    METRICS_BTC_TX_AMOUNT:  loadMetricsTxAmountNow,
+    METRICS_BTC_TX_FEES:    loadMetricsTxFees24H,
+    METRICS_BTC_HASHRATE:   loadMetricsHashrate1Y,
+
+    INFO_DASHBOARD_TRAFFIC: loadInfoDashboardTraffic1H
+};
+
+
+
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+
+
+// ⚡ Difficulty SubSubTabs
+function initMetricsDifficultySubTabs() {
+    const btns = document.querySelectorAll('.METRICS_BTC_DIFFICULTY-subTabButton');
+    const tabs = document.querySelectorAll('.METRICS_BTC_DIFFICULTY-subsubtab');
+
+    tabs.forEach(t => t.style.display = 'none');
+    btns.forEach(b => b.classList.remove('active'));
+
+    btns.forEach(btn => btn.onclick = () => {
+        const target = btn.dataset.subsubtab;
+
+        tabs.forEach(t => t.style.display = 'none');
+        document.getElementById(target).style.display = 'block';
+
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        switch (target) {
+            case 'METRICS_BTC_DIFFICULTY_1Y':   loadMetricsDifficulty1Y();   break;
+            case 'METRICS_BTC_DIFFICULTY_5Y':   loadMetricsDifficulty5Y();   break;
+            case 'METRICS_BTC_DIFFICULTY_10Y':  loadMetricsDifficulty10Y();  break;
+            case 'METRICS_BTC_DIFFICULTY_EVER': loadMetricsDifficultyEver(); break;
+        }
+    });
+}
+
+
+
+
+
+// ================================================================================================================================================================ //
+
+// ⚡ Transaktionsvolumen SubSubTabs
+function initMetricsTxVolumeSubTabs() {
+    const buttons = document.querySelectorAll('.METRICS_BTC_TX_VOLUME-subTabButton');
+    const defaultTab = 'METRICS_BTC_TX_VOLUME_1H';
+
+    document
+        .querySelectorAll('.METRICS_BTC_TX_VOLUME-subsubtab')
+        .forEach(tab => tab.style.display = 'none');
+
+    buttons.forEach(b => b.classList.remove('active'));
+
+    document.getElementById(defaultTab).style.display = 'block';
+    document
+        .querySelector(`.METRICS_BTC_TX_VOLUME-subTabButton[data-subsubtab="${defaultTab}"]`)
+        ?.classList.add('active');
+
+    buttons.forEach(btn => {
+        btn.onclick = () => {
+            const target = btn.dataset.subsubtab;
+
+            document
+                .querySelectorAll('.METRICS_BTC_TX_VOLUME-subsubtab')
+                .forEach(tab => tab.style.display = 'none');
+
+            document.getElementById(target).style.display = 'block';
+
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            switch (target) {
+                case 'METRICS_BTC_TX_VOLUME_1H':  loadMetricsTxVolume1H();  break;
+                case 'METRICS_BTC_TX_VOLUME_24H': loadMetricsTxVolume24H(); break;
+                case 'METRICS_BTC_TX_VOLUME_1W':  loadMetricsTxVolume1W();  break;
+                case 'METRICS_BTC_TX_VOLUME_1M':  loadMetricsTxVolume1M();  break;
+                case 'METRICS_BTC_TX_VOLUME_1J':  loadMetricsTxVolume1J();  break;
+            }
+        };
+    });
+}
+
+
+// ================================================================================================================================================================ //
+
+// ⚡ Transaktionshöhe – SubSubTabs Initialisierung
+function initMetricsTxAmountSubTabs() {
+    const buttons   = document.querySelectorAll('.METRICS_BTC_TX_AMOUNT-subTabButton');
+    const defaultTab = 'METRICS_BTC_TX_AMOUNT_NOW';
+
+    document
+        .querySelectorAll('.METRICS_BTC_TX_AMOUNT-subsubtab')
+        .forEach(t => t.style.display = 'none');
+
+    buttons.forEach(b => b.classList.remove('active'));
+
+    document.getElementById(defaultTab).style.display = 'block';
+    document
+        .querySelector(`.METRICS_BTC_TX_AMOUNT-subTabButton[data-subsubtab="${defaultTab}"]`)
+        ?.classList.add('active');
+
+    if (typeof loadMetricsTxAmountNow === 'function') {
+        loadMetricsTxAmountNow();
+    }
+
+    buttons.forEach(btn => {
+        btn.onclick = () => {
+            const target = btn.dataset.subsubtab;
+
+            document
+                .querySelectorAll('.METRICS_BTC_TX_AMOUNT-subsubtab')
+                .forEach(t => t.style.display = 'none');
+
+            document.getElementById(target).style.display = 'block';
+
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            switch (target) {
+                case 'METRICS_BTC_TX_AMOUNT_NOW':     loadMetricsTxAmountNow();     break;
+                case 'METRICS_BTC_TX_AMOUNT_24H':     loadMetricsTxAmount24H();     break;
+                case 'METRICS_BTC_TX_AMOUNT_1W':      loadMetricsTxAmount1W();      break;
+                case 'METRICS_BTC_TX_AMOUNT_1M':      loadMetricsTxAmount1M();      break;
+                case 'METRICS_BTC_TX_AMOUNT_1Y':      loadMetricsTxAmount1Y();      break;
+                case 'METRICS_BTC_TX_AMOUNT_HALVING': loadMetricsTxAmountHalving(); break;
+                case 'METRICS_BTC_TX_AMOUNT_EVER':    loadMetricsTxAmountEver();    break;
+            }
+        };
+    });
+}
+
+
+// ================================================================================================================================================================ //
+
+// ⚡ Gebührenhöhe – SubSubTabs
+function initMetricsTxFeesSubTabs() {
+    const btns = document.querySelectorAll('.METRICS_BTC_TX_FEES-subTabButton');
+    const tabs = document.querySelectorAll('.METRICS_BTC_TX_FEES-subsubtab');
+
+    tabs.forEach(t => t.style.display = 'none');
+    btns.forEach(b => b.classList.remove('active'));
+
+    btns.forEach(btn => btn.onclick = () => {
+        const target = btn.dataset.subsubtab;
+
+        tabs.forEach(t => t.style.display = 'none');
+        document.getElementById(target).style.display = 'block';
+
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        switch (target) {
+            case 'METRICS_BTC_TX_FEES_24H': loadMetricsTxFees24H(); break;
+            case 'METRICS_BTC_TX_FEES_1W':  loadMetricsTxFees1W();  break;
+            case 'METRICS_BTC_TX_FEES_1M':  loadMetricsTxFees1M();  break;
+            case 'METRICS_BTC_TX_FEES_1J':  loadMetricsTxFees1J();  break;
+        }
+    });
+}
+
+
+// ================================================================================================================================================================ //
+
+// ⚡ Hashrate – SubSubTabs
+function initMetricsHashrateSubTabs() {
+    const btns = document.querySelectorAll('.METRICS_BTC_HASHRATE-subTabButton');
+    const tabs = document.querySelectorAll('.METRICS_BTC_HASHRATE-subsubtab');
+
+    tabs.forEach(t => t.style.display = 'none');
+    btns.forEach(b => b.classList.remove('active'));
+
+    btns.forEach(btn => btn.onclick = () => {
+        const target = btn.dataset.subsubtab;
+
+        tabs.forEach(t => t.style.display = 'none');
+        document.getElementById(target).style.display = 'block';
+
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        switch (target) {
+            case 'METRICS_BTC_HASHRATE_1Y':   loadMetricsHashrate1Y();   break;
+            case 'METRICS_BTC_HASHRATE_5Y':   loadMetricsHashrate5Y();   break;
+            case 'METRICS_BTC_HASHRATE_10Y':  loadMetricsHashrate10Y();  break;
+            case 'METRICS_BTC_HASHRATE_EVER': loadMetricsHashrateEver(); break;
+        }
+    });
+}
+
+
+
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+
+
+// ⚡ Dashboard Traffic – SubSubTabs
+function initInfoDashboardTrafficSubTabs() {
+    const buttons = document.querySelectorAll('.INFO_DASHBOARD_TRAFFIC-subTabButton');
+    const tabs = document.querySelectorAll('.INFO_DASHBOARD_TRAFFIC-subsubtab');
+
+    // Alle SubSubTabs ausblenden & Buttons deaktivieren
+    tabs.forEach(tab => tab.style.display = 'none');
+    buttons.forEach(b => b.classList.remove('active'));
+
+    buttons.forEach(btn => {
+        btn.onclick = () => {
+            const target = btn.dataset.subsubtab;
+
+            tabs.forEach(tab => tab.style.display = 'none');
+            document.getElementById(target).style.display = 'block';
+
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Lazy Load Dashboard Traffic
+            switch (target) {
+                case 'INFO_DASHBOARD_TRAFFIC_1H':  loadInfoDashboardTraffic1H();  break;
+                case 'INFO_DASHBOARD_TRAFFIC_24H': loadInfoDashboardTraffic24H(); break;
+                case 'INFO_DASHBOARD_TRAFFIC_1W':  loadInfoDashboardTraffic1W();  break;
+                case 'INFO_DASHBOARD_TRAFFIC_1M':  loadInfoDashboardTraffic1M();  break;
+                case 'INFO_DASHBOARD_TRAFFIC_1Y':  loadInfoDashboardTraffic1Y();  break;
+            }
+        };
+    });
+}
+
+
+
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+
+
+
+// ===============
+// Helper functions
+// ===============
+function formatChain(chain){
+    if(!chain) return '—';
+    switch(chain.toLowerCase()){
+        case 'main': return 'Mainnet';
+        case 'test': return 'test';
+        case 'regtest': return 'Regtest';
+        default: return chain.toUpperCase();
+    }
+}
+
+
+
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+
+
+
+// ====================
+// BTC-ADRESSE KOPIEREN
+// ====================
+document.addEventListener('DOMContentLoaded', () => {
+    const copyBtn = document.getElementById('copyBtn');
+    if (!copyBtn) return;
+
+    copyBtn.addEventListener('click', () => {
+        const addr = document.getElementById('btcAddress')?.innerText;
+        if (addr) {
+            navigator.clipboard.writeText(addr)
+                .then(() => alert('BTC-Adresse kopiert!'));
+        }
+    });
+});
+
+
+
+
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+
+
+// ======================================
+// BITCOIN-INFO-PRICE (ROBUST / iOS SAFE)
+// ======================================
+async function updateBTCPrice() {
+    const el = document.getElementById("btc-price");
+    if (!el) return;
+
+    try {
+        const res = await fetch("/api/home_btc_price", {
+            method: "GET",
+            cache: "no-store",
+            credentials: "same-origin"
+        });
+
+        if (!res.ok) throw new Error("HTTP " + res.status);
+
+        const data = await res.json();
+        if (!data || !data.bitcoin) throw new Error("Invalid payload");
+
+        const usd = Number(data.bitcoin.usd || 0);
+        const eur = Number(data.bitcoin.eur || 0);
+        const jpy = Number(data.bitcoin.jpy || 0);
+
+        const fmt0 = new Intl.NumberFormat("en-US", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        });
+
+        const usdFmt = fmt0.format(usd) + " $";
+        const eurFmt = fmt0.format(eur) + " €";
+        const jpyFmt = fmt0.format(jpy) + " ¥";
+
+        el.innerHTML = `
+            <span class="btc-price-item" style="margin-right:25px;">USD: ${usdFmt}</span>
+            <span class="btc-price-item" style="margin-right:25px;">EUR: ${eurFmt}</span>
+            <span class="btc-price-item">JPY: ${jpyFmt}</span>
+        `;
+
+        el.style.display = "flex";
+        el.style.flexWrap = "nowrap";
+        el.style.alignItems = "center";
+
+    } catch (err) {
+        console.warn("[BTC PRICE] fallback:", err.message);
+        el.textContent = "BTC price not available";
+    }
+}
+
+
+
+
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+
+
+
+// ============================
+// Statische Mempool-Info laden
+// ============================
+async function loadStaticMempoolValues() {
+    try {
+        const res = await fetch('/api/mempool');
+        const data = await res.json();
+
+        // Nur wirklich statische Werte setzen (min_fee_sat)
+        $('#mempool-min-fee').text(data.min_fee_sat !== undefined ? data.min_fee_sat.toFixed(2) + ' sat/vB' : '—');
+
+    } catch (e) {
+        console.error("Fehler beim Laden der Mempool-Info:", e);
+        $('#mempool-min-fee').text('—');
+    }
+}
+
+
+
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+
+
+
+// ==================
+// Genesis Live Clock
+// ==================
+function startGenesisLiveClock() {
+    const genesisDate = new Date('2009-01-03T18:15:05Z');
+
+    function updateClock() {
+        const now = new Date();
+
+        let years = now.getUTCFullYear() - genesisDate.getUTCFullYear();
+        let months = now.getUTCMonth() - genesisDate.getUTCMonth();
+        let days = now.getUTCDate() - genesisDate.getUTCDate();
+        let hours = now.getUTCHours() - genesisDate.getUTCHours();
+        let minutes = now.getUTCMinutes() - genesisDate.getUTCMinutes();
+        let seconds = now.getUTCSeconds() - genesisDate.getUTCSeconds();
+
+        if (seconds < 0) { seconds += 60; minutes--; }
+        if (minutes < 0) { minutes += 60; hours--; }
+        if (hours < 0)   { hours += 24; days--; }
+
+        if (days < 0) {
+            const prevMonth = new Date(now.getUTCFullYear(), now.getUTCMonth(), 0);
+            days += prevMonth.getUTCDate();
+            months--;
+        }
+
+        if (months < 0) { months += 12; years--; }
+
+        const weeks = Math.floor(days / 7);
+        days = days % 7;
+
+        const el = document.getElementById('genesis-clock');
+        if (el) {
+            el.innerHTML = `${years} years, ${months} months, ${weeks} weeks, ${days} days, ${hours}h ${minutes}m ${seconds}s`;
+        }
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000); // jede Sekunde
+}
+
+
+
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+
+
+
+// ======================================
+// ⛏ Halving-Time Live Countdown via SSE
+// ======================================
+
+// Formatierungsfunktion (Jahre, Monate, Wochen, Tage, Stunden, Minuten, Sekunden)
+function formatHalvingTime(totalSeconds) {
+    if (totalSeconds < 0) totalSeconds = 0;
+    let remainder = totalSeconds;
+
+    const years   = Math.floor(remainder / (365*24*3600));
+    remainder %= 365*24*3600;
+
+    const months  = Math.floor(remainder / (30*24*3600));
+    remainder %= 30*24*3600;
+
+    const weeks   = Math.floor(remainder / (7*24*3600));
+    remainder %= 7*24*3600;
+
+    const days    = Math.floor(remainder / (24*3600));
+    remainder %= 24*3600;
+
+    const hours   = Math.floor(remainder / 3600);
+    remainder %= 3600;
+
+    const minutes = Math.floor(remainder / 60);
+    const seconds = remainder % 60;
+
+    return `${years} years, ${months} months, ${weeks} weeks, ${days} days, ` +
+           `${hours}h ${minutes}m ${seconds}s`;
+}
+
+
+
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+
+
+
+
+
+
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+// ==================================================
+// 📊 HOME DASHBOARD TRAFFIC (FINAL)
+// ==================================================
+
+
+
+// ==================================================
+// 🧮 Home Traffic Loader (READ ONLY)
+// --------------------------------------------------
+// - liest nur aggregierte KPIs
+// - KEIN Tracking
+// ==================================================
+async function loadHomeDashboardTraffic() {
+    try {
+        const res = await fetch('/api/home_traffic');
+        if (!res.ok) return;
+
+        const data = await res.json();
+
+        const liveEl  = document.getElementById('dashboard-traffic-live');
+        const totalEl = document.getElementById('dashboard-traffic-total');
+
+        // Home-Card evtl. noch nicht gerendert
+        if (!liveEl || !totalEl) return;
+
+        liveEl.textContent  = data.live ?? 0;
+        totalEl.textContent = (data.total_requests ?? 0)
+            .toLocaleString('de-DE');
+
+    } catch (e) {
+        console.error('[HOME_DASHBOARD_TRAFFIC]', e);
+    }
+}
+
+
+
+// ==================================================
+// 🚀 PAGE VIEW (Model A)
+// --------------------------------------------------
+// - exakt EINMAL pro Seitenaufruf
+// - KEIN Polling
+// ==================================================
+(function trackDashboardPageViewOnce() {
+    try {
+        fetch('/api/track/dashboard_pageview', {
+            method: 'POST'
+        });
+    } catch (_) {
+        // bewusst ignorieren
+    }
+})();
+
+
+
+// ==================================================
+// 🧠 Dashboard Session ID (Model B) – SAFE
+// --------------------------------------------------
+// - sessionStorage only
+// - crypto.randomUUID() mit Fallback
+// ==================================================
+
+function generateUUID() {
+    // Native UUID (Chrome, Safari, moderne Browser)
+    if (window.crypto && typeof crypto.randomUUID === "function") {
+        return crypto.randomUUID();
+    }
+
+    // Fallback (Firefox Mobile / Opera Mobile safe)
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+let DASHBOARD_SESSION_ID =
+    sessionStorage.getItem('dashboard_session_id');
+
+if (!DASHBOARD_SESSION_ID) {
+    DASHBOARD_SESSION_ID = generateUUID();
+    sessionStorage.setItem(
+        'dashboard_session_id',
+        DASHBOARD_SESSION_ID
+    );
+}
+
+
+// ==================================================
+// 💓 Dashboard Alive Heartbeat (Model B)
+// --------------------------------------------------
+// - hält Session aktiv
+// - TTL basiert
+// ==================================================
+async function sendDashboardAlive() {
+    try {
+        await fetch('/api/track/dashboard_alive', {
+            method: 'POST',
+            headers: {
+                'X-Dashboard-Session': DASHBOARD_SESSION_ID
+            }
+        });
+    } catch (_) {
+        // absichtlich leer
+    }
+}
+
+
+
+// ==================================================
+// ⏱ Initial + Interval
+// ==================================================
+
+// Home KPIs
+loadHomeDashboardTraffic();
+setInterval(loadHomeDashboardTraffic, 10_000);
+
+// Alive Ping
+sendDashboardAlive();
+setInterval(sendDashboardAlive, 15_000);
+
+
+
+// ================================================================================================================================================================ //
+
+// ========================
+// Dashboard Launch Counter
+// ========================
+function startDashboardCounter() {
+    const launchDate = new Date(Date.UTC(2026, 0, 1, 0, 0, 0)); // HIER Datum anpassen!
+    const counterEl = document.getElementById('dashboard-counter');
+    if (!counterEl) return;
+
+    function updateCounter() {
+        const now = new Date();
+
+        let years = now.getUTCFullYear() - launchDate.getUTCFullYear();
+        let months = now.getUTCMonth() - launchDate.getUTCMonth();
+        let days = now.getUTCDate() - launchDate.getUTCDate();
+        let hours = now.getUTCHours() - launchDate.getUTCHours();
+        let minutes = now.getUTCMinutes() - launchDate.getUTCMinutes();
+        let seconds = now.getUTCSeconds() - launchDate.getUTCSeconds();
+
+        if (seconds < 0) { seconds += 60; minutes--; }
+        if (minutes < 0) { minutes += 60; hours--; }
+        if (hours < 0) { hours += 24; days--; }
+        if (days < 0) {
+            const prevMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 0));
+            days += prevMonth.getUTCDate();
+            months--;
+        }
+        if (months < 0) { months += 12; years--; }
+
+        const weeks = Math.floor(days / 7);
+        days = days % 7;
+
+        counterEl.textContent = `${years} years, ${months} months, ${weeks} weeks, ${days} days, ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateCounter();
+    setInterval(updateCounter, 1000);
+}
+
+
+
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+
+
+
+// =================
+// 🟢➕ System-Health (AUS CORE)
+// =================
+// - KEIN fetch
+// - KEIN Polling
+// - Daten kommen aus /api/dashboard/core → system_health
+function renderSystemHealth(data) {
+
+    if (!data) return;
+
+    function formatCount(n) {
+        if (n < 1_000) return String(n);
+        if (n < 1_000_000) return (n / 1_000).toFixed(1).replace(/\.0$/, "") + " k";
+        if (n < 1_000_000_000) return (n / 1_000_000).toFixed(1).replace(/\.0$/, "") + " Mio";
+        return (n / 1_000_000_000).toFixed(1).replace(/\.0$/, "") + " Mrd";
+    }
+
+    const MAX_INTERNET_DOWNLOAD = 55;
+    const MAX_INTERNET_UPLOAD   = 21;
+    const MAX_LAN               = 500;
+
+    // ▪ CPU
+    document.getElementById("cpu-load").innerText =
+        data.cpuLoad.toFixed(1) + "%";
+    document.getElementById("cpu-load-bar").style.width =
+        data.cpuLoad + "%";
+
+    // ▪ RAM
+    document.getElementById("ram-display").innerText =
+        data.ramUsagePercent.toFixed(1) + "%";
+    document.getElementById("ram-display-bar").style.width =
+        data.ramUsagePercent + "%";
+
+    // ▪ Swap
+    document.getElementById("swap-usage").innerText =
+        data.swapUsage.toFixed(1) + "%";
+    document.getElementById("swap-usage-bar").style.width =
+        data.swapUsage + "%";
+
+    // ▪ NVMe lesen
+    document.getElementById("nvme-read").innerText =
+        data.nvmeIoRead.toFixed(1) + " MB/s";
+    document.getElementById("nvme-read-bar").style.width =
+        Math.min((data.nvmeIoRead / 2000) * 100, 100) + "%";
+
+    // ▪ NVMe schreiben
+    document.getElementById("nvme-write").innerText =
+        data.nvmeIoWrite.toFixed(1) + " MB/s";
+    document.getElementById("nvme-write-bar").style.width =
+        Math.min((data.nvmeIoWrite / 2000) * 100, 100) + "%";
+
+    // ▪ NVMe Speicher
+    document.getElementById("nvme-free").innerText =
+        data.nvmeFree.toFixed(1) + " GB";
+    document.getElementById("nvme-free-bar").style.width =
+        data.nvmeFreePercent.toFixed(1) + "%";
+
+    // ▪ Redis Hits
+    document.getElementById("redis-hits").innerText =
+        `${formatCount(data.redisHits)} (${data.redisHitsPercent.toFixed(1)}%)`;
+    document.getElementById("redis-hits-bar").style.width =
+        data.redisHitsPercent.toFixed(1) + "%";
+
+    // ▪ Redis Misses
+    document.getElementById("redis-misses").innerText =
+        `${formatCount(data.redisMisses)} (${data.redisMissesPercent.toFixed(1)}%)`;
+    document.getElementById("redis-misses-bar").style.width =
+        Math.max(data.redisMissesPercent.toFixed(1), 1) + "%";
+
+    // ▪ Requests pro Sekunde
+    document.getElementById("reqs-per-sec").innerText = data.reqsPerSec;
+    document.getElementById("reqs-per-sec-bar").style.width =
+        data.reqsPercent.toFixed(1) + "%";
+
+    // ▪ API Requests pro Tag
+    document.getElementById("api-requests").innerText = data.apiRequests;
+    document.getElementById("api-requests-bar").style.width =
+        data.apiPercent.toFixed(1) + "%";
+
+    // ▪ Redis Used
+    document.getElementById("redis-used").innerText =
+        data.redisUsed.toFixed(1) + " MB";
+    document.getElementById("redis-used-bar").style.width =
+        data.redisUsedPercent.toFixed(1) + "%";
+
+    // 🌐 Internet
+    document.getElementById("network-internet-download").innerText =
+        data.internet.download.toFixed(2) + " MBit/s";
+    document.getElementById("network-internet-upload").innerText =
+        data.internet.upload.toFixed(2) + " MBit/s";
+
+    document.getElementById("network-internet-download-bar").style.width =
+        Math.min((data.internet.download / MAX_INTERNET_DOWNLOAD) * 100, 100) + "%";
+    document.getElementById("network-internet-upload-bar").style.width =
+        Math.min((data.internet.upload / MAX_INTERNET_UPLOAD) * 100, 100) + "%";
+
+    // 🏠 LAN
+    document.getElementById("network-lan-download").innerText =
+        data.lan.download.toFixed(2) + " MBit/s";
+    document.getElementById("network-lan-download-bar").style.width =
+        Math.min((data.lan.download / MAX_LAN) * 100, 100) + "%";
+}
+
+
+
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+
+
+
+function startAPIUpdates() {
+
+    const POLL_INTERVAL = 1000; // 1 Sekunde
+
+    let halvingRemainingSeconds = 0;
+    let lastRemainingBlocks = null;
+    let halvingInterval = null;
+
+    function updateHalvingDisplay() {
+        const el = document.getElementById('halving-time');
+        if (!el) return;
+
+        el.textContent = formatHalvingTime(halvingRemainingSeconds);
+        if (halvingRemainingSeconds > 0) halvingRemainingSeconds--;
+    }
+
+    async function fetchDashboardCore() {
+        try {
+            const resp = await fetch("/api/dashboard/core");
+            if (!resp.ok) return;
+
+            const d = await resp.json();
+
+            // =================================================
+            // 🔗 BLOCKCHAIN (DYNAMIC)
+            // =================================================
+            if (d.blockchain) {
+                $('#block-height').text(d.blockchain.current_block_height ?? '—');
+                $('#tx-last-block').text(d.blockchain.tx_count ?? '—');
+                $('#block-age').text(d.blockchain.block_age_str ?? '—');
+                $('#average-hash-rate').text(d.blockchain.average_hash_rate ?? '—');
+                $('#halving-blocks').text(d.blockchain.remaining_blocks ?? '—');
+                $('#winner_hash').text(d.blockchain.winner_hash ?? '—');
+
+                const remainingBlocks =
+                    d.blockchain.remaining_blocks ?? lastRemainingBlocks;
+
+                if (
+                    lastRemainingBlocks === null ||
+                    remainingBlocks < lastRemainingBlocks
+                ) {
+                    halvingRemainingSeconds =
+                        d.blockchain.remaining_seconds ?? halvingRemainingSeconds;
+                    lastRemainingBlocks = remainingBlocks;
+                }
+
+                if (!halvingInterval) {
+                    updateHalvingDisplay();
+                    halvingInterval = setInterval(updateHalvingDisplay, 1000);
+                }
+            }
+
+            // =================================================
+            // ⛓ BLOCKCHAIN (STATIC: CHAIN + BLOCK REWARD)
+            // =================================================
+            if (d.blockchain_static) {
+                const elChain  = document.getElementById('chain');
+                const elReward = document.getElementById('current-block-reward');
+
+                if (elChain) {
+                    elChain.textContent =
+                        formatChain(d.blockchain_static.chain_name ?? '—');
+                }
+
+                if (elReward) {
+                    elReward.textContent =
+                        d.blockchain_static.current_block_reward != null
+                            ? d.blockchain_static.current_block_reward + ' BTC'
+                            : '—';
+                }
+            }
+
+            // =================================================
+            // 🧩 MEMPOOL
+            // =================================================
+            if (d.mempool) {
+                $('#mempool-size').text(d.mempool.mempool_size ?? '—');
+
+                $('#mempool-avg-fee').text(
+                    d.mempool.avg_fee_sat != null
+                        ? d.mempool.avg_fee_sat.toFixed(2) + ' sat/vB'
+                        : '—'
+                );
+
+                $('#mempool-avg-tx').text(
+                    d.mempool.mempool_avg_tx
+                        ? d.mempool.mempool_avg_tx.toFixed(8) + ' BTC'
+                        : '—'
+                );
+
+                $('#mempool-avg-wait').text(
+                    d.mempool.average_wait_time ?? '—'
+                );
+
+                $('#mempool-total-fee').text(
+                    d.mempool.total_fee
+                        ? d.mempool.total_fee.toFixed(8) + ' BTC'
+                        : '—'
+                );
+            }
+
+            // =================================================
+            // 🌐 NETWORK
+            // =================================================
+            if (d.network) {
+                const map = {
+                    "NODE_INFO-db_cache": d.network.db_cache,
+                    "NODE_INFO-peers": d.network.peers,
+                    "NODE_INFO-version": d.network.version,
+                    "NODE_INFO-subversion": d.network.subversion,
+                    "NODE_INFO-protocol_version": d.network.protocol_version
+                };
+
+                for (const id in map) {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = map[id] ?? '—';
+                }
+            }
+
+
+            // =================================================
+            // 🟢 SYSTEM HEALTH (META)
+            // =================================================
+            if (d.system_health) {
+                renderSystemHealth(d.system_health);
+            }
+
+
+
+
+            // =================================================
+            // 🟣 BTC TOP (TX-HÖHE) AUS CORE
+            // =================================================
+            if (d.btc_top) {
+
+                // --- Top 10 im Mempool ---
+                const top10 = d.btc_top.top10 || [];
+                for (let i = 0; i < 10; i++) {
+                    const tx = top10[i];
+                    const elTx  = document.getElementById(`top-btc-tx-${i + 1}`);
+                    const elBtc = document.getElementById(`top-btc-tx-${i + 1}-btc`);
+                    if (!elTx || !elBtc) continue;
+
+                    if (tx && typeof tx.btc_value === "number") {
+                        elTx.textContent  = tx.txid;
+                        elBtc.textContent = tx.btc_value.toFixed(8) + " BTC";
+                    } else {
+                        elTx.textContent  = "—";
+                        elBtc.textContent = "—";
+                    }
+                }
+
+                // --- Top 50 Ever ---
+                const top50 = d.btc_top.top50_ever || [];
+                for (let i = 0; i < 50; i++) {
+                    const tx = top50[i];
+                    const elTx  = document.getElementById(`top-btc-ever-tx-${i + 1}`);
+                    const elBtc = document.getElementById(`top-btc-ever-tx-${i + 1}-btc`);
+                    if (!elTx || !elBtc) continue;
+
+                    if (tx && typeof tx.btc_value === "number") {
+                        elTx.textContent  = tx.txid;
+                        elBtc.textContent = tx.btc_value.toFixed(8) + " BTC";
+                    } else {
+                        elTx.textContent  = "—";
+                        elBtc.textContent = "—";
+                    }
+                }
+            }
+
+
+
+
+            // =================================================
+            // 🔵 BTC VOL (TX-VOLUMEN) AUS CORE
+            // =================================================
+            if (d.btc_vol) {
+                const fmt = v =>
+                    v != null ? Number(v).toFixed(8) + " BTC" : "—";
+
+                const elMempool = document.getElementById("mempool_volume");
+                const el1h      = document.getElementById("volume_1h");
+                const el24h     = document.getElementById("volume_24h");
+
+                if (elMempool) elMempool.textContent = fmt(d.btc_vol.mempool_volume);
+                if (el1h)      el1h.textContent      = fmt(d.btc_vol.volume_1h);
+                if (el24h)     el24h.textContent     = fmt(d.btc_vol.volume_24h);
+            }
+    
+
+
+        } catch (e) {
+            console.error("DASHBOARD CORE ERROR", e);
+        }
+    }
+
+    // ▶️ Initial + Polling
+    fetchDashboardCore();
+    setInterval(fetchDashboardCore, POLL_INTERVAL);
+}
+
+
+
+// ================================================================================================================================================================ //
+// ================================================================================================================================================================ //
+
+
+
+// ==============
+// Document Ready
+// ==============
+$(document).ready(function() {
+    startGenesisLiveClock();                            // ⏰ Starte die Uhr seit Genesis-Block  
+
+    const homeTab = document.getElementById('home');    // 🏠 Home-Tab-Element holen
+    attachSubTabEvents(homeTab);                        // 🔗 Subtab-Events an Home-Tab binden
+
+    updateBTCPrice();                                   // 💰 BTC-Preis einmalig laden
+    setInterval(updateBTCPrice, 30000);                 // ⏱️ BTC-Preis alle 30 Sekunden aktualisieren
+
+    // loadStaticBlockchainValues();                    // 📦 Blockchain-Infos einmalig laden
+    loadStaticMempoolValues();                          // 🧩 Mempool-Infos einmalig laden
+            
+    startDashboardCounter();                            // 🔢 Starte Dashboard-Counter (z.B. Besucher, Statistiken)
+
+    // 🚀 HIER HINZUFÜGEN:
+    startAPIUpdates();
+
+});
+
+</script>
+</body>
+</html>

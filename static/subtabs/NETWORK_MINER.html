@@ -1,0 +1,38 @@
+<!-- ====================================================================== -->
+<!-- NETWORK_MINER Subtab – Mining pools by block share (24 h)               -->
+<!-- Data source: mempool.space (block distribution over the last 24 hours) -->
+<!-- ====================================================================== -->
+
+<div id="NETWORK_MINER" class="subtab-container">
+
+    <!-- Heading -->
+    <h1 class="subtab-title">
+        Bitcoin Mining Pools
+    </h1>
+
+    <!-- Pool list -->
+    <section id="NETWORK_MINER_known" class="subtab-section">
+        <ul id="NETWORK_MINER_known_list" class="NETWORK_MINER-text">
+            <li>Loading mining pools…</li>
+        </ul>
+
+        <!-- Explanation / legend -->
+        <p class="NETWORK_MINER-legend">
+            The displayed percentages are based on the share of Bitcoin blocks
+            found by the respective mining pools within the last 24 hours.<br>
+            This so-called <strong>block share</strong> is a commonly used statistical proxy
+            for a pool’s relative share of the network hashrate.
+        </p>
+
+        <p class="NETWORK_MINER-legend">
+            Since mining is a probabilistic process, short-term fluctuations can occur.
+            Over longer time periods, however, the block share converges toward the
+            actual hashrate distribution within the network.
+            The sum of the displayed percentages usually does not equal exactly 100%,
+            as only the largest mining pools are shown here, while smaller pools
+            and solo miners are not listed individually.
+            Rounding effects and temporal variations can also lead to minor deviations.
+        </p>
+    </section>
+
+</div>

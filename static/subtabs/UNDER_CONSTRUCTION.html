@@ -1,0 +1,55 @@
+<div class="container" style="height: 80vh;"> <!-- Subtab-Bereich volle Höhe -->
+    <h1 class="text-center text-warning">UNDER CONSTRUCTION
+
+    <div class="under-construction-subtab">
+        <div class="overlay">
+            <div class="emoji">🏗️</div>
+            <h2>Under Construction</h2>
+            <p>Dieser Bereich befindet sich noch im Aufbau.<br>
+            Bald findest du hier spannende Bitcoin-Daten und Visualisierungen.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+.under-construction-subtab {
+    position: relative;
+    width: 100%;
+    height: 100%; /* füllt den gesamten Subtab-Bereich */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.85);
+    text-align: center;
+    border-radius: 0.5rem;
+}
+
+.under-construction-subtab .overlay {
+    padding: 4rem 2rem;
+    color: #f8f9fa;
+}
+
+.under-construction-subtab .emoji {
+    font-size: 15rem;
+    animation: bounce 2.2s infinite;
+}
+
+.under-construction-subtab h2 {
+    color: #ffc107;
+    margin-top: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 2.5rem;
+}
+
+.under-construction-subtab p {
+    color: #d1d1d1;
+    margin-top: 1rem;
+    font-size: 1.25rem;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+</style>

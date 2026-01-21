@@ -1,0 +1,43 @@
+<!-- ==================================================== -->
+<!-- MARKET_CAP_COMMODITIES Subtab – Top Commodities -->
+<!-- ==================================================== -->
+
+<div id="MARKET_CAP_COMMODITIES" class="subtab-container fade-in-on-scroll">
+
+    <h1 class="subtab-title">
+        Commodities by Estimated Market Value
+    </h1>
+
+    <!-- Table -->
+    <div class="market-cap-table-wrapper">
+        <table class="market-cap-table">
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th>Commodity</th>
+                    <th>Estimated Market Value (USD)</th>
+                </tr>
+            </thead>
+            <tbody id="market-cap-commodities-table-body">
+                <!-- JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 🔄 Toggle -->
+    <div class="chart-toggle">
+        <button class="active" data-mode="absolute">Absolute (bn USD)</button>
+        <button data-mode="index">Index (BTC = 1.0)</button>
+    </div>
+
+    <!-- Horizontal Bar Chart -->
+    <div class="bar-chart-container mt-4">
+        <div
+            id="market-cap-commodities-bar-chart"
+            class="bar-chart-horizontal"
+        >
+            <!-- JS -->
+        </div>
+    </div>
+
+</div>

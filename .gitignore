@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment / secrets
+.env
+.env.*
+env/
+
+# Private configuration & docs
+INFO/
+
+# Runtime / generated data
+data/
+logs/
+tmp/
+
+# OS / Editor
+.DS_Store
+.vscode/
+.idea/

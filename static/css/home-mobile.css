@@ -1,0 +1,442 @@
+/* ================================================= */
+/* 📱 MOBILE OPTIMIERUNG – HOME TAB                  */
+/* Gilt ausschließlich für Smartphones              */
+/* FINAL – LAUNCH VERSION                            */
+/* ================================================= */
+
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+
+/* ================================================= */
+/* GLOBAL VIEWPORT SAFETY                            */
+/* ================================================= */
+
+html,
+body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden !important;
+}
+
+/* alles weitere Mobile-/Tablet-CSS */
+
+
+/* =============================================================================================================================== */
+
+
+/* ================================================= */
+/* NAVBAR – HORIZONTAL SCROLL (FINAL)                */
+/* ================================================= */
+
+nav {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  justify-content: flex-start !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  max-width: 100vw;
+
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+nav::-webkit-scrollbar {
+  display: none;
+}
+
+.tabButton {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+
+/* =============================================================================================================================== */
+/* =============================================================================================================================== */
+/* =============================================================================================================================== */
+
+
+/* ================================================= */
+/* TAB CONTENT SAFETY                                */
+/* ================================================= */
+
+.tabContent,
+#home {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* ================================================= */
+/* BACKGROUND & MATRIX CANVAS                        */
+/* ================================================= */
+
+body {
+  background-image: none !important;
+  background-color: #000 !important;
+}
+
+#matrix-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+nav,
+#home,
+#home .card {
+  position: relative;
+  z-index: 1;
+}
+
+
+
+/* =============================================================================================================================== */
+/* =============================================================================================================================== */
+/* =============================================================================================================================== */
+
+
+
+/* ================================================= */
+/* MOBILE – MATRIX HEADLINE EFFECT (CLEAN & STATIC)  */
+/* Ruhig, technisch, Canvas-kompatibel               */
+/* ================================================= */
+
+.rotating-title {
+  position: relative;
+
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18rem;
+  text-transform: uppercase;
+
+  color: #7CFF9A; /* Matrix-Grün */
+  text-shadow:
+    0 0 6px rgba(124, 255, 154, 0.35),
+    0 0 14px rgba(124, 255, 154, 0.15);
+
+  animation: matrixPulse 4.5s ease-in-out infinite;
+}
+
+.rotating-title span {
+  animation-duration: 3s; /* DESKTOP ~1.3s */
+}
+
+/* ------------------------------------------------- */
+/* Ruhiger Matrix-Puls (keine Bewegung, kein Sweep)  */
+/* ------------------------------------------------- */
+
+@keyframes matrixPulse {
+  0%, 100% {
+    opacity: 0.9;
+    text-shadow:
+      0 0 6px rgba(124,255,154,0.3),
+      0 0 14px rgba(124,255,154,0.15);
+  }
+  50% {
+    opacity: 1;
+    text-shadow:
+      0 0 10px rgba(124,255,154,0.45),
+      0 0 22px rgba(124,255,154,0.25);
+  }
+}
+
+
+
+/* =============================================================================================================================== */
+/* =============================================================================================================================== */
+/* =============================================================================================================================== */
+
+
+
+/* ================================================= */
+/* HOME CARDS                                       */
+/* ================================================= */
+
+#home .card {
+  width: 100% !important;
+  margin: 1.25rem auto !important;
+  border-radius: 1rem;
+}
+
+#home .card-header h4 {
+  font-size: 1rem;
+  letter-spacing: 0.2rem;
+}
+
+/* ================================================= */
+/* TOP BTC – CARD HEADER KOMPAKT                     */
+/* ================================================= */
+
+.card-header.top-btc-transactions h4,
+.card-header.top-btc-transactions-ever h4 {
+  font-size: 0.8rem !important;
+  letter-spacing: 0.12rem !important;
+  line-height: 1.2;
+}
+
+/* ================================================= */
+/* CARD CONTENT – EINZEILIG                          */
+/* ================================================= */
+
+#home .card-body p {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.64rem;
+  line-height: 1.05;
+}
+
+#home .card-body p strong {
+  max-width: 52%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.62rem;
+  opacity: 0.8;
+}
+
+#home .card-body p span {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.66rem;
+  font-weight: 700;
+}
+
+/* ================================================= */
+/* SIEGERHASH MARQUEE                                */
+/* ================================================= */
+
+#winner_hash_marquee-container {
+  max-width: 100%;
+}
+
+#winner_hash_marquee {
+  animation-duration: 40s;
+}
+
+/* =============================================================================================================================== */
+
+/* ================================================= */
+/* TOP BTC TABLE – MOBILE (FINAL CLEAN)              */
+/* ================================================= */
+
+#home .top-btc-table {
+  width: 100%;
+  table-layout: fixed;
+  font-size: 0.66rem;
+  border-collapse: collapse;
+}
+
+/* ------------------------------------------------- */
+/* ZELLEN – EINZEILIG & ELLIPSIS                     */
+/* ------------------------------------------------- */
+
+#home .top-btc-table th,
+#home .top-btc-table td {
+  padding: 0.3rem 0.45rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: normal;
+}
+
+/* ------------------------------------------------- */
+/* TOP BTC TABLE – Tabellen-Header (Mobile)          */
+/* ------------------------------------------------- */
+
+#home .top-btc-table thead th {
+  font-size: 0.6rem;
+  letter-spacing: 0.05rem;
+  line-height: 1.1;
+  font-weight: 700;        /* Header bewusst fett */
+  text-align: center;      /* visuell ruhig & symmetrisch */
+}
+
+
+/* ------------------------------------------------- */
+/* SPALTENBREITEN                                   */
+/* ------------------------------------------------- */
+
+/* NR */
+#home .top-btc-table th:nth-child(1),
+#home .top-btc-table td:nth-child(1) {
+  width: 9%;
+}
+/* NR – Header */
+#home .top-btc-table thead th:nth-child(1) {
+  text-align: center;
+}
+/* NR – Werte */
+#home .top-btc-table tbody td:nth-child(1) {
+  text-align: center;
+}
+
+
+/* TXID */
+#home .top-btc-table th:nth-child(2),
+#home .top-btc-table td:nth-child(2) {
+  width: 68%;
+  font-family: monospace;
+}
+
+
+/* BTC */
+#home .top-btc-table th:nth-child(3),
+#home .top-btc-table td:nth-child(3) {
+  width: 23%;
+  font-variant-numeric: tabular-nums;
+}
+/* BTC – Header */
+#home .top-btc-table thead th:nth-child(3) {
+  text-align: center;
+}
+/* BTC – Werte */
+#home .top-btc-table tbody td:nth-child(3) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+
+/* =============================================================================================================================== */
+
+
+/* ------------------------------------------------- */
+/* HOME TABLE SAFETY OVERRIDE                        */
+/* (gegen globale Mobile-Tabellen-Regeln)            */
+/* ------------------------------------------------- */
+
+#home table {
+  min-width: 0;
+  width: 100%;
+}
+
+
+/* =============================================================================================================================== */
+
+
+
+/* ================================================= */
+/* META DASHBOARD – MOBILE LAYOUT                    */
+/* Ziel: stabile 25 | 50 | 25 Aufteilung             */
+/* Safari-sicher, isoliert von Top-BTC               */
+/* ================================================= */
+
+
+/* ------------------------------------------------- */
+/* Basis: Zellen ruhig & einzeilig                   */
+/* ------------------------------------------------- */
+
+.meta-dashboard-table th,
+.meta-dashboard-table td {
+  padding: 0.3rem 0.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ------------------------------------------------- */
+/* Safari Isolation & Fix-Layout                     */
+/* ------------------------------------------------- */
+
+#home .meta-dashboard-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+
+/* ------------------------------------------------- */
+/* Spaltenaufteilung: 25 | 50 | 25                   */
+/* (Hard Override gegen frühere Tabellen)            */
+/* ------------------------------------------------- */
+
+#home .meta-dashboard-table th:nth-child(1),
+#home .meta-dashboard-table td:nth-child(1) {
+  width: 30% !important;
+}
+
+#home .meta-dashboard-table th:nth-child(2),
+#home .meta-dashboard-table td:nth-child(2) {
+  width: 50% !important;
+}
+
+#home .meta-dashboard-table th:nth-child(3),
+#home .meta-dashboard-table td:nth-child(3) {
+  width: 20% !important;
+}
+
+
+/* ------------------------------------------------- */
+/* META DASHBOARD – Systemkomponenten Typografie     */
+/* ------------------------------------------------- */
+
+#home .meta-dashboard-table td:nth-child(1) {
+  font-size: 0.65rem;     /* angepasst an andere Home-Werte */
+  font-weight: 500;      /* leicht ruhiger als vorher */
+  opacity: 0.9;          /* visuell zurückgenommen */
+}
+
+/* ------------------------------------------------- */
+/* Meta-Dashboard Bars                               */
+/* ------------------------------------------------- */
+
+.meta-bar-wrapper {
+  height: 11px;
+}
+
+.meta-right {
+  font-size: 0.75rem;
+}
+
+
+/* ================================================= */
+/* DONATION CARD                                    */
+/* ================================================= */
+
+.donation .card-body {
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.donation .text {
+  font-size: 0.75rem;
+}
+
+.donation img {
+  max-width: 140px;
+}
+
+/* ================================================= */
+/* BTC-ADRESSE LABEL FIX                             */
+/* ================================================= */
+
+#home .card-body p.btc-label {
+  display: block !important;
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+
+#home .card-body p.btc-label strong {
+  white-space: nowrap;
+  font-size: 0.8rem;
+}
+
+/* ================================================= */
+/* FOOTER                                           */
+/* ================================================= */
+
+footer {
+  font-size: 0.7rem;
+  padding: 1rem;
+}
+
+
+
+
+}

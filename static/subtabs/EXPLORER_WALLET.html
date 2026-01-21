@@ -1,0 +1,36 @@
+<!-- ================================================= -->
+<!-- EXPLORER_WALLET.html – Wallet Explorer (Sub-HTML) -->
+<!-- ================================================= -->
+<section class="explorer-section">
+
+    <h1 class="headline-explorer">Wallet Explorer</h1>
+
+    <p class="explorer-description">
+        Analyze multiple Bitcoin addresses together as a single wallet and
+        view aggregated balances, UTXOs, and transaction histories.
+    </p>
+
+    <!-- Input -->
+    <div class="explorer-input-group">
+        <textarea
+            id="explorer-wallet-input"
+            placeholder="Enter one Bitcoin address per line"
+            rows="6"
+            autocomplete="off"
+        ></textarea>
+
+        <button id="explorer-wallet-analyze">
+            Analyze Wallet
+        </button>
+    </div>
+
+    <!-- Status -->
+    <div id="explorer-wallet-status" class="explorer-status"></div>
+
+    <!-- Summary -->
+    <div id="explorer-wallet-summary" class="explorer-summary" style="display:none;"></div>
+
+    <!-- Breakdown -->
+    <div id="explorer-wallet-breakdown" class="explorer-result" style="display:none;"></div>
+
+</section>

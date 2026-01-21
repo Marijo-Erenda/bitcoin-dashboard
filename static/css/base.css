@@ -1,0 +1,665 @@
+/* ======================================= */
+/* GLOBALES STYLING - DASHBOARD | base.css */
+/* ======================================= */
+
+html {
+  font-size: 16px;
+}
+
+
+/* =========================== */
+/* NAV & SUBNAV-Formatierungen */
+/* =========================== */
+
+/* Navbar Hintergrund und Layout */
+nav {
+    background: rgba(0,0,0,0.8); 
+    padding: 0.625rem; /* 10px Innenabstand */
+    display: flex; 
+    justify-content: center; /* Buttons zentrieren */
+}
+
+/* Navbar Buttons Grundstil */
+nav button {
+    position: relative; /* nötig für z-index */
+    z-index: 1000;      /* hoch genug, um über anderen Inhalten zu liegen */
+    background: none; 
+    border: none; 
+    color: #fff; 
+    padding: 0.625rem 1.25rem; /* 10px 20px */
+    cursor: pointer; 
+    font-size: 1rem; 
+    outline: none; 
+}
+
+/* Aktiver Navbar-Button */
+nav button.active { 
+    border-bottom: 0.125rem solid #f2a900; /* Gelber Unterstrich */
+}
+
+/* Subnav Hintergrund und Layout */
+.subnav {
+    display: flex; 
+    justify-content: center; 
+    background: rgba(0,0,0,0.5); 
+    padding: 0.625rem; /* 10px Innenabstand */
+    margin-top: 0.625rem; /* 10px Abstand nach oben */
+    flex-wrap: wrap; /* Zeilen umbrechen */
+}
+
+/* Subnav Buttons */
+.subnav button {
+    background: none; 
+    border: none; 
+    color: #fff; 
+    padding: 0.5rem 1rem; /* 8px 16px Innenabstand */
+    cursor: pointer; 
+    font-size: 0.95rem; 
+    outline: none; 
+    margin: 0.125rem; /* 2px Abstand */
+}
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+/* =============================== */
+/* Rotating title im Home-Tab */
+/* =============================== */
+/* Rotating Title transparent, damit Matrix-Background durchscheint */
+.rotating-title {
+    display: flex;
+    justify-content: space-evenly; /* gleichmäßiger Abstand über volle Breite */
+    align-items: center;
+    width: 100%;       /* volle Breite */
+    font-size: 4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 1.875rem; /* 30px */
+
+    font-family: "Courier New", "OCR A Std", monospace; /* digitale Schriftart */
+    background-color: transparent !important; /* kein Hintergrund */
+    box-shadow: none !important;              /* keine Schatten */
+    border: none !important;                  /* keine Ränder */
+    position: relative;                       /* über Canvas */
+    z-index: 1;                               /* sicherstellen, dass Inhalt über Canvas liegt */
+}
+
+.rotating-title span {
+    display: inline-block;
+    color: gold;
+    text-shadow: 0.125rem 0.125rem 0.3125rem #000; /* 2px 2px 5px */
+    animation: rotate 1.3s infinite;
+    animation-delay: calc(0.1s * var(--i));
+    transform-origin: center;
+    transform-style: preserve-3d;
+
+    background-color: transparent !important; /* sicherstellen, dass kein Span-Hintergrund stört */
+    box-shadow: none !important;              /* keine Schatten auf Span */
+    border: none !important;                  /* keine Ränder */
+}
+
+@keyframes rotate {
+    0% { transform: rotateY(0deg); color: gold; }
+    50% { transform: rotateY(180deg); color: white; }
+    100% { transform: rotateY(360deg); color: gold; }
+}
+
+
+/* ================================================================================================================================================================= */
+
+
+/* ===================================== */
+/* SEO INTRO – invisible but indexable   */
+/* ===================================== */
+.seo-intro {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+
+/* ================================================================================================================================================================= */
+
+
+/* =================================== */
+/* CARDS & TEXT – Home-Tab Anpassungen */
+/* =================================== */
+
+/* Karten transparent, damit Matrix durchscheint */
+#home {
+    position: relative;
+    overflow: hidden; /* Canvas bleibt sauber */
+    width: 100%; /* statt 200vw */
+}
+
+/* Abstand zwischen Überschrift (rotating-title) und erster Card */
+#home .rotating-title {
+    margin-bottom: 5rem; /* Abstand nach unten zur ersten Card */
+}
+
+
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+
+
+/* ============================================= */
+/* HOME-TAB CARDS – Card-Header Farben & Styling */
+/* ============================================= */
+
+/* Grundregeln für alle Card-Header */
+/* ================================ */
+#home .card-header {
+    border-radius: 1rem 1rem 0 0;                    /* obere Ecken abgerundet */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);         /* leichter Schatten für Tiefe */
+    padding: 1rem;                                   /* Innenabstand */
+    text-align: center;                              /* Überschrift zentriert */
+}
+
+/* Standard: h4 */
+#home .card-header h4 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 600;
+    color: white; 
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.25rem;
+}
+
+/* HOME_CARD*/
+#home .card {
+    flex: none;                                      /* verhindert Flex-Schrumpfung */
+    width: 85%;                                      /* Breite der Card */
+    max-width: none;                                 /* keine künstliche Begrenzung */
+    margin: 5rem auto;                               /* vertikaler Abstand oben/unten: 5rem, horizontal zentriert */
+    box-sizing: border-box;                          /* Padding/Border korrekt einberechnen */
+    background-color: rgba(255, 255, 255, 0.1);    /* leicht transparentes Weiß, Hintergrund durchscheint */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);        /* leichter Schatten für Tiefe */
+    border: 1px solid rgba(255, 255, 255, 0.2);    /* dezente Linie um die Card */
+    border-radius: 1rem;                             /* abgerundete Ecken */
+    position: relative;                              /* für Layering */
+    z-index: 1;                                      /* sorgt dafür, dass die Card über Canvas liegt */
+}
+
+/* ================================================= */
+/* HOME – CARD BODY BASIS (ALLE außer Donation)     */
+/* ================================================= */
+
+#home .card:not(.donation) .card-body p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    border-bottom: 0.0625rem solid #ccc;
+
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: white;
+}
+
+#home .card:not(.donation) .card-body p strong {
+    flex: 1;
+    text-align: left;
+
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* ============================================= */
+/* HOME – SYSTEM / VALUE FONT (OPTIONAL OVERLAY) */
+/* ============================================= */
+
+/* Werte in Cards (rechts) */
+#home .card:not(.donation) .card-body p span {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+}
+
+/* Meta-Dashboard / Systemstatus */
+.meta-dashboard-table td,
+.meta-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+}
+
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+
+
+/* ============================================= */
+/* BLOCKCHAIN-INFO->SIEGERHASH */
+/* ============================================== */
+
+.card.blockchain .card-body {
+    overflow-x: hidden;
+}
+
+/* Spezieller Marquee-Container außerhalb von Flex-Layout */
+#winner_hash_marquee-container {
+    display: inline-block !important;  /* Flex wird überschrieben */
+    position: relative; 
+    overflow: hidden;
+    max-width: 40rem;;   /* sichtbare Breite */
+    vertical-align: middle;
+}
+
+#winner_hash_marquee {
+    display: inline-block;
+    white-space: nowrap;
+    will-change: transform;
+    animation: scroll-hash 75s linear infinite;
+}
+
+
+
+@keyframes scroll-hash {
+    0%   { transform: translateX(100%); }
+    100% { transform: translateX(-120%); }
+}
+
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+/* ============================================== */
+/* Card Header Hintergrundfarben (gesamte Spalte) */
+/* ============================================== */
+
+/* Bitcoin-Info Card */
+.card-header.bitcoin {
+    background-color: rgba(141, 139, 19, 0.5); /* Orange mit Transparenz */
+}
+/* Blockchain-Info Card */
+.card-header.blockchain {
+    background-color: rgba(5, 54, 107, 0.5); /* Blau mit Transparenz */
+}
+/* Mempool-Info Card */
+.card-header.mempool {
+    background-color: rgba(23, 162, 184, 0.5); /* Hellblau mit Transparenz */
+}
+/* TOP-10-BTC-Transaktionen */
+.card-header.top-btc-transactions {
+    background-color: rgba(211, 18, 18, 0.5); /* Blau mit Transparenz */
+}
+/* TOP-50-BTC-Transaktionen - EVER */
+.card-header.top-btc-transactions-ever {
+    background-color: rgba(0, 0, 0, 0.5); /* Schwarz mit Transparenz */
+}
+/* Netzwerk-Info Card */
+.card-header.network {
+    background-color: rgba(10, 80, 26, 0.5); /* Grün mit Transparenz */
+}
+/* Besucher-Info Card */
+.card-header.visitor {
+    background-color: rgba(99, 97, 96, 0.2); /* Orange mit Transparenz */
+}
+/* Unterstütze-Projekt Card */
+.card-header.donation {
+    background-color: rgba(52, 58, 64, 0.2); /* Dunkelgrau mit Transparenz */
+}
+/* META-DASHBOARD */
+.card-header.meta {
+    background-color: rgba(25, 117, 12, 0.1); /* Schwarz mit erhöhter Transparenz */
+}
+
+/* LINKS & RECHTS IDENTISCH FORMATIEREN */
+#bitcoin-info p,
+#blockchain-info p,
+#mempool-info p,
+#visitor-info p,
+#donation-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3125rem;
+    border-bottom: 0.0625rem solid #ccc;
+    padding-bottom: 0.3125rem;
+
+    text-transform: none;      /* KEIN UPPERCASE */
+    font-weight: normal;       /* KEIN FETT BY DEFAULT */
+    font-size: 1.6rem;         /* SCHRIFTGRÖßE Einheitliche Größe */
+    color: white;            /* Einheitliche Farbe */
+}
+
+/* Zusätzlicher Abstand oben für Container */
+.container.mt-5 { 
+    margin-top: 9.375rem; /* 150px */
+}
+
+/* ================================================================================================================================================================= */
+
+/* =============================================== */
+/* HOME – TOP BTC TABLE (CARD-CONTENT STYLE)       */
+/* =============================================== */
+
+#home .top-btc-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    font-size: 1.6rem;          /* identisch zu Card-Body */
+    font-weight: 500;           /* ruhig wie Card-Werte */
+    color: white;
+    font-family: inherit;
+}
+
+/* Zellen – wie Card-Zeilen */
+#home .top-btc-table th,
+#home .top-btc-table td {
+    padding: 0.3125rem 0.5rem;          /* Card-Zeilen-Rhythmus */
+    border-bottom: 0.0625rem solid #ccc;
+
+    word-break: break-all;
+    font-weight: 500;                   /* ❗ nicht fett */
+    text-transform: none;
+}
+
+/* Tabellen-Header = Labels */
+#home .top-btc-table thead th {
+    background-color: transparent;
+
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+
+    font-size: 1.6rem;                  /* nicht größer als Content */
+    color: white;
+}
+
+/* Spaltenausrichtung */
+/* NR */
+#home .top-btc-table th:nth-child(1),
+#home .top-btc-table td:nth-child(1) {
+    text-align: left;
+}
+
+/* TXID */
+#home .top-btc-table th:nth-child(2),
+#home .top-btc-table td:nth-child(2) {
+    text-align: center;
+}
+
+/* BTC */
+#home .top-btc-table th:nth-child(3),
+#home .top-btc-table td:nth-child(3) {
+    text-align: right;
+    font-variant-numeric: tabular-nums; /* ruhige Zahlen */
+}
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+/* =========================================== */
+/* Spenden-Karte Styling */
+/* =========================================== */
+/* Flexbox für Spendenkarten */
+.donation .card-body {
+    display: flex; 
+    justify-content: space-between; /* Inhalt aufteilen */
+    align-items: center; /* Vertikal zentrieren */
+    flex-wrap: wrap; /* Zeilen umbrechen, falls nötig */
+}
+
+/* Textbereich in Spendenkarten */
+.donation .text {
+    max-width: 70%; /* z. B. 70% der Karte für Text */
+    color: white;            /* Einheitliche Farbe */
+    flex: 1 1 auto; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    padding-right: 0.9375rem; /* 15px Abstand rechts */
+    min-width: 12.5rem; /* 200px Mindestbreite */
+    text-align: center; 
+}
+
+/* Codeblöcke in Spendenkarten */
+.donation code {
+    word-break: break-all; /* Zeilenumbruch bei langen Codes */
+    display: inline-block;
+    padding: 0.25rem 0.5rem; /* 4px 8px Innenabstand */
+    background: #f8f9fa; 
+    border-radius: 0.375rem; /* 6px abgerundete Ecken */
+}
+
+/* Kopieren-Button in Donation-Card vergrößern */
+.donation #copyBtn {
+    font-size: 1.25rem;          /* größere Schrift */
+    padding: 0.25rem 0.5rem;     /* mehr Innenabstand */
+    min-width: 6rem;             /* Mindestbreite für bessere Klickbarkeit */
+}
+
+/* QR-Code Bereich in Spendenkarten */
+.donation .qr {
+    flex: 0 0 auto; 
+    text-align: right; 
+    margin-top: 0.625rem; /* 10px Abstand oben */
+}
+
+/* Linie in der Donation-Card entfernen */
+.donation #donation-info,
+.donation .card-body p {
+    border-bottom: none;
+}
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+/* =============================================== */
+/* META-DASHBOARD – SYSTEMSTATUS TABELLE           */
+/* =============================================== */
+
+/* Kontext: Meta-Dashboard Card */
+#meta-dashboard th,
+#meta-dashboard td {
+    font-weight: 400;
+    text-transform: none;
+}
+
+/* Kopfzeilen */
+#meta-dashboard thead th {
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+/* =============================================== */
+/* META-DASHBOARD TABLE                            */
+/* =============================================== */
+
+.meta-dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;          /* Desktop flexibel */
+    font-size: 1.5rem;
+    color: white;
+    font-family: inherit;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+/* Zellen */
+.meta-dashboard-table th,
+.meta-dashboard-table td {
+    padding: 0.3125rem 0.625rem;           /* 5px / 10px */
+    border-bottom: 0.0625rem solid #ccc;   /* 1px */
+    font-weight: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Kopfzeile */
+.meta-dashboard-table thead th {
+    background-color: transparent;
+    font-size: 1.75rem;
+    color: white;
+    text-transform: uppercase;
+}
+
+/* =============================================== */
+/* SPALTENAUSRICHTUNG                              */
+/* =============================================== */
+
+/* Links: Systemkomponente */
+.meta-dashboard-table th:nth-child(1),
+.meta-dashboard-table td:nth-child(1) {
+    text-align: left;
+}
+
+/* Mitte: Status-Balken */
+.meta-dashboard-table th:nth-child(2),
+.meta-dashboard-table td:nth-child(2) {
+    text-align: center;
+}
+
+/* Rechts: Wert */
+.meta-dashboard-table th:nth-child(3),
+.meta-dashboard-table td:nth-child(3) {
+    text-align: right;
+}
+
+
+/* =============================================== */
+/* FIX: Meta-Bar-Zelle darf nicht schrumpfen        */
+/* =============================================== */
+
+.meta-dashboard-table td.meta-bar-cell,
+.meta-dashboard-table th:nth-child(2) {
+  width: 50%;
+}
+
+/* =============================================== */
+/* META-DASHBOARD BALKEN                           */
+/* =============================================== */
+
+.meta-bar-cell {
+    text-align: center;
+    padding: 0;
+}
+
+/* Balken-Wrapper */
+.meta-bar-wrapper {
+    width: 100%;
+    height: 16px;
+    background-color: #333333;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 2px 0;
+}
+
+/* Balken-Füllung (Basis) */
+.meta-bar-wrapper > div,
+.meta-bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 8px;
+    background-color: #ced4ce;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* =============================================== */
+/* KOMPONENTENSPEZIFISCHE FARBEN                    */
+/* =============================================== */
+
+/* SYSTEM / STORAGE / CACHE / API */
+#cpu-load-bar,
+#ram-display-bar,
+#swap-usage-bar,
+#nvme-read-bar,
+#nvme-write-bar,
+#nvme-free-bar,
+#redis-hits-bar,
+#redis-misses-bar,
+#reqs-per-sec-bar,
+#api-requests-bar,
+#redis-used-bar {
+    background-color: #4caf50;
+}
+
+/* SONDERFARBEN */
+#redis-misses-bar { background-color: #e00909;}
+#network-internet-download-bar { background-color: #1976d2;}
+#network-internet-upload-bar { background-color: #64b5f6;}
+#network-lan-download-bar { background-color: #0d47a1;}
+
+
+/* =============================================== */
+/* RECHTE WERTESPALTE                              */
+/* =============================================== */
+
+.meta-right {
+    text-align: right;
+    padding-left: 0.25rem;
+    white-space: nowrap;
+}
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+/* Footer */
+/* ====== */
+/* Footer zentrieren und Farbe setzen */
+footer { 
+    z-index: 1000;
+    text-align: center; 
+    margin-top: 1.25rem; 
+    color: #fff; 
+}
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+

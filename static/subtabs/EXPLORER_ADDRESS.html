@@ -1,0 +1,40 @@
+<!-- =================================================== -->
+<!-- EXPLORER-ADDRESS.html – Address Explorer (Sub-HTML) -->
+<!-- =================================================== -->
+<section class="explorer-section">
+
+    <h1 class="headline-explorer">Address Explorer</h1>
+
+    <p class="explorer-description">
+        Here you can view the balance, transaction history, and UTXOs of any Bitcoin address.
+    </p>
+
+    <!-- Input -->
+    <div class="explorer-input-group">
+        <input
+            type="text"
+            id="explorer-address-input"
+            placeholder="Enter a valid Bitcoin address"
+            autocomplete="off"
+        />
+        <button id="explorer-address-search">
+            Search
+        </button>
+    </div>
+
+    <!-- Status -->
+    <div id="explorer-address-status" class="explorer-status">
+        <!-- status message -->
+    </div>
+
+    <!-- Summary -->
+    <div id="explorer-address-summary" class="explorer-summary" style="display:none;">
+        <!-- balance / stats -->
+    </div>
+
+    <!-- History -->
+    <div id="explorer-address-history" class="explorer-result" style="display:none;">
+        <!-- transaction list -->
+    </div>
+
+</section>

@@ -1,0 +1,2450 @@
+/* ============================================== */
+/* EINHEITLICHES STYLING für alle Tabs außer Home */
+/* ============================================== */
+
+/* ------------------------------------------- */
+/* Grundformat für Subtabs außer Home           */
+/* ------------------------------------------- */
+.subtab-container:not(.home-container) {
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center; /* Alles zentrieren */
+    font-size: 1rem;    /* Basisgröße für Subtabs */
+}
+
+/* ------------------------------------------- */
+/* Überschrift für Subtabs außer Home            */
+/* ------------------------------------------- */
+.subtab-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    letter-spacing: 0.05em;
+    position: relative;
+
+    /* 🔶 Bitcoin-Gold Verlauf (AKTUELLER LOOK) */
+    background: linear-gradient(
+        180deg,
+        #fff4d6 0%,     /* helles Gold */
+        #f2b705 40%,    /* Bitcoin-Gold */
+        #d98b00 70%,    /* sattes Orange */
+        #a96a00 100%    /* Tiefe */
+    );
+
+    /* Text-Gradient */
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* 🔹 Tiefe & Glanz */
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.35),
+        0 3px 10px rgba(0,0,0,0.6);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dekorative Linie unter Überschrift */
+.subtab-title::after {
+    content: "";
+    display: block;
+
+    width: 40%;
+    max-width: 18rem;
+    height: 3px;
+    margin: 0.9rem auto 0;
+
+    background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0.0),
+        rgba(255,215,0,0.85),
+        rgba(255,255,255,0.0)
+    );
+
+    border-radius: 3px;
+}
+
+/* ------------------------------------------- */
+/* Subnav-Container                              */
+/* ------------------------------------------- */
+.subtab-container:not(.home-container) .subnav {
+    display: inline-flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0.625rem 1.25rem;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 0.625rem;
+    margin: 0 auto 1.5625rem auto;
+}
+
+/* Subnav-Buttons */
+.subtab-container:not(.home-container) .subnav button {
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    margin: 0.125rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-bottom 0.2s, color 0.2s;
+}
+
+/* Aktiver Subnav-Button */
+.subtab-container:not(.home-container) .subnav button.active {
+    border-bottom: 0.125rem solid #1E90FF;
+    color: #fff;
+}
+
+/* Hover-Effekt */
+.subtab-container:not(.home-container) .subnav button:hover {
+    color: #FFD700;
+}
+
+/* ------------------------------------------- */
+/* Content-Bereich (subtab-section)              */
+/* ------------------------------------------- */
+.subtab-container:not(.home-container) .subtab-section {
+    width: 100%;
+    background: rgba(15, 15, 15, 0.7);
+    padding: 1.875rem 2.8125rem;
+    margin-bottom: 1.5625rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.5);
+}
+
+/* Text */
+.subtab-container:not(.home-container) .subtab-section p {
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+    color: #f0f0f0;
+}
+
+/* Listen */
+.subtab-container:not(.home-container) .subtab-section ul {
+    margin-left: 1.5625rem;
+}
+
+/* Hervorhebungen */
+.subtab-container:not(.home-container) .subtab-section p strong {
+    color: #fff;
+}
+
+/* Hover-Effekt Content */
+.subtab-container:not(.home-container) .subtab-section:hover {
+    background: rgba(20, 20, 20, 0.8);
+    transition: background 0.3s ease;
+}
+
+/* ------------------------------------------- */
+/* Globaler Hintergrund                         */
+/* ------------------------------------------- */
+body {
+    background-image: url('/static/images/Bitcoin.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+/* ========================================== */
+/* GENERISCHER ACCORDION-STANDARD für Subtabs */
+/* ========================================== */
+.accordion-container {
+    text-align: center;
+}
+
+.accordion-card {
+    background: rgba(20,20,20,0.5);
+    border: 0.0625rem solid rgba(255,255,255,0.15); /* 1px -> rem */
+    border-radius: 1rem;
+    box-shadow: 0 0 0.75rem rgba(0,0,0,0.3);
+    margin-bottom: 0.625rem; /* 1rem margin für Abstand */
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.3s ease;
+    color: #fff;
+}
+
+.accordion-card:hover {
+    transform: translateY(-0.125rem); /* 0.2rem -> rem */
+    box-shadow: 0 0 1.125rem rgba(255, 255, 255, 0.2);
+}
+
+.accordion-header {
+    background: rgba(20,20,20,0.5);
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.3rem;
+    padding: 0.875rem 1.5625rem; /* 14px 25px -> rem */
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+    transition: background 0.3s ease, color 0.3s ease;
+    border-bottom: 0.0625rem solid rgba(255,255,255,0.15); /* 1px */
+}
+
+.accordion-header:hover {
+    background: rgba(255,215,0,0.1);
+    color: #fff;
+}
+
+.accordion-body {
+    background: rgba(20,20,20,0.5);
+    color: #fff;
+    text-align: justify;
+    padding: 1.25rem 1.5625rem; /* 20px 25px -> rem */
+    line-height: 1.7;
+    border-top: 0.0625rem solid rgba(255,255,255,0.15);
+    border-radius: 0 0 1rem 1rem;
+    box-shadow: inset 0 0.0625rem 0.3125rem rgba(255,255,255,0.05);
+}
+
+.accordion-body p,
+.accordion-body ul,
+.accordion-body ol,
+.accordion-body li {
+    font-size: 1.4rem; /* vorher 1.4rem oder px */
+    line-height: 1.7;
+    color: #f0f0f0;
+    margin-bottom: 0.75rem;
+}
+
+.accordion-body strong {
+    color: #fff;
+}
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+/* ========================= */
+/* REVOLUTION_HISTORY Subtab */
+/* ========================= */
+
+/* REVOLUTION_HISTORY spezifischer Fließtext */
+.REVOLUTION_HISTORY-text {
+    font-size: 1.75rem; /* gleiche Größe wie Technology-Tab */
+    line-height: 1.7;
+    color: #f0f0f0;
+    text-align: justify;
+    margin-bottom: 0.75rem;
+}
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+/* ================================================== */
+/* WHITEPAPER – Full-Width, rem-based, no white frame */
+/* ================================================== */
+
+.WHITEPAPER-text {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.WHITEPAPER-pdf-wrapper {
+    width: 95vw;
+    max-width: 120rem;
+    height: 90vh;
+    margin: 2rem auto 0 auto;
+    background: transparent;
+    border-radius: 1rem;
+    padding: 0;
+    box-shadow: 0 0.4rem 1.4rem rgba(0,0,0,0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.WHITEPAPER-pdf {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 1rem;
+}
+
+/* =========================== */
+/* WHITEPAPER – Button Styling */
+/* =========================== */
+
+.WHITEPAPER-btn {
+    background-color: #222;      /* Anthrazit */
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.6rem;
+    font-size: 1.1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.WHITEPAPER-btn:hover {
+    background-color: #d4af37;   /* Gold-Effekt */
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+    animation: whitepaper-goldpulse 1.2s ease-in-out infinite;
+}
+
+@keyframes whitepaper-goldpulse {
+    0%   { box-shadow: 0 0 8px  rgba(212,175,55,0.4); }
+    50%  { box-shadow: 0 0 16px rgba(212,175,55,0.7); }
+    100% { box-shadow: 0 0 8px  rgba(212,175,55,0.4); }
+}
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+/* ======================================================================== */
+/* NETWORK_STRUCTURE CSS – spezifische Formatierungen für Netzwerk-Struktur */
+/* ======================================================================== */
+
+
+/* =========================== */
+/* ÜBERSCHRIFTEN (alle Karten) */
+/* =========================== */
+.NETWORK_STRUCTURE-node {
+    padding: 14px 20px;
+    text-align: center;
+    border-radius: 15px;
+
+    box-shadow:
+        0 0 0 1px rgba(0,0,0,0.6),
+        0 0 10px rgba(0,0,0,0.35);
+
+    background: linear-gradient(
+        145deg,
+        rgba(30,30,30,0.9),
+        rgba(50,50,50,0.9)
+    );
+
+    color: #fff;
+    font-size: 1.35rem;
+    font-weight: normal;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* ======================= */
+/* FLIEßTEXT (alle Karten) */
+/* ======================= */
+.NETWORK_STRUCTURE-node-info {
+    margin-top: 5px;
+    font-size: 0.8em;
+    color: #ccc;
+}
+
+
+/* ============================= */
+/* Hauptknoten: Bitcoin Netzwerk */
+/* ============================= */
+.NETWORK_STRUCTURE-main-node {
+    width: 100%;
+    padding: 20px 0;
+    border-radius: 15px; /* IDENTISCH zu .NETWORK_STRUCTURE-node */
+    font-size: 1.5rem;
+    text-align: center;
+
+    background: linear-gradient(
+        145deg,
+        rgba(255,215,0,0.2),
+        rgba(255,165,0,0.2)
+    );
+
+    box-shadow:
+        0 0 0 25px rgba(255,200,100,0.1),
+        0 0 10px rgba(0,0,0,0.35);
+
+    color: #fff;
+    margin-bottom: 20px;   
+}
+
+/* ======================= */
+/* Netzwerk-Tree Container */
+/* ======================= */
+.NETWORK_STRUCTURE-network-tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 40px;
+    width: 100%;
+}
+
+/* =========================== */
+/* Layer 1 & Layer 2 Container */
+/* =========================== */
+.NETWORK_STRUCTURE-network-base,
+.NETWORK_STRUCTURE-layer1,
+.NETWORK_STRUCTURE-layer2 {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(20,20,20,0.5);
+    box-shadow: 0 0 12px rgba(0,0,0,0.3);
+}
+
+/* Abstand Layer 2 unter Layer 1 */
+.NETWORK_STRUCTURE-layer2 {
+    margin-top: 20px;
+}
+
+/* Hover */
+.NETWORK_STRUCTURE-node:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 0 0 1px rgba(255,200,0,0.45),
+        0 0 15px rgba(255,200,0,0.4);
+}
+
+/* =============== */
+/* Größensteuerung */
+/* =============== */
+.NETWORK_STRUCTURE-layer1 > .NETWORK_STRUCTURE-node,
+.NETWORK_STRUCTURE-layer2 > .NETWORK_STRUCTURE-node {
+    flex: 1 1 33%;
+    min-width: 300px;
+}
+
+.NETWORK_STRUCTURE-layer2 .NETWORK_STRUCTURE-node {
+    flex: 1 1 30%;
+    min-width: 180px;
+}
+
+/* ======================= */
+/* Nodes & Miner Container */
+/* ======================= */
+.NETWORK_STRUCTURE-network-base {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    max-width: 500px;
+    background: rgba(20,20,20,0.5);
+}
+
+/* =========== */
+/* Zusatzinfos */
+/* =========== */
+.NETWORK_STRUCTURE-node span {
+    display: block;
+    color: #bbb;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+/* =============== */
+/* Zusammenfassung */
+/* ===============  */
+.summary {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 30px auto 0 auto;
+    max-width: 700px;
+    text-align: center;
+}
+
+.summary p {
+    color: #f0f0f0;
+    line-height: 1.7;
+    font-size: 1em;
+}
+
+/* ================================================================================================================================================================= */
+
+/* ============================================================= */
+/* NETWORK_NODES & NETWORK_MINER Subtabs – gemeinsames Styling   */
+/* ============================================================= */
+
+/* Container */
+#NETWORK_NODES,
+#NETWORK_MINER {
+    text-align: justify;
+    margin-top: 0;             /* verhindert zusätzlichen Browser-Standardabstand */
+    padding-top: 1rem;         /* Container oben */
+    border-radius: 0.75rem;    /* 12px -> 0.75rem */
+}
+
+/* Subtab-Sections */
+#NETWORK_NODES .subtab-section,
+#NETWORK_MINER .subtab-section {
+    background: rgba(15, 15, 15, 0.7);
+    padding: 1.875rem 2.8125rem; /* 30px 45px */
+    margin-bottom: 1.5625rem;    /* 25px */
+    border-radius: 0.625rem;     /* 10px */
+    transition: background 0.3s ease;
+}
+
+#NETWORK_NODES .subtab-section:hover,
+#NETWORK_MINER .subtab-section:hover {
+    background: rgba(20, 20, 20, 0.8);
+}
+
+#NETWORK_NODES h3,
+#NETWORK_MINER h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 0;   
+    margin-bottom: 0.9375rem; /* 15px */
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 0 0.3125rem rgba(0,0,0,0.5);
+}
+
+#NETWORK_NODES h4,
+#NETWORK_MINER h4 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem; /* 12px */
+    color: #32CD32;
+    text-align: center;
+    text-shadow: 0 0 0.25rem rgba(0,0,0,0.5); /* 4px */
+}
+
+/* Fließtext & Listen */
+#NETWORK_NODES #NETWORK_NODES_countries-container div,
+#NETWORK_NODES p,
+#NETWORK_NODES ul,
+#NETWORK_NODES ol,
+#NETWORK_NODES li,
+#NETWORK_MINER p,
+#NETWORK_MINER ul,
+#NETWORK_MINER ol,
+#NETWORK_MINER li {
+    font-size: 1.4rem;
+    line-height: 1.7;
+    color: #f0f0f0;
+    margin-bottom: 0.25rem;  /* enger Abstand */
+}
+
+/* ------------------------------- */
+/* NETWORK_MINER Listen & Abstände */
+/* ------------------------------- */
+#NETWORK_MINER_known_list,
+#NETWORK_MINER_live_list {
+    list-style: none;      /* Bulletpoints entfernen */
+    padding-left: 0;       /* links bündig */
+    margin-top: 0;         /* Abstand oben entfernen */
+    margin-bottom: 0;      /* minimaler Abstand nach unten */
+}
+
+#NETWORK_MINER_known_list li,
+#NETWORK_MINER_live_list li {
+    margin-bottom: 0.25rem; /* Abstand zwischen Listenelementen */
+}
+
+/* Abstand zwischen letzter Listeneintrag und erstem LEGEND-Text */
+#NETWORK_MINER_live_list + .NETWORK_MINER-legend {
+    margin-top: 0.5rem; /* 8px -> 0.5rem */
+}
+
+/* Optional: zentrierte Bilder in Nodes und Miner */
+#NETWORK_NODES .network-image,
+#NETWORK_MINER .network-image {
+    text-align: center;
+    margin-bottom: 1.5rem; /* 24px */
+}
+
+#NETWORK_NODES .network-image img,
+#NETWORK_MINER .network-image img {
+    max-width: 18.75rem; /* 300px */
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+}
+
+/* Spezielle Sektionen wie Gesamtanzahl, Länder, Karte */
+#NETWORK_NODES #NETWORK_NODES_total-nodes-section,
+#NETWORK_NODES #NETWORK_NODES_nodes-by-country-section,
+#NETWORK_NODES #NETWORK_NODES_world-map-section,
+#NETWORK_MINER #NETWORK_MINER_known,
+#NETWORK_MINER #NETWORK_MINER_live {
+    text-align: center;
+    margin-bottom: 1.5rem; /* 24px */
+}
+
+/* Weltkarte Nodes oder Live-Liste Miner */
+#NETWORK_NODES #NETWORK_NODES_world-map,
+#NETWORK_MINER #NETWORK_MINER_live_list {
+    width: 100%;
+    height: 25rem; /* 400px */
+}
+
+/* LEGEND Styling */
+.NETWORK_MINER-legend {
+    font-size: 1.4rem;
+    line-height: 1.7;
+    color: #f0f0f0;
+    text-align: justify;
+    margin-top: 1.25rem;  /* 20px */
+    margin-bottom: 0.75rem; /* 12px */
+}
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+/* ======================================== */
+/* METRICS - HEADLINE (Single Source Truth) */
+/* ======================================== */
+
+.headline-metrics-btc-usd-eur {
+    font-family: "Courier New", monospace;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+
+    /* 🎨 BTC/USD (Gold) → BTC/EUR (Blue) */
+    background: linear-gradient(
+        90deg,
+        rgb(255, 215, 0) 0%,      /* Gold – BTC/USD */
+        rgb(255, 215, 0) 45%,
+        rgb(30, 144, 255) 55%,   /* Blue – BTC/EUR */
+        rgb(30, 144, 255) 100%
+    );
+
+    /* Text-Gradient */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* ✨ kombinierter Glow */
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.5),
+        0 0 8px rgba(255,215,0,0.6),
+        0 0 8px rgba(30,144,255,0.6);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================================================================================================================================= */
+
+.headline-metrics-difficulty {
+    font-family: "Courier New", monospace;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+
+    /* 🔵 heller Fill → 🔵 Linie (exakt wie im Chart) */
+    background: linear-gradient(
+        90deg,
+        rgb(120, 120, 255) 0%,   /* Hellblau – Chart-Fill-Eindruck */
+        rgb(120, 120, 255) 45%,
+        rgb(0, 0, 255) 55%,     /* Blau – Chart-Linie */
+        rgb(0, 0, 255) 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* ✨ identischer technischer Glow */
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.4),
+        0 0 10px rgba(0,0,255,0.6),
+        0 0 14px rgba(120,120,255,0.5);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================================================================================================================================= */
+
+.headline-metrics-btc-tx-volume {
+    font-family: "Courier New", monospace;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+
+    /* 🟢 Volumen → 🟠 Trend (SMA) */
+    background: linear-gradient(
+        90deg,
+        rgb(34, 139, 34) 0%,      /* Forest Green – TX Volumen */
+        rgb(34, 139, 34) 45%,
+        rgb(255, 165, 0) 55%,    /* Orange – SMA / Trend */
+        rgb(255, 165, 0) 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* ✨ Aktivitäts-Glow */
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.4),
+        0 0 8px rgba(34,139,34,0.6),
+        0 0 8px rgba(255,165,0,0.6);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================================================================================================================================= */
+
+.headline-metrics-btc-tx-amount {
+    font-family: "Courier New", monospace;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+
+    /* 🟡 Gold → ⚪ Weiß (tabellenkonform, nicht flashy) */
+    background: linear-gradient(
+        90deg,
+        #ffd700 0%,     /* Gold */
+        #ffd700 70%,
+        #ffffff 100%   /* Weiß */
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* ✨ dezenter technischer Glow */
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.35),
+        0 0 6px rgba(255,215,0,0.4);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================================================================================================================================= */
+
+.headline-metrics-btc-tx-fees {
+    font-family: "Courier New", monospace;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+
+    /* 🔴 Gebühren-Druck → 🔵 geglätteter Trend */
+    background: linear-gradient(
+        90deg,
+        rgb(220, 20, 60) 0%,      /* Crimson – TX Fees */
+        rgb(220, 20, 60) 45%,
+        rgb(30, 144, 255) 55%,   /* DodgerBlue – SMA */
+        rgb(30, 144, 255) 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* ✨ Kosten-Glow */
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.45),
+        0 0 8px rgba(220,20,60,0.6),
+        0 0 8px rgba(30,144,255,0.6);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================================================================================================================================= */
+
+.headline-metrics-btc-hashrate {
+    font-family: "Courier New", monospace;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+
+    /* 🔴 heller Fill → 🔴 Linie (wie im Chart) */
+    background: linear-gradient(
+        90deg,
+        rgb(255, 120, 120) 0%,   /* Hellrot – Chart-Fill */
+        rgb(255, 120, 120) 45%,
+        rgb(255, 0, 0) 55%,     /* Rot – Chart-Linie */
+        rgb(255, 0, 0) 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* ✨ identischer Energie-Glow */
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.45),
+        0 0 10px rgba(255,0,0,0.6),
+        0 0 14px rgba(255,120,120,0.5);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================================================================================================================================= */
+
+/* ==================================================== */
+/* METRICS - CANVAS ALLER CHARTS! (Single Source Truth) */
+/* ==================================================== */
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    height: 50rem;
+
+    background: rgba(15, 15, 15, 0.85);
+    border-radius: 1.25rem;
+    padding: 1rem;
+
+    overflow: hidden; /* 🔑 wichtig für runde Ecken */
+}
+
+
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+
+
+/* ================== */
+/* GLOBALE INFO-BOXEN */
+/* ================== */
+.info-box {
+    display: block;
+    padding: 14px 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+
+    
+    background: rgba(15, 15, 15, 0.85);       /* 🔹 identische Farbe wie METRICS-Canvas */
+
+    color: #ccc;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    text-align: left;                           /* 🔹 linksbündig */
+    font-family: "Courier New", monospace;      /* 🔹 Blockschrift */
+}
+
+/* Hervorhebung für Hinweis-Titel */
+.info-box strong {
+    color: rgba(255, 215, 150, 0.85);
+    font-weight: normal;
+    letter-spacing: 0.04em;
+}
+
+
+/* ================================================================================================================================================================= */
+
+
+/* ============================================ */
+/* METRICS_BTC_USD_EUR – Info Box Styling */
+/* ====================================== */
+
+/* Abstand zwischen Chart und Info-Box */
+#METRICS_BTC_USD_EUR {
+    margin-bottom: 3rem;
+}
+
+/* Info-Box: BTC Price (USD & EUR) */
+.info-box-metrics-price {
+    box-shadow:
+        /* 🔵 BTC/EUR – DodgerBlue (Basis) */
+        0 0 0 1px rgba(30, 144, 255, 1),
+
+        /* 🟡 BTC/USD – Gold (Akzent / Glow) */
+        0 0 10px rgba(255, 215, 0, 1);
+}
+
+/* ================================================================================================================================================================= */
+
+/* ========================================= */
+/* METRICS_BTC_DIFFICULTY – Info Box Styling */
+/* ========================================= */
+
+/* Abstand zwischen Chart und Info-Box */
+#METRICS_BTC_DIFFICULTY_CONTAINER {
+    margin-bottom: 3rem;
+}
+
+/* Info-Box – orientiert an Difficulty-Farbe */
+.info-box-metrics-difficulty {
+    box-shadow:
+        /* 🔵 Difficulty-Kurve – Blau */
+        0 0 0 1px rgba(0, 0, 255, 1),
+        0 0 10px rgba(0, 0, 255, 1);
+}
+
+/* ================================================================================================================================================================= */
+
+/* ================================ */
+/* METRICS_BTC_TX_VOLUME – INFO BOX */
+/* ================================ */
+
+#METRICS_BTC_TX_VOLUME_CONTAINER {
+    margin-bottom: 3rem; /* Abstand zwischen Chart und Info-Box */
+}
+
+.info-box-metrics-volume {
+    box-shadow:
+        /* 🟢 TX Volume – Real-Time Flow */
+        0 0 0 1px rgba(34, 139, 34, 1),
+
+        /* 🟡 SMA – Gold / Orange */
+        0 0 10px rgba(255, 165, 0, 1);
+}
+
+
+/* ================================================================================================================================================================= */
+
+/* ============================== */
+/* METRICS_BTC_TX_FEES – INFO BOX */
+/* ============================== */
+
+/* METRICS_BTC_TX_FEES */
+#METRICS_BTC_TX_FEES_CONTAINER {
+    margin-bottom: 3rem;  /* Abstand zwischen canvas und Text */
+}
+
+.info-box-metrics-fees {
+    box-shadow:
+        /* 🔴 Hauptkurve – Crimson */
+        0 0 0 1px rgba(220, 20, 60, 1),
+
+        /* 🔵 SMA – DodgerBlue */
+        0 0 10px rgba(30, 144, 255, 1);
+}
+
+/* =========================   */
+/* ARITHMETISCHER MITTELWERT x̄ */
+.info-box .xbar {
+    position: relative;
+    display: inline-block;
+    line-height: 1;        /* 🔴 ganz wichtig */
+}
+
+.info-box .xbar::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0.15em;           /* 🔧 Abstand fein gesteuert */
+    height: 1px;
+    background: currentColor;
+}
+
+/* ================================================================================================================================================================= */
+
+/* ========================================= */
+/* METRICS_BTC_HASHRATE – Info Box Styling   */
+/* ========================================= */
+
+/* Abstand zwischen Chart und Info-Box */
+#METRICS_BTC_HASHRATE_CONTAINER {
+    margin-bottom: 3rem;
+}
+
+/* Info-Box – orientiert an Hashrate-Farbe */
+.info-box-metrics-hashrate {
+    box-shadow:
+        /* 🔴 Hashrate-Kurve – gedämpftes Rot */
+        0 0 0 1px rgba(200, 30, 30, 1),
+        0 0 10px rgba(200, 30, 30, 1);
+}
+
+
+
+
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+
+
+/* ========================================================== */
+/* Subtab CHART_BTC_USD_EUR – BTC/USD & BTC/EUR Chart Styling */
+/* ========================================================== */
+
+#CHARTBTC {
+    width: 100%;
+    padding: 1rem 2rem;
+    box-sizing: border-box;
+}
+
+#CHARTBTC .subtab-container-inner {
+    position: relative;
+}
+
+#CHARTBTC .subtab-title {
+    text-align: center;
+    margin-bottom: 1.25rem; /* vorher 20px */
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* BTC Preis-Boxen */
+#CHARTBTC .btc-price-card {
+    position: absolute;
+    top: 0;
+    background: transparent;
+    padding: 0.625rem 0.9375rem; /* vorher 10px 15px */
+    min-width: 10rem; /* vorher 160px */
+    text-align: center;
+    font-size: 1.2rem; /* vorher 1.2em */
+}
+
+#CHARTBTC .btc-price-card h6 {
+    margin: 0 0 0.5rem 0; /* vorher 8px */
+    font-size: 1rem; 
+    font-weight: bold;
+    color: #fff;
+}
+
+#CHARTBTC .btc-price-card span {
+    font-size: 1.8rem; 
+    font-weight: bold;
+}
+
+/* Farben für USD/EUR */
+#CHARTBTC_BTCPriceUSD span { color: #f2a900; }
+#CHARTBTC_BTCPriceEUR span { color: #1E90FF; }
+
+/* Chart Container */
+#CHARTBTC .container {
+    margin-top: 3.75rem; /* Platz für die BTC Preis-Boxen, vorher 60px */
+    background: rgba(0,0,0,0.6);
+    border-radius: 0.625rem; /* vorher 10px */
+    padding: 1.25rem; /* vorher 20px */
+}
+
+#CHARTBTC canvas {
+    width: 100% !important;
+    height: 37.5rem; /* vorher 600px */
+    border-radius: 0.625rem; /* vorher 10px */
+    background: rgba(255,255,255,0.05);
+}
+
+/* ================================================================================================================================================================= */
+
+/* ================================================================= */
+/* METRICS – Subtab-Zeitintervalle (Button-Layout, globales Pattern) */
+/* ================================================================= */
+
+.METRICS_BTC_DIFFICULTY-subTabButton,
+.METRICS_BTC_TX_VOLUME-subTabButton,
+.METRICS_BTC_TX_AMOUNT-subTabButton,
+.METRICS_BTC_TX_FEES-subTabButton,
+.METRICS_BTC_HASHRATE-subTabButton {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Abstand zwischen Zahl und Einheit */
+.METRICS_BTC_DIFFICULTY-subTabButton .range-unit,
+.METRICS_BTC_TX_VOLUME-subTabButton .range-unit,
+.METRICS_BTC_TX_AMOUNT-subTabButton .range-unit,
+.METRICS_BTC_TX_FEES-subTabButton .range-unit,
+.METRICS_BTC_HASHRATE-subTabButton .range-unit {
+    margin-left: 0.5em;
+}
+
+/* ================================================================================================================================================================= */
+
+/* =================================================== */
+/* METRICS_BTC_TX_AMOUNT – Premium Full-Width Tabellen */
+/* =================================================== */
+
+/* Tabelle allgemein */
+#METRICS_BTC_TX_AMOUNT_CONTAINER .table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    color: #ffd700; /* gold */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    font-size: 1.25rem; /* größere Schrift */
+    border-radius: 1.5rem;
+    overflow: hidden;
+}
+
+/* Wrapper: FULL WIDTH – OHNE Hintergrund & Schatten */
+.METRICS_BTC_TX_AMOUNT-subsubtab .table {
+    margin: 0 auto;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 1.5rem;
+
+    /* Entfernt: Hintergrund + Schatten */
+    background: none;
+    box-shadow: none;
+}
+
+/* Tabellenkopf */
+#METRICS_BTC_TX_AMOUNT_CONTAINER thead th {
+    background: linear-gradient(145deg, #1b1b1b, #333);
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem 1.25rem;
+    font-size: 1.25rem;
+     font-weight: 400; 
+    border-bottom: 2px solid #ffd700;
+}
+
+/* Tabellenkörper */
+#METRICS_BTC_TX_AMOUNT_CONTAINER tbody td {
+    background: rgba(34, 34, 34, 0.6);
+    text-align: center;
+    padding: 0.9rem 1rem;
+    font-size: 1.25rem;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.25);
+    transition: background 0.3s;
+}
+
+/* TXID größer + monospace */
+#METRICS_BTC_TX_AMOUNT_CONTAINER tbody td:nth-child(2) {
+    font-family: monospace;
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
+}
+
+/* Hover-Effekt */
+#METRICS_BTC_TX_AMOUNT_CONTAINER tbody tr:hover td {
+    background: rgba(255, 215, 0, 0.15);
+    color: #fff;
+}
+
+/* Runde Ecken (oben) */
+#METRICS_BTC_TX_AMOUNT_CONTAINER thead th:first-child {
+    border-top-left-radius: 1.5rem;
+}
+#METRICS_BTC_TX_AMOUNT_CONTAINER thead th:last-child {
+    border-top-right-radius: 1.5rem;
+}
+
+/* Runde Ecken (unten) */
+#METRICS_BTC_TX_AMOUNT_CONTAINER tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 1.5rem;
+}
+#METRICS_BTC_TX_AMOUNT_CONTAINER tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 1.5rem;
+}
+
+/* Feiner Schatten zwischen Zeilen */
+#METRICS_BTC_TX_AMOUNT_CONTAINER tbody tr {
+    box-shadow: inset 0 -1px 0 rgba(255, 215, 0, 0.05);
+}
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+/* ============================ */
+/* GLOBALE EXPLORER ÜBERSCHRIFT */
+/* ============================ */
+.headline-explorer {
+    font-family: "Courier New", monospace;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+
+    font-size: 2.3rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+
+    /* 🟠 Technisches Orange – ruhig & seriös */
+    background: linear-gradient(
+        90deg,
+        rgb(235, 200, 160) 0%,   /* helles Kupfer */
+        rgb(215, 170, 120) 40%, /* warmes Orange-Grau */
+        rgb(195, 135, 80) 70%,  /* technisches Orange */
+        rgb(165, 105, 55) 100%  /* dunkles Copper */
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* ✨ Subtiler Orange-Glow (kein Neon) */
+    text-shadow:
+        0 0 4px rgba(200, 140, 80, 0.35),
+        0 0 8px rgba(160, 100, 50, 0.25);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================================== */
+/* Explorer – Grundlayout                      */
+/* =========================================== */
+
+.explorer-section {
+    margin-top: 2rem;
+}
+
+.explorer-description {
+    font-size: 1.4rem;
+    opacity: 0.85;
+    margin-bottom: 1.5rem;
+}
+
+/* =========================================== */
+/* Explorer – Input                            */
+/* =========================================== */
+
+.explorer-input-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+}
+
+.explorer-input-group input,
+.explorer-input-group textarea {
+    flex: 1;
+    min-width: 40rem;
+    max-width: 80%;
+    padding: 0.75rem 1rem;
+    font-size: 1.5rem;
+    border-radius: 0.4rem;
+    border: 1px solid #888;
+    background-color: #111;
+    color: white;
+    text-align: center;
+}
+
+.explorer-input-group textarea {
+    resize: vertical;
+}
+
+.explorer-input-group input::placeholder,
+.explorer-input-group textarea::placeholder {
+    color: #aaa;
+}
+
+.explorer-input-group button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    border-radius: 0.4rem;
+    border: none;
+    background-color: #f7931a; /* Bitcoin-Orange */
+    color: black;
+    cursor: pointer;
+}
+
+.explorer-input-group button:hover {
+    opacity: 0.9;
+}
+
+/* =========================================== */
+/* Explorer – Status                           */
+/* =========================================== */
+
+.explorer-status {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    transition: color 0.2s ease;
+}
+
+.explorer-status.status-ok {
+    color: #3ccf91;
+    font-weight: bold;
+}
+
+.explorer-status.status-error {
+    color: #ff5c5c;
+    font-weight: bold;
+}
+
+/* =========================================== */
+/* Explorer – Summary                          */
+/* =========================================== */
+
+.address-summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 0.6rem;
+    column-gap: 3rem;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    position: relative;
+}
+
+.address-summary-grid > div {
+    padding: 0.25rem 0.5rem;
+}
+
+.address-summary-grid > div:nth-child(odd) {
+    opacity: 0.85;
+    position: relative;
+}
+
+.address-summary-grid > div:nth-child(even) {
+    text-align: right;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Hover – markiert beide Spalten */
+.address-summary-grid > div:nth-child(odd)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: calc(200% + 3rem);
+    height: 100%;
+    background-color: rgba(247, 147, 26, 0.12);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.15s ease;
+}
+
+.address-summary-grid > div:nth-child(odd):hover::before {
+    opacity: 1;
+}
+
+.address-summary-grid > div:nth-child(odd):hover + div {
+    color: #f7931a;
+}
+
+/* =========================================== */
+/* Explorer – Tabelle                          */
+/* =========================================== */
+
+.explorer-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.5rem;
+    color: white;
+    font-family: inherit;
+}
+
+.explorer-table th,
+.explorer-table td {
+    padding: 0.5rem 1rem;
+    border-bottom: 0.0625rem solid #ccc;
+    font-weight: bold;
+    text-transform: none;
+}
+
+.explorer-table thead th {
+    background-color: transparent;
+    font-size: 1.75rem;
+    color: white;
+}
+
+/* Spaltenausrichtung */
+
+.explorer-table th:nth-child(1),
+.explorer-table td:nth-child(1) {
+    text-align: left;
+    width: 4rem;
+}
+
+.explorer-table th:nth-child(2),
+.explorer-table td:nth-child(2) {
+    text-align: center;
+}
+
+.explorer-table th:nth-child(3),
+.explorer-table td:nth-child(3) {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.explorer-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+
+
+/* =================================== */
+/* GLOBAL – Große Tabellen (Dashboard) */
+/* =================================== */
+.dashboard-table-wrapper {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+    border-radius: 1.5rem;
+}
+
+
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+
+
+/* ============================================ */
+/* TREASURIES – Premium Tabellen (Shared Style) */
+/* ============================================ */
+
+/* Tabelle */
+.treasuries-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    color: #ffd700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    border-radius: 1.5rem;
+    overflow: hidden;
+}
+
+/* Kopf */
+.treasuries-table thead th {
+    background: linear-gradient(145deg, #222, #444);
+    color: #ffd700;
+    text-align: center;
+    padding: 0.75rem 0.9375rem;
+    font-size: 1.5rem;
+    text-shadow:
+        0 1px 6px rgba(255, 255, 255, 0.4),
+        0 0 10px rgba(255, 215, 0, 0.6);
+    border-bottom: 0.125rem solid #ffd700;
+    font-weight: 400;
+}
+
+/* Body */
+.treasuries-table tbody td {
+    background: rgba(34, 34, 34, 0.55);
+    text-align: center;
+    padding: 0.625rem 0.75rem;
+    font-size: 1.3rem;
+    border-bottom: 0.0625rem solid rgba(255, 215, 0, 0.25);
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Hover */
+.treasuries-table tbody tr:hover td {
+    background: rgba(255, 215, 0, 0.12);
+    color: #fff;
+}
+
+/* Runde Ecken */
+.treasuries-table thead th:first-child {
+    border-top-left-radius: 1.5rem;
+}
+.treasuries-table thead th:last-child {
+    border-top-right-radius: 1.5rem;
+}
+.treasuries-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 1.5rem;
+}
+.treasuries-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 1.5rem;
+}
+
+/* Zeilentrenner */
+.treasuries-table tbody tr {
+    box-shadow: inset 0 -0.0625rem 0 rgba(255, 215, 0, 0.05);
+}
+
+
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+
+
+/* ================================================================== */
+/* [TREASURIES] -INSTITUTIONS - COUNTRIES - Pie Chart + Legend Layout */
+/* ================================================================== */
+
+#INSTITUTIONS .pie-chart-container,
+#COUNTRIES .pie-chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+
+    flex-wrap: wrap;        /* Mobile fallback */
+    max-width: 70rem;
+    margin: 2rem auto 0;
+}
+
+/* Pie selbst */
+#INSTITUTIONS .pie-chart,
+#COUNTRIES .pie-chart {
+    width: 25rem;
+    height: 25rem;
+    border-radius: 50%;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.3);
+}
+
+/* Legende */
+#INSTITUTIONS .pie-legend,
+#COUNTRIES .pie-legend {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    text-align: left;
+}
+
+/* Legendeneintrag */
+#INSTITUTIONS .pie-legend li,
+#COUNTRIES .pie-legend li {
+    display: flex;
+    align-items: center;
+    font-weight: 200;
+    color: #ffd700;
+    font-size: 1.2rem;
+}
+
+/* Farbpunkt */
+#INSTITUTIONS .legend-color,
+#COUNTRIES .legend-color {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.25rem;
+    margin-right: 0.6rem;
+    flex-shrink: 0;
+}
+
+
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+
+
+/* =========================================== */
+/* GLOBAL – Market Cap Table Wrapper           */
+/* =========================================== */
+
+.market-cap-table-wrapper {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+    border-radius: 1.5rem;
+}
+
+/* ========================================== */
+/* MARKET CAP – Premium Tables (Shared Style) */
+/* ========================================== */
+
+.market-cap-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    color: #ffd700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+
+    border-radius: 1.5rem;
+    overflow: hidden;
+}
+
+/* Kopf */
+.market-cap-table thead th {
+    background: linear-gradient(145deg, #222, #444);
+    color: #ffffff;
+
+    text-align: center;
+    padding: 0.75rem 0.9375rem;
+    font-size: 1.5rem;
+
+    text-shadow:
+        0 1px 6px rgba(255, 255, 255, 0.4),
+        0 0 10px rgba(0, 0, 0, 0.6);
+
+    font-weight: 400;
+    border-bottom: 0.125rem solid #726f6f;
+}
+
+/* Body */
+.market-cap-table tbody td {
+    background: rgba(34, 34, 34, 0.55);
+    text-align: center;
+
+    font-size: 1.3rem;
+    padding: 0.625rem 0.75rem;
+
+    border-bottom: 0.0625rem solid rgba(255, 215, 0, 0.25);
+    transition: background 0.3s;
+}
+
+/* Hover */
+.market-cap-table tbody tr:hover td {
+    background: rgba(255, 215, 0, 0.12);
+    color: #fff;
+}
+
+/* Runde Ecken */
+.market-cap-table thead th:first-child {
+    border-top-left-radius: 1.5rem;
+}
+.market-cap-table thead th:last-child {
+    border-top-right-radius: 1.5rem;
+}
+.market-cap-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 1.5rem;
+}
+.market-cap-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 1.5rem;
+}
+
+/* Zeilentrenner */
+.market-cap-table tbody tr {
+    box-shadow: inset 0 -0.0625rem 0 rgba(255, 215, 0, 0.05);
+}
+
+
+/* ============================================================================= */
+/* 🔶 MARKET_CAP_* – BTC Highlight (Coins → Companies → Currencies → Commodities */
+/* ============================================================================= */
+
+#MARKET_CAP_COINS tr.MARKET_CAP_COINS-row-btc td,
+#MARKET_CAP_COMPANIES tr.MARKET_CAP_COMPANIES-row-btc td,
+#MARKET_CAP_CURRENCIES tr.MARKET_CAP_CURRENCIES-row-btc td,
+#MARKET_CAP_COMMODITIES tr.MARKET_CAP_COMMODITIES-row-btc td {
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 600;
+}
+
+#MARKET_CAP_COINS tr.MARKET_CAP_COINS-row-btc:hover td,
+#MARKET_CAP_COMPANIES tr.MARKET_CAP_COMPANIES-row-btc:hover td,
+#MARKET_CAP_CURRENCIES tr.MARKET_CAP_CURRENCIES-row-btc:hover td,
+#MARKET_CAP_COMMODITIES tr.MARKET_CAP_COMMODITIES-row-btc:hover td {
+    color: #c4761d;
+    background: inherit;
+}
+
+/* ================================================================================================================================================================= */
+
+/* =============================== */
+/* MARKET_CAP_COMMODITIES - Toggle */
+/* =============================== */
+.chart-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0 1rem;
+}
+
+.chart-toggle button {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,215,0,0.35);
+    color: #ffd700;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.chart-toggle button.active {
+    background: rgba(255,215,0,0.15);
+    color: #fff;
+}
+
+/* ============================================= */
+/* MARKET_CAP_COMMODITIES - Horizontal Bar Chart */
+/* ============================================= */
+
+.bar-chart-horizontal {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    max-width: 75rem;
+    margin: 0 auto;
+}
+
+.bar-row {
+    display: grid;
+    grid-template-columns: 14rem 1fr 7rem;
+    align-items: center;
+    gap: 1rem;
+}
+
+.bar-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffd700;
+}
+
+.bar-track {
+    background: rgba(255,255,255,0.08);
+    height: 1.5rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 0.75rem;
+    transition: width 0.4s ease;
+}
+
+.bar-fill.bar-btc {
+    box-shadow: 0 0 0.6rem rgba(196,118,29,0.7);
+}
+
+.bar-value {
+    text-align: right;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #fff;
+}
+
+/* ================================================================================================================================================================= */
+
+/* ================================ */
+/* INFO-BOX – Market Cap Currencies */
+/* ================================ */
+
+.info-box-market-cap-currencies {
+    background: linear-gradient(
+        /* 🔹 identische Farbe wie Tabellen-Header */
+        145deg,
+        rgba(30, 30, 30, 0.9),
+        rgba(50, 50, 50, 0.9)
+    );
+
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.85),
+        0 0 12px rgba(255, 215, 0, 0.85);
+
+    border-radius: 0.75rem;
+}
+
+
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+
+
+/* ==================================================== */
+/* INDICATORS – HERO CHART WRAPPER (IFRAME)            */
+/* ==================================================== */
+.chart-wrapper-hero {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;      /* ← zentrieren */
+
+    height: 50rem;
+    min-height: 720px;
+
+    overflow: hidden;
+}
+
+/* ================================================= */
+/* INDICATORS – HEADLINE – PI CYCLE TOP              */
+/* ================================================= */
+
+.headline-indicators-pi-cycle-top {
+    font-family: "Courier New", monospace;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+
+    /* 🔥 Cycle Phases: Expansion → Peak → Capitulation */
+    background: linear-gradient(
+        90deg,
+        rgb(255, 140, 0) 0%,   /* Expansion */
+        rgb(255, 69, 0) 55%,   /* Peak */
+        rgb(178, 34, 34) 100%  /* Capitulation */
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.4),
+        0 0 8px rgba(255,69,0,0.45),
+        0 0 14px rgba(178,34,34,0.35);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================= */
+/* INDICATORS – PI CYCLE TOP                         */
+/* ================================================= */
+
+.INDICATORS_PI_CYCLE_TOP-container {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.INDICATORS_PI_CYCLE_TOP-description {
+    text-align: center;
+    margin-bottom: 2rem;
+    opacity: 0.85;
+}
+
+.INDICATORS_PI_CYCLE_TOP-iframe {
+    width: 100%;
+    height: 80vh;
+    min-height: 720px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: #000;
+}
+
+/* ================================================================================================================================================================= */
+
+/* ======================================================= */
+/* INDICATORS – HEADLINE – GOLDEN RATIO (FIBONACCI STYLE) */
+/* ======================================================= */
+
+.headline-indicators-golden-ratio {
+    font-family: "Courier New", monospace;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+
+    /* ✨ Fibonacci / Golden Ratio Farbverlauf */
+    background: linear-gradient(
+        90deg,
+        rgb(30, 144, 255) 0%,     /* Trend – Blue */
+        rgb(70, 130, 180) 25%,    /* MA – SteelBlue */
+        rgb(255, 215, 0) 50%,     /* Golden Ratio – Gold */
+        rgb(255, 193, 7) 65%,     /* Upper Band – Warm Gold */
+        rgb(50, 205, 50) 85%,     /* Support – Green */
+        rgb(34, 139, 34) 100%     /* Strong Support – Dark Green */
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* ✨ Präziser Multi-Glow (ruhig & technisch) */
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.45),
+        0 0 6px rgba(255,215,0,0.45),
+        0 0 10px rgba(30,144,255,0.35),
+        0 0 14px rgba(50,205,50,0.35);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================= */
+/* INDICATORS – GOLDEN RATIO                         */
+/* ================================================= */
+
+.INDICATORS_GOLDEN_RATIO-container {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.INDICATORS_GOLDEN_RATIO-description {
+    text-align: center;
+    margin-bottom: 2rem;
+    opacity: 0.85;
+}
+
+.INDICATORS_GOLDEN_RATIO-iframe {
+    width: 100%;
+    height: 80vh;
+    min-height: 720px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: #000;
+}
+
+/* ================================================================================================================================================================= */
+
+/* ================================================================= */
+/* INDICATORS_RAINBOW_CHART – HEADLINE – VALUATION (RAINBOW)          */
+/* ================================================================= */
+
+.headline-indicators-rainbow-chart {
+    font-family: "Courier New", monospace;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+
+    /* 🌈 Repeating Rainbow – garantiert bunt */
+    background: repeating-linear-gradient(
+        90deg,
+        rgb(70,130,180) 0%,
+        rgb(70,130,180) 8%,
+        rgb(50,205,50) 8%,
+        rgb(50,205,50) 16%,
+        rgb(255,215,0) 16%,
+        rgb(255,215,0) 24%,
+        rgb(255,165,0) 24%,
+        rgb(255,165,0) 32%,
+        rgb(255,69,0) 32%,
+        rgb(255,69,0) 40%,
+        rgb(178,34,34) 40%,
+        rgb(178,34,34) 48%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* ✨ Multi-Color Glow */
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.45),
+        0 0 6px rgba(70,130,180,0.35),
+        0 0 6px rgba(50,205,50,0.35),
+        0 0 8px rgba(255,215,0,0.35),
+        0 0 10px rgba(255,69,0,0.35);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===================================== */
+/* SEO INTRO – invisible but indexable   */
+/* ===================================== */
+.seo-intro {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* ===================================== */
+/* 🌈 Rainbow Chart – FULLSCREEN (HERO)  */
+/* ===================================== */
+
+#INDICATORS_RAINBOW_CHART .INDICATORS_RAINBOW_CHART-iframe,
+.INDICATORS_RAINBOW_CHART-iframe {
+    width: 100%;
+    height: 85vh;          /* 🔥 nahezu Fullscreen */
+    min-height: 800px;     /* große Screens */
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: #000;
+}
+
+/* ================================================================================================================================================================= */
+
+/* ================================================= */
+/* INDICATORS – HEADLINE – MAYER MULTIPLE            */
+/* ================================================= */
+
+.headline-indicators-mayer-multiple {
+    font-family: "Courier New", monospace;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+
+    /* 🧮 Mayer Multiple – Chart-konsistenter Verlauf */
+    background: linear-gradient(
+        90deg,
+        rgb(28, 219, 92)   0%,    /* Buy Zone – Grün */
+        rgb(63, 133, 202)  30%,   /* Mayer Multiple – Blau (Primär) */
+        rgb(134, 131, 131) 55%,   /* Fair Value – Grau */
+        rgb(197, 84, 9)    80%,   /* Sell Zone – Orange */
+        rgb(197, 84, 9)    100%   /* Stabilisierung */
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* ✨ Ruhiger, technischer Glow – nur unterstützend */
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.35),
+        0 0 6px rgba(63,133,202,0.35),
+        0 0 10px rgba(197,84,9,0.25);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================= */
+/* INDICATORS – MAYER MULTIPLE                       */
+/* ================================================= */
+
+.INDICATORS_MAYER_MULTIPLE-iframe {
+    width: 100%;
+    height: 80vh;
+    min-height: 720px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: #000;
+}
+
+/* ================================================================================================================================================================= */
+
+/* ======================================================= */
+/* INDICATORS – HEADLINE – STOCK TO FLOW (SCARCITY STYLE) */
+/* ======================================================= */
+
+.headline-indicators-stock-to-flow {
+    font-family: "Courier New", monospace;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+
+    /* 📈 Stock-to-Flow – Chart-konsistenter Verlauf */
+    background: linear-gradient(
+        90deg,
+        rgb(63, 133, 202)  0%,    /* 🔵 Stock – Blau (Fundament) */
+        rgb(63, 133, 202)  30%,   /* Stabilisierung */
+        rgb(197, 84, 9)    60%,   /* 🟠 Flow / Halving – Orange */
+        rgb(255, 99, 71)   85%,   /* 🔴 Expansion – helles Rot */
+        rgb(255, 99, 71)   100%   /* Abschluss */
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* ✨ Ruhiger technischer Glow */
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.35),
+        0 0 6px rgba(63,133,202,0.35),
+        0 0 10px rgba(197,84,9,0.25),
+        0 0 14px rgba(255,99,71,0.20);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================= */
+/* INDICATORS – STOCK TO FLOW                        */
+/* ================================================= */
+
+.INDICATORS_STOCK_TO_FLOW-container {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.INDICATORS_STOCK_TO_FLOW-description {
+    text-align: center;
+    margin-bottom: 2rem;
+    opacity: 0.85;
+}
+
+/* =============================== */
+/* 📈 Stock-to-Flow – HERO CHART   */
+/* =============================== */
+.INDICATORS_STOCK_TO_FLOW-iframe {
+    width: 100%;
+    height: 80vh;
+    min-height: 720px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: #000;
+}
+
+/* ================================================================================================================================================================= */
+
+/* ======================================================= */
+/* INDICATORS – HEADLINE – BTC vs GLOBAL M2 (MACRO STYLE) */
+/* ======================================================= */
+
+.headline-indicators-btc-m2 {
+    font-family: "Courier New", monospace;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+
+    /* 🌍 Macro Liquidity – Bitcoin → Fiat */
+    background: linear-gradient(
+        90deg,
+        rgb(197, 84, 9)   0%,    /* 🟠 Bitcoin – Orange (dominant, links) */
+        rgb(197, 84, 9)   30%,   /* Stabilisierung */
+        rgb(63, 133, 202) 100%   /* 🔵 Global Liquidity – Blau (rechts) */
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* ✨ Ruhiger Macro-Glow */
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.35),
+        0 0 6px rgba(197,84,9,0.30),
+        0 0 12px rgba(63,133,202,0.30);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================= */
+/* INDICATORS – BTC vs M2                            */
+/* ================================================= */
+
+.INDICATORS_BTC_M2-container {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.INDICATORS_BTC_M2-description {
+    text-align: center;
+    margin-bottom: 2rem;
+    opacity: 0.85;
+}
+
+.INDICATORS_BTC_M2-iframe {
+    width: 100%;
+    height: 80vh;
+    min-height: 720px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: #000;
+}
+
+/* ================================================================================================================================================================= */
+
+/* ================================================= */
+/* INDICATORS – HEADLINE – S&P500 vs BTC             */
+/* ================================================= */
+
+.headline-indicators-sp500-btc {
+    font-family: "Courier New", monospace;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+
+    /* 📊 Macro Relative Performance – BTC → TradFi */
+    background: linear-gradient(
+        90deg,
+        rgb(197, 84, 9)   0%,    /* 🟠 Bitcoin – dominant (links) */
+        rgb(197, 84, 9)   30%,   /* Stabilisierung */
+        rgb(63, 133, 202) 100%   /* 🔵 S&P 500 – rechts */
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* ✨ Ruhiger Macro-Glow */
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.35),
+        0 0 6px rgba(197,84,9,0.30),
+        0 0 12px rgba(63,133,202,0.30);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================= */
+/* INDICATORS – S&P500 vs BTC                        */
+/* ================================================= */
+
+.INDICATORS_SP500_BTC-iframe {
+    width: 100%;
+    height: 80vh;
+    min-height: 720px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: #000;
+}
+
+
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
+
+
+/* ================================= */
+/* HEADLINE – INFO_DASHBOARD_TRAFFIC */
+/* ================================= */
+
+.headline-info-dashboard-traffic {
+    font-family: "Courier New", monospace;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+
+    /* 🔵 Besucheraktivität → ⚪ geglätteter Trend */
+    background: linear-gradient(
+        90deg,
+        rgba(54, 162, 235, 0.95) 0%,   /* Visitor Count */
+        rgba(54, 162, 235, 0.95) 45%,
+        rgba(255, 255, 255, 0.9) 55%,  /* SMA */
+        rgba(255, 255, 255, 0.9) 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* ✨ Aktivitäts-Glow */
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.35),
+        0 0 8px rgba(54,162,235,0.65),
+        0 0 8px rgba(255,255,255,0.45);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================================================================================================================================= */
+
+/* =============================== */
+/* INFO_DASHBOARD – SubTab Buttons */
+/* =============================== */
+
+.INFO_DASHBOARD_TRAFFIC-subTabButton {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Abstand zwischen Zahl und Einheit */
+.INFO_DASHBOARD_TRAFFIC-subTabButton .range-unit {
+    margin-left: 0.5em;
+}
+
+/* ================================================================================================================================================================= */
+
+/* =============================== */
+/* INFO_VISITOR_COUNTER – INFO BOX */
+/* =============================== */
+
+#INFO_DASHBOARD_TRAFFIC_CONTAINER {
+    margin-bottom: 3rem; /* Abstand zwischen Canvas und Info-Text */
+}
+
+.info-box-info-dashboard-traffic {
+    box-shadow:
+        /* 🔵 Hauptkurve – Visitor Count */
+        0 0 0 1px rgba(54, 162, 235, 0.95),
+
+        /* ⚪ SMA – gleitender Mittelwert */
+        0 0 12px rgba(255, 255, 255, 0.85);
+}
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+/* =================== */
+/* INFO - TAB - GLOBAL */
+/* =================== */
+
+/* Überschrift */
+.info-tab-container h1 {
+    font-size: 2.2rem;
+    font-weight: 300;
+    letter-spacing: 2.5rem; /* bewusst unverändert */
+    line-height: 1.2;
+    text-shadow: none;
+    font-family: "Courier New", monospace;
+}
+
+.info-tab-headline {
+    text-transform: uppercase;
+    font-size: 1.4rem;
+}
+
+.info-tab-subheadline {
+    text-transform: uppercase;
+    font-size: 1.4rem;
+
+    color: rgba(255, 215, 150, 0.85);
+
+    padding: 6px 14px;
+    display: inline-block;
+}
+
+/* ================================ */
+/* INFO-TAB-BLÖCKE - GLOBAL (Cards) */
+/* ================================ */
+.info-tab-block {
+
+    color: #fff;
+    font-size: 1.25rem;
+    display: block;
+    padding: 14px 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+
+    background: linear-gradient(
+        145deg,
+        rgba(30,30,30,0.9),
+        rgba(50,50,50,0.9)
+    );
+
+    box-shadow:
+        0 0 0 1px rgba(0,0,0,0.5),
+        0 0 10px rgba(0,0,0,2);
+}
+
+/* Überschriften in Impressum-Cards */
+.info-tab-block h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin-bottom: 6px;
+    color: rgba(255, 215, 150, 0.85);
+}
+
+/* SUB-Überschriften in Impressum-Cards */
+.info-tab-block h3 {
+    margin-top: 5px;
+    font-size: 1.2rem;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+
+
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+/* ================================================================================================================================================================= */
+
+
+
