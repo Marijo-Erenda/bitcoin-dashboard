@@ -24,45 +24,12 @@ Key characteristics:
 The repository mirrors the real production structure.
 This is not a demo or toy project.
 
----
-┌──────────────────────────┐
-│ Bitcoin Nodes            │
-│ (Bitcoin Core / RPC)     │
-│ ElectrumX                │
-└─────────────┬────────────┘
-              │
-┌─────────────▼────────────┐
-│ Input Workers            │
-│ - blockchain             │
-│ - mempool                │
-│ - network                │
-└─────────────┬────────────┘
-              │
-┌─────────────▼────────────┐
-│ Redis                    │
-│ - cache (TTL-based)      │
-│ - locks (NX + EX)        │
-│ - shared state           │
-└─────────────┬────────────┘
-              │
-┌─────────────▼────────────┐
-│ Aggregation Workers      │
-│ - derived metrics        │
-│ - summaries              │
-│ - cooldown handling      │
-└─────────────┬────────────┘
-              │
-┌─────────────▼────────────┐
-│ Flask Backend (app.py)   │
-│ - API endpoints          │
-│ - server-rendered views  │
-└─────────────┬────────────┘
-              │
-┌─────────────▼────────────┐
-│ Frontend                 │
-│ HTML / CSS / JavaScript  │
-│ (data-driven UI)         │
-└──────────────────────────┘
+---flowchart TB
+  A[Bitcoin Nodes<br/>Bitcoin Core / RPC<br/>ElectrumX] --> B[Input Workers<br/>- blockchain<br/>- mempool<br/>- network]
+  B --> C[(Redis<br/>- cache (TTL-based)<br/>- locks (NX + EX)<br/>- shared state)]
+  C --> D[Aggregation Workers<br/>- derived metrics<br/>- summaries<br/>- cooldown handling]
+  D --> E[Flask Backend (app.py)<br/>- API endpoints<br/>- server-rendered views]
+  E --> F[Frontend<br/>HTML / CSS / JavaScript<br/>(data-driven UI)]
 
 ---
 
