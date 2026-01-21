@@ -25,9 +25,6 @@ The repository mirrors the real production structure.
 This is not a demo or toy project.
 
 ---
-
-## Architecture (High-Level)
-
 ┌──────────────────────────┐
 │ Bitcoin Nodes            │
 │ (Bitcoin Core / RPC)     │
@@ -35,36 +32,36 @@ This is not a demo or toy project.
 └─────────────┬────────────┘
               │
 ┌─────────────▼────────────┐
-│ Input Workers             │
-│ - blockchain              │
-│ - mempool                 │
-│ - network                 │
+│ Input Workers            │
+│ - blockchain             │
+│ - mempool                │
+│ - network                │
 └─────────────┬────────────┘
               │
 ┌─────────────▼────────────┐
-│ Redis                     │
-│ - cache (TTL-based)       │
-│ - locks (NX + EX)         │
-│ - shared state            │
+│ Redis                    │
+│ - cache (TTL-based)      │
+│ - locks (NX + EX)        │
+│ - shared state           │
 └─────────────┬────────────┘
               │
 ┌─────────────▼────────────┐
-│ Aggregation Workers       │
-│ - derived metrics         │
-│ - summaries               │
-│ - cooldown handling       │
+│ Aggregation Workers      │
+│ - derived metrics        │
+│ - summaries              │
+│ - cooldown handling      │
 └─────────────┬────────────┘
               │
 ┌─────────────▼────────────┐
-│ Flask Backend (app.py)    │
-│ - API endpoints           │
-│ - server-rendered views   │
+│ Flask Backend (app.py)   │
+│ - API endpoints          │
+│ - server-rendered views  │
 └─────────────┬────────────┘
               │
 ┌─────────────▼────────────┐
-│ Frontend                  │
-│ HTML / CSS / JavaScript   │
-│ (data-driven UI)          │
+│ Frontend                 │
+│ HTML / CSS / JavaScript  │
+│ (data-driven UI)         │
 └──────────────────────────┘
 
 ---
