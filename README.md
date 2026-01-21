@@ -24,12 +24,11 @@ Key characteristics:
 The repository mirrors the real production structure.
 This is not a demo or toy project.
 
----flowchart TB
-  A[Bitcoin Nodes<br/>Bitcoin Core / RPC<br/>ElectrumX] --> B[Input Workers<br/>- blockchain<br/>- mempool<br/>- network]
-  B --> C[(Redis<br/>- cache (TTL-based)<br/>- locks (NX + EX)<br/>- shared state)]
-  C --> D[Aggregation Workers<br/>- derived metrics<br/>- summaries<br/>- cooldown handling]
-  D --> E[Flask Backend (app.py)<br/>- API endpoints<br/>- server-rendered views]
-  E --> F[Frontend<br/>HTML / CSS / JavaScript<br/>(data-driven UI)]
+---
+
+## Architecture (High-Level)
+
+![System Architecture](docs/architecture.jpg)
 
 ---
 
