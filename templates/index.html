@@ -10,9 +10,9 @@
     <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
 
     <!-- SEO: Default (Home) -->
-    <title>BITCOIN LIVE DASHBOARD – Blockchain Insights</title>
+    <title>Bitcoin Dashboard – Live Price, Volume, Fees, Hashrate & Mempool</title>
     <meta name="description"
-          content="Real-time Bitcoin network statistics including mempool, hashrate, blocks, fees, and on-chain metrics." />
+        content="Live Bitcoin dashboard with real-time price, transaction volume & amount, fees, difficulty, hashrate, mempool data, and rolling on-chain metrics." />
     <meta name="robots" content="index, follow" />
     
     <!-- SEO: Canonical URL (HTTPS authoritative, prevent HTTP/HTTPS duplication) -->
@@ -78,6 +78,7 @@
         <button class="tabButton" data-tab="revolution" data-i18n="nav.revolution">Bitcoin Revolution</button>
         <button class="tabButton" data-tab="network" data-i18n="nav.network">Bitcoin Network</button>
         <button class="tabButton" data-tab="metrics" data-i18n="nav.metrics">Metrics</button>
+        <button class="tabButton" data-tab="archive" data-i18n="nav.archive">Archive</button>
         <button class="tabButton" data-tab="explorer" data-i18n="nav.explorer">Explorer</button>
         <button class="tabButton" data-tab="treasuries" data-i18n="nav.treasuries">Bitcoin Treasuries</button>
         <button class="tabButton" data-tab="market_cap" data-i18n="nav.marketcap">Market Capitalization</button>
@@ -101,7 +102,7 @@
 
 
         <!-- SEO INTRO (Invisible for Users, Visible for Google) -->
-        <section class="seo-intro">
+        <section class="seo-intro" role="doc-introduction">
         <h2 data-i18n="home.seo.title"></h2>
         <p data-i18n="home.seo.text1"></p>
         <p data-i18n="home.seo.text2"></p>
@@ -435,6 +436,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- REVOLUTION -->
 <div class="tabContent subtab-container" id="revolution" style="display:none;">
+    <!-- SEO INTRO (Invisible for Users, Visible for Google) -->
+    <section class="seo-intro" role="doc-introduction">
+        <h2 data-i18n="revolution.seo.title"></h2>
+        <p data-i18n="revolution.seo.text1"></p>
+        <p data-i18n="revolution.seo.text2"></p>
+    </section>
     <!-- Subtab-Navigation -->
     <div class="subnav">
         <button class="subTabButton active" data-subtab="REVOLUTION_HISTORY" data-file="/static/subtabs/REVOLUTION_HISTORY.html">Origins</button>
@@ -450,6 +457,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- NETWORK -->
 <div class="tabContent subtab-container" id="network" style="display:none;">
+    <!-- SEO INTRO (Invisible for Users, Visible for Google) -->
+    <section class="seo-intro" role="doc-introduction">
+        <h2 data-i18n="network.seo.title"></h2>
+        <p data-i18n="network.seo.text1"></p>
+        <p data-i18n="network.seo.text2"></p>
+    </section>
     <!-- Subtab-Navigation -->
     <div class="subnav">
         <button class="subTabButton active" data-subtab="NETWORK_STRUCTURE" data-file="/static/subtabs/NETWORK_STRUCTURE.html">Structure</button>
@@ -467,6 +480,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- METRICS -->
 <div class="tabContent subtab-container" id="metrics" style="display:none;">
+    <!-- SEO INTRO (Invisible for Users, Visible for Google) -->
+    <section class="seo-intro" role="doc-introduction">
+        <h2 data-i18n="metrics.seo.title"></h2>
+        <p data-i18n="metrics.seo.text1"></p>
+        <p data-i18n="metrics.seo.text2"></p>
+    </section>
     <!-- Subtab-Navigation -->
     <div class="subnav">
         <button class="subTabButton" data-subtab="METRICS_BTC_USD_EUR" data-file="/static/subtabs/METRICS_BTC_USD_EUR.html">BTC/USD & BTC/EUR</button>
@@ -486,8 +505,38 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 
+<!-- ARCHIVE -->
+<div class="tabContent subtab-container" id="archive" style="display:none;">
+    <!-- SEO INTRO (Invisible for Users, Visible for Google) -->
+    <section class="seo-intro" role="doc-introduction">
+        <h2 data-i18n="archive.seo.title"></h2>
+        <p data-i18n="archive.seo.text1"></p>
+        <p data-i18n="archive.seo.text2"></p>
+    </section>
+    <!-- Subtab-Navigation -->
+    <div class="subnav">
+        <button class="subTabButton" data-subtab="ARCHIVE_BTC_PRICE" data-file="/static/subtabs/ARCHIVE_BTC_PRICE.html">Bitcoin Price</button>
+        <button class="subTabButton" data-subtab="ARCHIVE_BTC_TX_VOLUME" data-file="/static/subtabs/ARCHIVE_BTC_TX_VOLUME.html">Transaction Volume</button>
+        <button class="subTabButton" data-subtab="ARCHIVE_BTC_TX_AMOUNT" data-file="/static/subtabs/ARCHIVE_BTC_TX_AMOUNT.html">Transaction Amount</button>
+        <button class="subTabButton" data-subtab="ARCHIVE_BTC_TX_FEES" data-file="/static/subtabs/ARCHIVE_BTC_TX_FEES.html">Transaction Fees</button>
+    </div>
+    <!-- Subtab-Content Container -->
+    <div id="ARCHIVE_BTC_PRICE" class="subTabContent subtab-section"></div>
+    <div id="ARCHIVE_BTC_TX_VOLUME" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="ARCHIVE_BTC_TX_AMOUNT" class="subTabContent subtab-section" style="display:none;"></div>
+    <div id="ARCHIVE_BTC_TX_FEES" class="subTabContent subtab-section" style="display:none;"></div>
+
+</div>
+
+
 <!-- EXPLORER -->
 <div class="tabContent subtab-container" id="explorer" style="display:none;">
+    <!-- SEO INTRO (Invisible for Users, Visible for Google) -->
+    <section class="seo-intro" role="doc-introduction">
+        <h2 data-i18n="explorer.seo.title"></h2>
+        <p data-i18n="explorer.seo.text1"></p>
+        <p data-i18n="explorer.seo.text2"></p>
+    </section>
     <!-- Subtab-Navigation -->
     <div class="subnav">
         <button class="subTabButton" data-subtab="EXPLORER_TXID" data-file="/static/subtabs/EXPLORER_TXID.html">Transaction</button>
@@ -503,6 +552,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- TREASURIES -->
 <div class="tabContent subtab-container" id="treasuries" style="display:none;">
+     <!-- SEO INTRO (Invisible for Users, Visible for Google) -->
+    <section class="seo-intro" role="doc-introduction">
+        <h2 data-i18n="treasuries.seo.title"></h2>
+        <p data-i18n="treasuries.seo.text1"></p>
+        <p data-i18n="treasuries.seo.text2"></p>
+    </section>
     <!-- Subtab-Navigation -->
     <div class="subnav">
         <button class="subTabButton active" data-subtab="TREASURIES_COMPANIES" data-file="/static/subtabs/TREASURIES_COMPANIES.html">Public Companies</button>
@@ -518,6 +573,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- MARKET_CAP -->
 <div class="tabContent subtab-container" id="market_cap" style="display:none;">
+    <!-- SEO INTRO (Invisible for Users, Visible for Google) -->
+    <section class="seo-intro" role="doc-introduction">
+        <h2 data-i18n="market_cap.seo.title"></h2>
+        <p data-i18n="market_cap.seo.text1"></p>
+        <p data-i18n="market_cap.seo.text2"></p>
+    </section>
     <!-- Subtab-Navigation -->
     <div class="subnav">
         <button class="subTabButton" data-subtab="MARKET_CAP_COINS" data-file="/static/subtabs/MARKET_CAP_COINS.html">Cryptocurrencies</button>
@@ -535,7 +596,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- INDICATORS -->
 <div class="tabContent subtab-container" id="indicators" style="display:none;">
-
+    <!-- SEO INTRO (Invisible for Users, Visible for Google) -->
+    <section class="seo-intro" role="doc-introduction">
+        <h2 data-i18n="indicators.seo.title"></h2>
+        <p data-i18n="indicators.seo.text1"></p>
+        <p data-i18n="indicators.seo.text2"></p>
+    </section>
     <!-- Subtab-Navigation -->
     <div class="subnav">
         <button class="subTabButton" data-subtab="INDICATORS_PI_CYCLE_TOP" data-file="/static/subtabs/INDICATORS_PI_CYCLE_TOP.html">Pi Cycle Top</button>
@@ -546,7 +612,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <button class="subTabButton" data-subtab="INDICATORS_BTC_M2" data-file="/static/subtabs/INDICATORS_BTC_M2.html">BTC vs Global M2</button>
         <button class="subTabButton" data-subtab="INDICATORS_S&P500_BTC" data-file="/static/subtabs/INDICATORS_S&P500_BTC.html">S&P 500 vs Bitcoin</button>
     </div>
-
     <!-- Subtab-Content -->
     <div id="INDICATORS_PI_CYCLE_TOP" class="subTabContent subtab-section"></div>
     <div id="INDICATORS_GOLDEN_RATIO" class="subTabContent subtab-section" style="display:none;"></div>
@@ -555,14 +620,17 @@ document.addEventListener('DOMContentLoaded', () => {
     <div id="INDICATORS_STOCK_TO_FLOW" class="subTabContent subtab-section" style="display:none;"></div>
     <div id="INDICATORS_BTC_M2" class="subTabContent subtab-section" style="display:none;"></div>
     <div id="INDICATORS_S&P500_BTC" class="subTabContent subtab-section" style="display:none;"></div>
-
 </div>
-
-
 
 
 <!-- INFO -->
 <div class="tabContent subtab-container" id="info" style="display:none;">
+    <!-- SEO INTRO (Invisible for Users, Visible for Google) -->
+    <section class="seo-intro" role="doc-introduction">
+        <h2 data-i18n="info.seo.title"></h2>
+        <p data-i18n="info.seo.text1"></p>
+        <p data-i18n="info.seo.text2"></p>
+    </section>
     <!-- Subtab-Navigation -->
     <div class="subnav">
         <button class="subTabButton" data-subtab="INFO_STATUS" data-file="/static/subtabs/INFO_STATUS.html">Status</button>
