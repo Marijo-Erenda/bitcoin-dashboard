@@ -89,6 +89,8 @@ from core.redis_keys import (
     # ---- NETWORK
     NETWORK_DYNAMIC_CACHE,
 
+
+
     # ---- HOME_BTC_PRICE
     HOME_BTC_PRICE_CACHE,
     HOME_PRICE_LOCK,
@@ -159,6 +161,11 @@ from core.redis_keys import (
     BTC_TX_FEES_1W,
     BTC_TX_FEES_1M,
     BTC_TX_FEES_1Y,
+
+
+
+    # ---- REVIEW_BTC_VALUE
+    REVIEW_BASE_PATH,
 
 
 
@@ -1461,6 +1468,21 @@ def api_hashrate_ever():
     if not raw:
         return jsonify({"history": []}), 200
     return Response(raw, mimetype="application/json")
+
+
+
+## ================================================================================================================================================================ ##
+## ================================================================================================================================================================ ##
+## ================================================================================================================================================================ ##
+
+
+
+
+# ============
+# 🔹 API-ROUTE
+@app.route("/data/review/<path:filename>")
+def review_data(filename):
+    return send_from_directory(REVIEW_BASE_PATH, filename)
 
 
 

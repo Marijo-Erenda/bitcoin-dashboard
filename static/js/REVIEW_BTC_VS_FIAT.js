@@ -3,27 +3,31 @@
 /*
 ====================================================================
 REVIEW_BTC_VS_FIAT.js
-- Bitcoin Value vs Fiat (USD / EUR / JPY)
-- JSONL (close-only, daily)
-- State-driven
-- Single Chart Instance
+FINAL CLEAN VERSION (Line Only + Adaptive Time Axis)
+
+Features:
+✔ Line Chart only (Macro focus)
+✔ Correct auto-fit
+✔ Double-click zoom reset
+✔ Adaptive X-Axis labeling
+✔ Log / Linear toggle
+✔ Minimal invasive
 ====================================================================
 */
 
 // --------------------------------------------------
-// 🧠 Review Chart State (Single Source of Truth)
+// 🧠 State
 // --------------------------------------------------
 const reviewChartState = {
-    assetClass: 'fiat',
-    fiat: 'usd',                  // 'usd' | 'eur' | 'jpy'
-    timeMode: 'all',               // 'all' | 'year' | 'halving'
+    fiat: 'usd',
+    timeMode: 'all',
     year: null,
     halvingCycle: null,
     logScale: true
 };
 
 // --------------------------------------------------
-// 📦 Internal Cache
+// 📦 Cache
 // --------------------------------------------------
 const dataCache = {
     usd: null,
@@ -35,126 +39,361 @@ let chartInstance = null;
 let initialized   = false;
 
 // --------------------------------------------------
-// 🗓️ Halving Date Ranges (UTC, inclusive)
+// 🗓️ Halving Ranges
 // --------------------------------------------------
 const HALVING_RANGES = {
-    '2009_2012': ['2009-01-03', '2012-11-28'],
-    '2012_2016': ['2012-11-28', '2016-07-09'],
-    '2016_2020': ['2016-07-09', '2020-05-11'],
-    '2020_2024': ['2020-05-11', '2024-04-20'],
+    '2009_2012': ['2009-01-03','2012-11-28'],
+    '2012_2016': ['2012-11-28','2016-07-09'],
+    '2016_2020': ['2016-07-09','2020-05-11'],
+    '2020_2024': ['2020-05-11','2024-04-20'],
     '2024_now':  ['2024-04-20', null]
 };
 
 // --------------------------------------------------
-// 🔄 Load JSONL (once per fiat)
+// 🧭 Adaptive Time Scale Config
 // --------------------------------------------------
-async function loadJSONL(path) {
+function getTimeScaleConfig(){
+
+    if(reviewChartState.timeMode === 'all'){
+        return {
+            unit: 'quarter',
+            callback:(value)=>{
+                const d = new Date(value);
+                const q = Math.floor(d.getUTCMonth()/3)+1;
+                return `Q${q} ${d.getUTCFullYear()}`;
+            }
+        };
+    }
+
+    if(reviewChartState.timeMode === 'year'){
+        return {
+            unit:'month',
+            callback:(value)=>{
+                const d = new Date(value);
+                return d.toLocaleString(
+                    'en-US',
+                    {month:'short'}
+                );
+            }
+        };
+    }
+
+    if(reviewChartState.timeMode === 'halving'){
+        return {
+            unit:'month',
+            callback:(value)=>{
+                const d = new Date(value);
+                return d.toLocaleString(
+                    'en-US',
+                    {month:'short',year:'2-digit'}
+                );
+            }
+        };
+    }
+
+    return {};
+}
+
+// --------------------------------------------------
+// 🔄 JSONL Loader
+// --------------------------------------------------
+async function loadJSONL(path){
+
     const res = await fetch(path);
-    if (!res.ok) throw new Error(`Failed to load ${path}`);
+    if(!res.ok) throw new Error(path);
+
     return (await res.text())
         .trim()
         .split('\n')
         .map(l => JSON.parse(l))
-        .map(p => ({ date: new Date(p.date), value: p.value }));
-}
-
-async function ensureDataLoaded() {
-    if (!dataCache.usd)
-        dataCache.usd = await loadJSONL('/data/review/bitcoin_value/btc_vs_fiat/usd/btc_vs_usd_all.jsonl');
-    if (!dataCache.eur)
-        dataCache.eur = await loadJSONL('/data/review/bitcoin_value/btc_vs_fiat/eur/btc_vs_eur_all.jsonl');
-    if (!dataCache.jpy)
-        dataCache.jpy = await loadJSONL('/data/review/bitcoin_value/btc_vs_fiat/jpy/btc_vs_jpy_all.jsonl');
+        .map(p => ({
+            x: new Date(p.date),
+            y: p.c
+        }));
 }
 
 // --------------------------------------------------
-// 🔍 Filter
+async function ensureDataLoaded(){
+
+    if(!dataCache.usd)
+        dataCache.usd =
+            await loadJSONL(
+                '/data/review/bitcoin_value/btc_vs_fiat/usd/btc_vs_usd_all.jsonl'
+            );
+
+    if(!dataCache.eur)
+        dataCache.eur =
+            await loadJSONL(
+                '/data/review/bitcoin_value/btc_vs_fiat/eur/btc_vs_eur_all.jsonl'
+            );
+
+    if(!dataCache.jpy)
+        dataCache.jpy =
+            await loadJSONL(
+                '/data/review/bitcoin_value/btc_vs_fiat/jpy/btc_vs_jpy_all.jsonl'
+            );
+}
+
 // --------------------------------------------------
-function filterData(raw) {
+// 🔍 Filter Logic
+// --------------------------------------------------
+function filterData(raw){
+
     let out = raw;
 
-    if (reviewChartState.timeMode === 'year' && reviewChartState.year)
-        out = out.filter(p => p.date.getUTCFullYear() === reviewChartState.year);
+    if(reviewChartState.timeMode==='year'
+       && reviewChartState.year){
 
-    if (reviewChartState.timeMode === 'halving' && reviewChartState.halvingCycle) {
-        const [s, e] = HALVING_RANGES[reviewChartState.halvingCycle];
+        out = out.filter(p =>
+            p.x.getUTCFullYear() ===
+            reviewChartState.year
+        );
+    }
+
+    if(reviewChartState.timeMode==='halving'
+       && reviewChartState.halvingCycle){
+
+        const [s,e] =
+            HALVING_RANGES[
+                reviewChartState.halvingCycle
+            ];
+
         const start = new Date(s);
         const end   = e ? new Date(e) : null;
-        out = out.filter(p => p.date >= start && (!end || p.date <= end));
+
+        out = out.filter(p =>
+            p.x >= start &&
+            (!end || p.x <= end)
+        );
     }
 
     return out;
 }
 
 // --------------------------------------------------
-// 📊 Chart
+// 🧭 Auto-Fit
 // --------------------------------------------------
-function updateChart() {
-    const canvas = document.getElementById('REVIEW_BTC_VS_FIAT_CANVAS');
-    if (!canvas) return;
+function fitTimeDomain(chart,data){
 
-    const ctx = canvas.getContext('2d');
-    const raw = dataCache[reviewChartState.fiat];
-    const data = filterData(raw);
+    if(!chart || !data?.length) return;
 
-    const labels = data.map(p => p.date);
-    const values = data.map(p => p.value);
+    chart.options.scales.x.min = data[0].x;
+    chart.options.scales.x.max = data.at(-1).x;
+}
 
-    if (!chartInstance) {
-        chartInstance = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels,
-                datasets: [{
-                    label: `BTC vs ${reviewChartState.fiat.toUpperCase()}`,
-                    data: values,
-                    borderWidth: 2,
-                    tension: 0.25,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'top' },
-                    zoom: {
-                        pan: { enabled: true, mode: 'x' },
-                        zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: 'x' }
+// --------------------------------------------------
+// 📊 Dataset Builder (Line Only)
+// --------------------------------------------------
+function buildDataset(data){
+
+    return {
+        type:'line',
+        label:'BTC Value',
+        data,
+        borderWidth:1.6,
+        tension:0.15,
+        fill:false,
+        pointRadius:0
+    };
+}
+
+// --------------------------------------------------
+// 📊 Render
+// --------------------------------------------------
+function updateChart(){
+
+    const canvas =
+        document.getElementById(
+            'REVIEW_BTC_VS_FIAT_CANVAS'
+        );
+    if(!canvas) return;
+
+    const ctx  = canvas.getContext('2d');
+    const raw  = dataCache[reviewChartState.fiat];
+    if(!raw) return;
+
+    const data    = filterData(raw);
+    if(!data.length) return;
+
+    const dataset = buildDataset(data);
+    const timeCfg = getTimeScaleConfig();
+
+    if(!chartInstance){
+
+        chartInstance = new Chart(ctx,{
+            data:{datasets:[dataset]},
+            options:{
+                responsive:true,
+                maintainAspectRatio:false,
+
+                plugins:{
+                    legend:{position:'top'},
+                    zoom:{
+                        pan:{enabled:true,mode:'x'},
+                        zoom:{wheel:{enabled:true},mode:'x'}
                     }
                 },
-                scales: {
-                    x: { type: 'time' },
-                    y: {
-                        type: reviewChartState.logScale ? 'logarithmic' : 'linear',
-                        title: { display: true, text: 'Bitcoin Value' }
+
+                scales:{
+                    x:{
+                        type:'time',
+                        time:{ unit: timeCfg.unit },
+                        ticks:{
+                            autoSkip:true,
+                            maxTicksLimit:12,
+                            callback: timeCfg.callback
+                        }
+                    },
+                    y:{
+                        type: reviewChartState.logScale
+                            ? 'logarithmic'
+                            : 'linear'
                     }
                 }
             }
         });
 
-        canvas.addEventListener('dblclick', () => chartInstance.resetZoom());
+        fitTimeDomain(chartInstance,data);
+        chartInstance.update('none');
+
+        canvas.addEventListener(
+            'dblclick',
+            ()=>{
+                chartInstance.resetZoom?.();
+                fitTimeDomain(chartInstance,data);
+                chartInstance.update('none');
+            }
+        );
+
     } else {
-        chartInstance.data.labels = labels;
-        chartInstance.data.datasets[0].data = values;
-        chartInstance.data.datasets[0].label = `BTC vs ${reviewChartState.fiat.toUpperCase()}`;
-        chartInstance.options.scales.y.type = reviewChartState.logScale ? 'logarithmic' : 'linear';
+
+        chartInstance.data.datasets[0] = dataset;
+
+        chartInstance.options.scales.y.type =
+            reviewChartState.logScale
+                ? 'logarithmic'
+                : 'linear';
+
+        chartInstance.options.scales.x.time.unit =
+            timeCfg.unit;
+
+        chartInstance.options.scales.x.ticks.callback =
+            timeCfg.callback;
+
+        fitTimeDomain(chartInstance,data);
         chartInstance.update('none');
     }
 }
 
 // --------------------------------------------------
-// 🚀 PUBLIC LOADER (Metrics-konform)
+// 🎛️ Controls
 // --------------------------------------------------
-async function loadReviewBtcVsFiat() {
-    if (!initialized) {
+function bindControls(){
+
+    document
+    .getElementById('review-fiat-select')
+    .onchange = e=>{
+        reviewChartState.fiat = e.target.value;
+        updateChart();
+    };
+
+    document
+    .getElementById('review-time-mode-select')
+    .onchange = e=>{
+
+        reviewChartState.timeMode =
+            e.target.value;
+
+        if(reviewChartState.timeMode!=='year')
+            reviewChartState.year=null;
+
+        if(reviewChartState.timeMode!=='halving')
+            reviewChartState.halvingCycle=null;
+
+        document
+        .getElementById('review-year-control')
+        .classList.toggle(
+            'review-control-hidden',
+            e.target.value!=='year'
+        );
+
+        document
+        .getElementById('review-halving-control')
+        .classList.toggle(
+            'review-control-hidden',
+            e.target.value!=='halving'
+        );
+
+        updateChart();
+    };
+
+    document
+    .getElementById('review-year-select')
+    .onchange = e=>{
+        reviewChartState.year =
+            Number(e.target.value);
+        updateChart();
+    };
+
+    document
+    .getElementById('review-halving-select')
+    .onchange = e=>{
+        reviewChartState.halvingCycle =
+            e.target.value;
+        updateChart();
+    };
+
+    document
+    .getElementById('review-log-scale-toggle')
+    .onchange = e=>{
+        reviewChartState.logScale =
+            e.target.checked;
+        updateChart();
+    };
+}
+
+// --------------------------------------------------
+// 🗓️ Populate Years
+// --------------------------------------------------
+function populateYearSelect(){
+
+    const years=[
+        ...new Set(
+            dataCache.usd.map(
+                p=>p.x.getUTCFullYear()
+            )
+        )
+    ].sort((a,b)=>b-a);
+
+    const select =
+        document.getElementById(
+            'review-year-select'
+        );
+
+    select.innerHTML =
+        years.map(y=>
+            `<option value="${y}">${y}</option>`
+        ).join('');
+}
+
+// --------------------------------------------------
+// 🚀 Loader
+// --------------------------------------------------
+async function loadReviewBtcVsFiat(){
+
+    if(!initialized){
+
         await ensureDataLoaded();
-        initialized = true;
+        populateYearSelect();
+        bindControls();
+
+        initialized=true;
     }
+
     updateChart();
 }
 
-// 🌍 Export für Router
-window.loadReviewBtcVsFiat = loadReviewBtcVsFiat;
+window.loadReviewBtcVsFiat =
+    loadReviewBtcVsFiat;
 
 })();

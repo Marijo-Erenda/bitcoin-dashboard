@@ -1,13 +1,15 @@
 <!-- ====================================================================== -->
 <!-- REVIEW_BTC_VS_FIAT.html – Bitcoin Value vs Fiat (USD / EUR / JPY) -->
+<!-- Rolle: LEAF (Controls + Chart + State Binding) -->
 <!-- ====================================================================== -->
 
-<!-- Headline -->
 <h1 class="headline-review-btc-fiat">
     Bitcoin Value vs Fiat Currencies
 </h1>
 
+<!-- ====================================================== -->
 <!-- Chart Controls -->
+<!-- ====================================================== -->
 <div class="review-controls">
 
     <!-- Fiat Selector -->
@@ -34,7 +36,7 @@
     <div class="review-control review-control-hidden" id="review-year-control">
         <label for="review-year-select">Year</label>
         <select id="review-year-select" class="review-select">
-            <!-- JS will populate -->
+            <!-- populated by JS -->
         </select>
     </div>
 
@@ -58,25 +60,32 @@
 
 </div>
 
+<!-- ====================================================== -->
 <!-- Chart Container -->
-<div id="REVIEW_BTC_VS_FIAT" class="subtab-container">
+<!-- ====================================================== -->
+<div class="subtab-container">
     <div class="chart-wrapper chart-flex">
-        <canvas id="REVIEW_BTC_VS_FIAT_CANVAS" class="chart-canvas"></canvas>
+        <canvas
+            id="REVIEW_BTC_VS_FIAT_CANVAS"
+            class="chart-canvas">
+        </canvas>
     </div>
 </div>
 
+<!-- ====================================================== -->
 <!-- Info Box -->
+<!-- ====================================================== -->
 <div class="info-box info-box-review-btc-fiat">
     <strong>About Bitcoin Value vs Fiat</strong><br><br>
 
     This chart analyzes Bitcoin’s long-term value relative to major fiat currencies.
     Instead of focusing on short-term price movements, it highlights structural trends
-    in purchasing power over completed time periods.<br><br>
+    in purchasing power across completed historical periods.<br><br>
 
     Switching between USD, EUR, and JPY allows comparison across different monetary
     systems, while year-based and halving-cycle views help isolate Bitcoin’s behavior
-    across distinct historical phases.<br><br>
+    within distinct macro phases.<br><br>
 
-    The default logarithmic scale reflects Bitcoin’s exponential growth characteristics
-    and enables meaningful comparison across more than a decade of data.
+    The default logarithmic scale reflects Bitcoin’s exponential growth and enables
+    meaningful comparison across more than a decade of data.
 </div>

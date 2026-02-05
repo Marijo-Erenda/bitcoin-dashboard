@@ -36,6 +36,41 @@ async function loadBTCMetrics() {
     const histUSD = api.history.usd;
     const histEUR = api.history.eur;
 
+    function calcChange(hist, minutesBack) {
+        const now = hist[hist.length - 1];
+        const targetTime = now[0] - minutesBack * 60 * 1000;
+
+        // letzten Punkt <= targetTime finden
+        for (let i = hist.length - 1; i >= 0; i--) {
+            if (hist[i][0] <= targetTime) {
+                const base = hist[i][1];
+                return ((now[1] - base) / base) * 100;
+            }
+        }
+        return null;
+    }
+
+    const changeBar = document.getElementById("BTC_METRICS_CHANGE_BAR");
+    if (changeBar) {
+
+        const ranges = {
+            "24h": 24 * 60,
+            "7d":  7 * 24 * 60,
+            "30d": 30 * 24 * 60,
+            "1y":  364 * 24 * 60
+        };
+
+        Object.entries(ranges).forEach(([key, minutes]) => {
+            const val = calcChange(histUSD, minutes);
+            const el  = changeBar.querySelector(`[data-range="${key}"]`);
+            if (!el || val === null) return;
+
+            const sign = val >= 0 ? "+" : "";
+            el.textContent = `${sign}${val.toFixed(2)}% (${key})`;
+            el.className = val >= 0 ? "positive" : "negative";
+        });
+    }
+
     if (!histUSD.length || !histEUR.length) return;
 
     const labels    = histUSD.map(p => new Date(p[0]));
