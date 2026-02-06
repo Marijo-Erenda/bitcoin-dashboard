@@ -310,14 +310,14 @@ const performanceOverlayPlugin = {
 
         ctx.save();
 
-        ctx.font = '600 14px Inter, system-ui';
+        ctx.font = '600 1.05rem Inter, system-ui';
         ctx.fillStyle = perf >= 0 ? '#16c784' : '#ea3943';
         ctx.textAlign = 'left';
 
         ctx.fillText(
             text,
-            chart.chartArea.left + 10,
-            chart.chartArea.top + 20
+            chart.chartArea.left + 80,
+            chart.chartArea.top - 8
         );
 
         ctx.restore();
