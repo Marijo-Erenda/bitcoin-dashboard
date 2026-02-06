@@ -186,9 +186,22 @@ function fitTimeDomain(chart,data){
 // --------------------------------------------------
 function buildDataset(data){
 
+    // --------------------------------------------------
+    // 🏷️ Dynamic Fiat Label
+    // --------------------------------------------------
+    const fiatLabel =
+        reviewChartState.fiat.toUpperCase();
+
+    // --------------------------------------------------
+    // 🧾 Legend Label
+    // BTC • USD / EUR / JPY
+    // --------------------------------------------------
+    const legendLabel =
+        `BTC • ${fiatLabel}`;
+
     return {
         type:'line',
-        label:'BTC Value',
+        label: legendLabel,
         data,
         borderWidth:1.6,
         tension:0.15,
@@ -196,6 +209,7 @@ function buildDataset(data){
         pointRadius:0
     };
 }
+
 
 // --------------------------------------------------
 // 📊 Render
@@ -259,8 +273,32 @@ function updateChart(){
         canvas.addEventListener(
             'dblclick',
             ()=>{
+
+                if(!chartInstance) return;
+
+                // --------------------------------------------------
+                // 🔄 Always recompute filtered dataset (live state)
+                // --------------------------------------------------
+                const raw =
+                    dataCache[reviewChartState.fiat];
+
+                if(!raw) return;
+
+                const filtered =
+                    filterData(raw);
+
+                if(!filtered.length) return;
+
+                // --------------------------------------------------
+                // 🔄 Reset Zoom (plugin)
+                // --------------------------------------------------
                 chartInstance.resetZoom?.();
-                fitTimeDomain(chartInstance,data);
+
+                // --------------------------------------------------
+                // 🎯 Re-fit correct time domain
+                // --------------------------------------------------
+                fitTimeDomain(chartInstance, filtered);
+
                 chartInstance.update('none');
             }
         );
